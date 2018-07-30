@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <!-- Base Definition -->
+    <definition name="base-definition"
+                template="/WEB-INF/views/tiles/layouts/defaultLayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="header" value="/WEB-INF/views/tiles/template/defaultHeader.jsp"/>
+        <put-attribute name="menu" value="/WEB-INF/views/tiles/template/defaultMenu.jsp"/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/WEB-INF/views/tiles/template/defaultFooter.jsp"/>
+        <put-attribute name="breadcrumb" value="/WEB-INF/views/tiles/template/breadcrumb.jsp"/>
+    </definition>
+
+    <!-- Default Page -->
+    <!-- Home Page -->
+    <definition name="viettelpost.page.home" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
+    </definition>
+
+    <!-- Login Page -->
+    <definition name="viettelpost.page.login" extends="base-definition">
+        <put-attribute name="title" value="Đăng nhập"/>
+        <put-attribute name="body" value="/WEB-INF/views/login.jsp"/>
+    </definition>
+
+    <!-- Errors Pages -->
+    <definition name="viettelpost.page.notfound" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/errors/notFound.jsp"/>
+    </definition>
+
+    <definition name="viettelpost.page.error" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/errors/serverError.jsp"/>
+    </definition>
+
+    <definition name="viettelpost.page.accessdenied" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/accessDenied.jsp"/>
+    </definition>
+
+    <definition name="viettelpost.page.admin.user" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/index.jsp"/>
+    </definition>
+
+    <definition name="viettelpost.page.admin.department" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/index.jsp"/>
+    </definition>
+</tiles-definitions>
