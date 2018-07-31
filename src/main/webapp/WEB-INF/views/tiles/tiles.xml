@@ -48,9 +48,17 @@
         <put-attribute name="title" value="Vietnam Single Window"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/index.jsp"/>
     </definition>
+    <definition name="viettelpost.page.admin.newuser" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/addedituser.jsp"/>
+    </definition>
 
     <definition name="viettelpost.page.admin.department" extends="base-definition">
         <put-attribute name="title" value="Vietnam Single Window"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/index.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.admin.department.edit" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/edit.jsp"/>
     </definition>
 </tiles-definitions>

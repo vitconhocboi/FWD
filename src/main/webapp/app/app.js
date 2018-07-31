@@ -88,11 +88,11 @@ APP.prototype = {
             url: self.appContext + op.url,
             data: op.data,
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            // dataType: "json",
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Accept', 'application/json');
-                xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader(self.config.CSRF_TOKEN_NAME, self.config.CSRF_TOKEN_VALUE);
+                // xhr.setRequestHeader('Accept', 'application/json');
+                // xhr.setRequestHeader('Content-Type', 'application/json');
+                // xhr.setRequestHeader(self.config.CSRF_TOKEN_NAME, self.config.CSRF_TOKEN_VALUE);
             },
             success: function (data) {
                 $('#loading10').hide();
@@ -172,7 +172,7 @@ APP.prototype = {
             beforeSend: function (xhr) {
                 //xhr.setRequestHeader('Accept', 'application/json');
                 //xhr.setRequestHeader('Content-Type', 'application/json');
-                xhr.setRequestHeader(self.config.CSRF_TOKEN_NAME, self.config.CSRF_TOKEN_VALUE);
+                // xhr.setRequestHeader(self.config.CSRF_TOKEN_NAME, self.config.CSRF_TOKEN_VALUE);
             },
             success: function (data) {
                 if (showLoading) {

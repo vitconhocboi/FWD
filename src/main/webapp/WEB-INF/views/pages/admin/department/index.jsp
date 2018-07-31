@@ -38,38 +38,49 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" class="form-horizontal " name="departmentdetail">
-                                <div class="col-sm-12">
-                                    <div class="col-sm-6">
-                                        <label class="col-sm-3">Tên phòng ban: </label>
-                                        <div class="col-md-9">
-                                            <input data-bind="value:selected.deptName" class="col-sm-12" disabled>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-3">Tên phòng ban: </label>
+                                            <div class="col-md-9">
+                                                <input data-bind="value:selected.deptName" class="col-sm-12" disabled>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <label class="col-sm-3">Trực thuộc: </label>
-                                        <div class="col-md-9">
-                                            <input data-bind="value:selected.parentName" class="col-sm-12" disabled>
+                                        <div class="col-sm-6">
+                                            <label class="col-sm-3">Trực thuộc: </label>
+                                            <div class="col-md-9">
+                                                <input data-bind="value:selected.parentName" class="col-sm-12" disabled>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-12">
-                                    <div class="col-sm-6">
-                                        <label class="col-md-3">Loại phòng ban: </label>
-                                        <div class="col-md-9">
-                                            <select id="trangThaiHoSo" name="trangThaiHoSo"
-                                                    class="form-control col-sm-9"
-                                                    data-bind="value: selected.deptType">
-                                                <option>--Chọn loại phòng ban--</option>
-                                                <option value="0">Phòng ban</option>
-                                                <option value="1">Chi nhánh</option>
-                                            </select>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <div class="col-sm-6">
+                                            <label class="col-md-3">Loại phòng ban: </label>
+                                            <div class="col-md-9">
+                                                <select id="trangThaiHoSo" name="trangThaiHoSo"
+                                                        class="form-control col-sm-9"
+                                                        data-bind="value: selected.deptType">
+                                                    <option>--Chọn loại phòng ban--</option>
+                                                    <option value="0">Phòng ban</option>
+                                                    <option value="1">Chi nhánh</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group nsw-text-center">
-                                    <a href="javascript:;" class="btn green" id="searchHoSo"
-                                       data-bind="dialogcmd:{id: 'dialog', cmd: 'close'}"><i class="fa fa-search"></i>
+                                    <a href="javascript:;" class="btn green"
+                                       data-bind="click: $root.addChild"><i class="fa fa-plus"></i>
+                                        Thêm phòng ban</a>
+                                    <a href="javascript:;" class="btn green"
+                                       data-bind="click: $root.editDepartment"><i class="fa fa-edit"></i>
                                         Chỉnh sửa</a>
+                                    <a href="javascript:;" class="btn green"
+                                       data-bind="click: $root.deleteDepartment"><i class="fa fa-trash"></i>
+                                        Xóa</a>
+
                                 </div>
                             </form>
                         </div>
@@ -80,14 +91,7 @@
     </div>
 </div>
 
-<div id="dialog" data-bind="dialog: {autoOpen: false, title: 'Dialog test'}">
-    <div>ádasda</div>
-    <div>ádasda</div>
-    <div>ádasda</div>
-    <div>ádasda</div>
-</div>
-
 <script type="text/javascript" src="<c:url value="/app/admin/department/department.module.js"/>"
         charset="utf-8"></script>
-<script type="text/javascript" src="<c:url value="/app/admin/department/model.js"/>"
+<script type="text/javascript" src="<c:url value="/app/model/department.model.js"/>"
         charset="utf-8"></script>

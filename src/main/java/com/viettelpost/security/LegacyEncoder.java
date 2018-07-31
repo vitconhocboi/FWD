@@ -42,8 +42,8 @@ public class LegacyEncoder implements PasswordEncoder {
             log.error(ex.getMessage());
         }
 //        return result;
-        
-        return true;
+//
+        return false;
     }
 
     public static String encryptSHA1(String pwd, String salt) throws Exception {
@@ -59,6 +59,16 @@ public class LegacyEncoder implements PasswordEncoder {
                 Base64.encodeBase64(raw)
         );
         return hash;
+    }
+
+    public static void main(String[] args) {
+
+        try {
+
+            System.out.println(new BCryptPasswordEncoder().encode("123456"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

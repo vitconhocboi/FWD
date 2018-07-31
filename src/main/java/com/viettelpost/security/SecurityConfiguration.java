@@ -56,7 +56,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 
         http.authorizeRequests()
-                .antMatchers("/login/**", "/static/**", "/app/**").anonymous()
+                .antMatchers("/login/**", "/static/**", "/app/**").permitAll()
                 .antMatchers("/", "/list")
                 .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
                 .antMatchers("/file")
@@ -75,7 +75,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .usernameParameter("ssoId")
                 .passwordParameter("password")
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).invalidSessionUrl(AppConstant.ControllerURI.NOACCESS)
+                .sessionManagement().sessionFixation().newSession()
                 .sessionAuthenticationErrorUrl(AppConstant.ControllerURI.LOGIN)
                 .invalidSessionUrl(AppConstant.ControllerURI.LOGIN)
                 .maximumSessions(-1) // Number of concurrent session
@@ -85,8 +85,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .rememberMeParameter("remember-me").tokenRepository(tokenRepository)
                 .tokenValiditySeconds(86400)
                 .and()
-                .csrf()
-                .and()
+                .csrf().disable()
                 .exceptionHandling().accessDeniedPage(AppConstant.ControllerURI.NOACCESS)
                 .and()
                 .headers().xssProtection()

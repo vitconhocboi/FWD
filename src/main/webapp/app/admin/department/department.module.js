@@ -1,32 +1,29 @@
-window.onload = function () {
+$(document).ready(function () {
     function ViewModel() {
         var self = this;
         self.danhsachphongban;
-        self.selected = {
-            id: ko.observable(),
-            deptName: ko.observable(),
-            deptType: ko.observable(),
-            parentId: ko.observable(),
-            parentName: ko.observable(),
-            deptPath: ko.observable()
-        }
+        self.selected = new Department();
 
         self.treeOption = ko.observable({});
 
-        app.makeGet({
-            url: '/department/getAll',
-            success: function (data) {
-                if (data.success) {
-                    self.danhsachphongban = data.data;
-                    buildTree(self.danhsachphongban);
-                } else {
-                    toastr.error("Có lỗi xảy ra", "ERR");
+        function loadDepartment() {
+            app.makeGet({
+                url: '/admin/department/getAll',
+                success: function (data) {
+                    if (data.success) {
+                        self.danhsachphongban = data.data;
+                        buildTree(self.danhsachphongban);
+                    } else {
+                        toastr.error("Có lỗi xảy ra", "ERR");
+                    }
+                },
+                error: function (err) {
+                    toastr.error(err, "ERR");
                 }
-            },
-            error: function (err) {
-                toastr.error("Có lỗi xảy ra", "ERR");
-            }
-        });
+            });
+        }
+
+        loadDepartment();
 
         function buildTree(danhsachphongban) {
             var tree = [];
@@ -48,7 +45,6 @@ window.onload = function () {
                 width: 300,
                 onItemClick: function (e) {
                     var item = e.itemData;
-                    debugger
                     self.selected.id(item.id);
                     self.selected.deptName(item.deptName);
                     self.selected.deptType(item.deptType);
@@ -71,41 +67,65 @@ window.onload = function () {
             }
         }
 
+        self.addChild = function () {
+            if (self.selected.id()) {
+                location.href = app.appContext + '/admin/department/new/' + self.selected.id();
+            } else {
+                toastr.error("Bạn chưa chọn phòng ban cha", "ERR");
+            }
+        }
 
+        self.editDepartment = function () {
+            if (self.selected.id()) {
+                location.href = app.appContext + '/admin/department/edit/' + self.selected.id();
+            } else {
+                toastr.error("Bạn chưa chọn phòng ban để chỉnh sửa", "ERR");
+            }
+        }
 
+        self.deleteDepartment = function () {
+            if (self.selected.id()) {
+                if (self.selected.parentId()) {
+                    pop = app.popup({
+                        title: "Thông báo",
+                        html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa phòng ban <b>' + self.selected.deptName() + '</b>',
+                        width: 400,
+                        buttons: [
+                            {
+                                name: "Đồng ý",
+                                class: 'btn',
+                                icon: 'fa-check',
+                                action: function () {
+                                    app.makePost({
+                                        url: '/admin/department/delete',
+                                        data: JSON.stringify(self.selected.id()),
+                                        success: function (data) {
+                                            if (data.success) {
+                                                toastr.success("Xóa phòng ban thành công", "Thông báo");
+                                                loadDepartment();
+                                            } else {
+                                                toastr.error("Có lỗi xảy ra", "ERR");
+                                            }
+                                        },
+                                        error: function (err) {
+                                            toastr.error("Có lỗi xảy ra", "ERR");
+                                        }
+                                    });
+                                }
+                            }
+                        ]
+                    });
+                } else {
+                    toastr.error("Bạn không thể xóa phòng ban này!", "ERR");
+                }
+            } else {
+                toastr.error("Bạn chưa chọn phòng ban để xóa", "ERR");
+            }
+        }
     }
-
-    ko.bindingHandlers.dialogcmd = {
-        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            $(element).button().click(function () {
-                var options = ko.utils.unwrapObservable(valueAccessor());
-                $('#' + options.id).dialog(options.cmd || 'open');
-            });
-        }
-    };
-
-    var jQueryWidget = function (element, valueAccessor, name, constructor) {
-        var options = ko.utils.unwrapObservable(valueAccessor());
-        var $element = $(element);
-        setTimeout(function () {
-            constructor($element, options)
-        }, 0);
-        //$element.data(name, $widget);
-
-    };
-
-    ko.bindingHandlers.dialog = {
-        init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
-            console.log("init");
-            jQueryWidget(element, valueAccessor, 'dialog', function ($element, options) {
-                console.log("Creating dialog on " + $element);
-                return $element.dialog(options);
-            });
-        }
-    };
 
 
     var vm = new ViewModel();
 
     ko.applyBindings(vm);
-};
+});

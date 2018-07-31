@@ -25,7 +25,9 @@ public class User {
     @Column(name = "FULL_NAME")
     String fullName;
     @Column(name = "ACTIVE")
-    Boolean active;
+    Long active;
+    @Column(name = "DEPT_ID")
+    Long deptId;
 
     public Long getUserId() {
         return userId;
@@ -59,11 +61,23 @@ public class User {
         this.fullName = fullName;
     }
 
-    public Boolean getActive() {
+    public Long getActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(Long active) {
         this.active = active;
+    }
+
+    public Long getDeptId() {
+        return deptId;
+    }
+
+    public void setDeptId(Long deptId) {
+        this.deptId = deptId;
+    }
+
+    public String getOrderColumn() {
+        return "userId";
     }
 }

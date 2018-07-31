@@ -1,14 +1,20 @@
 package com.viettelpost.service;
 
+import com.viettelpost.util.Utils;
 import org.slf4j.Logger;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class BaseCustomService<Tbo> {
     public static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(BaseCustomService.class);
@@ -57,8 +63,166 @@ public class BaseCustomService<Tbo> {
         return result;
     }
 
-    private String getClassName() {
+    public List<Tbo> search(Map<String, Object> searchParams) {
+        StringBuilder sql = new StringBuilder("SELECT a FROM " + getClassName().getName() + " a WHERE 1=1 ");
+        List params = new ArrayList();
+        for (String param : searchParams.keySet()) {
+            try {
+                Field field = getClassName().getDeclaredField(param);
+                Object value = searchParams.get(param);
+                if (field.getType() != null && value != null && !("".equals(value.toString()))) {
+                    if (BeanUtils.isSimpleProperty(value.getClass())) {
+                        sql.append("AND a." + param + " =  :param_" + params.size() + " ");
+                        Object searchValue = Utils.covnertToOriginalType(field, value);
+                        params.add(searchValue);
+                    } else if (searchParams.get(param) instanceof Map) {
+                        Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
+                        if (map.get("VALUE") != null && map.get("OPERATOR") != null) {
+                            String operator = map.get("OPERATOR").toString();
+                            Object searchValue;
+                            if (map.get("VALUE") instanceof List) {
+                                List<Object> arr = new ArrayList<>();
+                                for (Object val : (List) map.get("VALUE")) {
+                                    arr.add(Utils.covnertToOriginalType(field, val));
+                                }
+                                searchValue = arr;
+                            } else {
+                                searchValue = Utils.covnertToOriginalType(field, map.get("VALUE"));
+                            }
+                            if (searchValue != null && !("".equals(searchValue))) {
+                                sql.append("AND a." + param + " " + operator + " :param_" + params.size() + " ");
+                                params.add(searchValue);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                LOGGER.warn(ex.toString());
+            }
+        }
+
+        try {
+            Method method = getClassName().getDeclaredMethod("getOrderColumn");
+            if (method != null) {
+                sql.append(" ORDER BY " + method.invoke(getClassName().newInstance()));
+            }
+        } catch (Exception e) {
+            LOGGER.warn(getClassName().getName() + " not have order");
+        }
+
+        Query query = entityManager.createQuery(sql.toString());
+        for (int i = 0; i < params.size(); i++) {
+            query.setParameter("param_" + i, params.get(i));
+        }
+        return query.getResultList();
+    }
+
+    public List<Tbo> searchPaging(Map<String, Object> searchParams) {
+        StringBuilder sql = new StringBuilder("SELECT a FROM " + getClassName().getName() + " a WHERE 1=1 ");
+        List params = new ArrayList();
+
+        int currentPage = (int) searchParams.get("currentPage");
+        int pageSize = (int) searchParams.get("pageSize");
+
+        for (String param : searchParams.keySet()) {
+            try {
+                Field field = getClassName().getDeclaredField(param);
+                Object value = searchParams.get(param);
+                if (field.getType() != null && value != null && !("".equals(value.toString()))) {
+                    if (BeanUtils.isSimpleProperty(value.getClass())) {
+                        sql.append("AND a." + param + " =  :param_" + params.size() + " ");
+                        Object searchValue = Utils.covnertToOriginalType(field, value);
+                        params.add(searchValue);
+                    } else if (searchParams.get(param) instanceof Map) {
+                        Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
+                        if (map.get("VALUE") != null && map.get("OPERATOR") != null) {
+                            String operator = map.get("OPERATOR").toString();
+                            Object searchValue;
+                            if (map.get("VALUE") instanceof List) {
+                                List<Object> arr = new ArrayList<>();
+                                for (Object val : (List) map.get("VALUE")) {
+                                    arr.add(Utils.covnertToOriginalType(field, val));
+                                }
+                                searchValue = arr;
+                            } else {
+                                searchValue = Utils.covnertToOriginalType(field, map.get("VALUE"));
+                            }
+                            if (searchValue != null && !("".equals(searchValue))) {
+                                sql.append("AND a." + param + " " + operator + " :param_" + params.size() + " ");
+                                params.add(searchValue);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                LOGGER.warn(ex.toString());
+            }
+        }
+
+        try {
+            Method method = getClassName().getDeclaredMethod("getOrderColumn");
+            if (method != null) {
+                sql.append(" ORDER BY " + method.invoke(getClassName().newInstance()));
+            }
+        } catch (Exception e) {
+            LOGGER.warn(getClassName().getName() + " not have order");
+        }
+
+        Query query = entityManager.createQuery(sql.toString());
+        for (int i = 0; i < params.size(); i++) {
+            query.setParameter("param_" + i, params.get(i));
+        }
+        return query.setFirstResult((currentPage - 1) * pageSize).setMaxResults(pageSize).getResultList();
+    }
+
+    public Long getTotalRecord(Map<String, Object> searchParams) {
+        StringBuilder sql = new StringBuilder("SELECT count(a) FROM " + getClassName().getName() + " a WHERE 1=1 ");
+        List params = new ArrayList();
+
+        for (String param : searchParams.keySet()) {
+            try {
+                Field field = getClassName().getDeclaredField(param);
+                Object value = searchParams.get(param);
+                if (field.getType() != null && value != null && !("".equals(value.toString()))) {
+                    if (BeanUtils.isSimpleProperty(value.getClass())) {
+                        sql.append("AND a." + param + " =  :param_" + params.size() + " ");
+                        Object searchValue = Utils.covnertToOriginalType(field, value);
+                        params.add(searchValue);
+                    } else if (searchParams.get(param) instanceof Map) {
+                        Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
+                        if (map.get("VALUE") != null && map.get("OPERATOR") != null) {
+                            String operator = map.get("OPERATOR").toString();
+                            Object searchValue;
+                            if (map.get("VALUE") instanceof List) {
+                                List<Object> arr = new ArrayList<>();
+                                for (Object val : (List) map.get("VALUE")) {
+                                    arr.add(Utils.covnertToOriginalType(field, val));
+                                }
+                                searchValue = arr;
+                            } else {
+                                searchValue = Utils.covnertToOriginalType(field, map.get("VALUE"));
+                            }
+                            if (searchValue != null && !("".equals(searchValue))) {
+                                sql.append("AND a." + param + " " + operator + " :param_" + params.size() + " ");
+                                params.add(searchValue);
+                            }
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                LOGGER.warn(ex.toString());
+            }
+        }
+
+        Query query = entityManager.createQuery(sql.toString());
+        for (int i = 0; i < params.size(); i++) {
+            query.setParameter("param_" + i, params.get(i));
+        }
+        return (Long) query.getSingleResult();
+    }
+
+    private Class getClassName() {
         Class<Tbo> genericType = (Class<Tbo>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseCustomService.class);
-        return genericType.getSimpleName();
+        return genericType;
     }
 }

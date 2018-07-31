@@ -44,12 +44,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         List<Page> lstPages = pageService.getPagesByUsername(ssoId);
 
-        return new UserCustom(user,lstPages, getGrantedAuthorities(user));
+        return new UserCustom(user, lstPages, getGrantedAuthorities(user));
     }
 
     private List<GrantedAuthority> getGrantedAuthorities(User user) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        if (user.getActive()) {
+        if (1L == user.getActive()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
             authorities.add(new SimpleGrantedAuthority("ROLE_DBA"));
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
