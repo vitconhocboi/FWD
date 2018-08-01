@@ -44,6 +44,7 @@
         <put-attribute name="body" value="/WEB-INF/views/accessDenied.jsp"/>
     </definition>
 
+    <!--quan ly user-->
     <definition name="viettelpost.page.admin.user" extends="base-definition">
         <put-attribute name="title" value="Vietnam Single Window"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/index.jsp"/>
@@ -53,6 +54,7 @@
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/addedituser.jsp"/>
     </definition>
 
+    <!--quan ly phong ban-->
     <definition name="viettelpost.page.admin.department" extends="base-definition">
         <put-attribute name="title" value="Vietnam Single Window"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/index.jsp"/>
@@ -61,4 +63,15 @@
         <put-attribute name="title" value="Vietnam Single Window"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/edit.jsp"/>
     </definition>
+
+    <!--quan ly khach hang-->
+    <definition name="viettelpost.page.manager.customer" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/customer/index.customer.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.manager.customer.addedit" extends="base-definition">
+        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/customer/addedit.customer.jsp"/>
+    </definition>
+
 </tiles-definitions>

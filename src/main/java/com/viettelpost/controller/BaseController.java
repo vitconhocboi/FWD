@@ -50,67 +50,7 @@ public abstract class BaseController<T> {
     @Autowired
     private HttpSession httpSession;
 
-    protected abstract String getCurrentPage();
-
     protected abstract BaseCustomService<T> getSevice();
-
-    public Page checkRolePages(List<Page> lst, String url) {
-        for (Page tab : lst) {
-            if (url.startsWith(tab.getPageUrl())) {
-                return tab;
-            }
-        }
-        return null;
-    }
-
-
-    public List<Page> getMenuData() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<Page> mTabs = null;
-        if (principal instanceof UserDetails) {
-            UserCustom user = (UserCustom) principal;
-            if (httpSession.getAttribute(AppConstant.MENU_SESSION) != null) {
-                mTabs = (List<Page>) httpSession.getAttribute(AppConstant.MENU_SESSION);
-            } else {
-                mTabs = AppHelper.getMenusForUser(user.getLstPages());
-                httpSession.setAttribute(AppConstant.MENU_SESSION, mTabs);
-            }
-        }
-        return mTabs;
-    }
-
-    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
-    public String index(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                        Locale locale, ModelMap model) {
-        try {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                UserCustom user = (UserCustom) principal;
-                Page page = checkRolePages(user.getLstPages(), request.getServletPath());
-                if (page != null) {
-                    List<Breadcrumb> breadcrumbs = new ArrayList<>();
-                    Breadcrumb nav = new Breadcrumb(page.getPageUrl(), page.getPageName());
-                    breadcrumbs.add(nav);
-                    model.addAttribute(AppConstant.Common.BREADCRUMB, breadcrumbs);
-                    model.addAttribute(AppConstant.DanhMuc.Menu, getMenuData());
-                    model.addAttribute(AppConstant.DanhMuc.UserName, user.getUsername());
-                    model.addAttribute(AppConstant.DanhMuc.Version, AppConstant.getVersion());
-                    Gson gson = new Gson();
-                    model.addAttribute("userCustom", gson.toJson(user));
-                } else {
-                    return "viettelpost.page.accessdenied";
-                }
-
-            } else {
-                return AppConstant.redirectPage(AppConstant.Pages.LOGOUT);
-            }
-
-        } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
-        }
-
-        return getCurrentPage();
-    }
 
     protected ResponseEntity<Object> createResponseEntity(Object data, Number total, String message, boolean success,
                                                           HttpStatus httpStatus) {

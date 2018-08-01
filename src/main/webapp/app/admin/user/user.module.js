@@ -1,7 +1,28 @@
 $(document).ready(function () {
     function ViewModel() {
         self = this;
-        self.searchUser = new User();
+        self.searchUser = new function () {
+            var that = this;
+            this.username = new function () {
+                var that = this;
+                this.VALUE_VIEW = ko.observable();
+                this.OPERATOR = "LIKE";
+                this.VALUE = function () {
+                    return that.VALUE_VIEW() ? ('%' + that.VALUE_VIEW() + '%') : undefined;
+                };
+            };
+            this.fullName = new function () {
+                var that = this;
+                this.VALUE_VIEW = ko.observable();
+                this.OPERATOR = "LIKE";
+                this.VALUE = function () {
+                    return that.VALUE_VIEW() ? ('%' + that.VALUE_VIEW() + '%') : undefined;
+                };
+            };
+            this.active = ko.observable();
+            this.deptId = ko.observable();
+
+        };
         self.danhsachphongban = ko.observableArray();
         self.danhsachuser = ko.observableArray();
         self.pagingVM = new PagingVM({pageSize: 5, totalCount: 0});

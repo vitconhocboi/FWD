@@ -1,0 +1,20 @@
+var Customer = function () {
+    this.customerId = ko.observable();
+    this.customerName = ko.observable();
+    this.address = ko.observable();
+    this.taxCode = ko.observable();
+    this.phone = ko.observable();
+    this.contactStaff = ko.observable();
+    this.phoneContactStaff = ko.observable();
+    this.userSaleId = ko.observable();
+    this.establishmentDate = ko.observable();
+    this.businessType = ko.observable();
+    this.merchandize = ko.observable();
+    this.journey = ko.observable();
+    this.status = ko.observable();
+    this.createdUser = ko.observable();
+    this.createdDate = ko.observable();
+    this.updatedUser = ko.observable();
+    this.updatedDate = ko.observable();
+    this.objectTypeDate = ['establishmentDate', 'createdDate', 'updatedDate'];
+}

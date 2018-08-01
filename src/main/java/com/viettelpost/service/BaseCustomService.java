@@ -1,11 +1,14 @@
 package com.viettelpost.service;
 
+import com.viettelpost.model.User;
+import com.viettelpost.model.UserCustom;
 import com.viettelpost.util.Utils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -224,5 +227,9 @@ public class BaseCustomService<Tbo> {
     private Class getClassName() {
         Class<Tbo> genericType = (Class<Tbo>) GenericTypeResolver.resolveTypeArgument(getClass(), BaseCustomService.class);
         return genericType;
+    }
+
+    protected User getCurrentUserModel() {
+        return ((UserCustom) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
     }
 }

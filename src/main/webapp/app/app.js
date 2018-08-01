@@ -911,11 +911,7 @@ APP.prototype = {
         } else if (typeof form == 'object') {
             for (const pro of Object.getOwnPropertyNames(form)) {
                 var val = this.convertFormObservableJson(form[pro]);
-                if (val instanceof Date) {
-                    obj[pro] = moment(val).format("DD/MM/YYYY HH:mm:ss");
-                } else {
-                    obj[pro] = val;
-                }
+                obj[pro] = val;
             }
             return obj;
         } else {

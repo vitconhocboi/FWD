@@ -1,16 +1,15 @@
-package com.viettelpost.controller.admin;
+package com.viettelpost.controller.manage;
 
 import com.google.gson.Gson;
 import com.viettelpost.constant.AppConstant;
 import com.viettelpost.controller.BaseController;
 import com.viettelpost.model.Breadcrumb;
+import com.viettelpost.model.Customer;
 import com.viettelpost.model.Page;
-import com.viettelpost.model.User;
 import com.viettelpost.model.UserCustom;
 import com.viettelpost.service.BaseCustomService;
-import com.viettelpost.service.UserService;
+import com.viettelpost.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -27,34 +26,32 @@ import java.util.List;
 import java.util.Locale;
 
 @Controller
-@RequestMapping(value = "/admin/user")
-public class UserController extends BaseController<User> {
+@RequestMapping(value = "/manage/customer")
+public class CustomerController extends BaseController<Customer> {
     @Autowired
-    UserService userService;
+    CustomerService customerService;
 
     @Override
-    protected BaseCustomService<User> getSevice() {
-        return userService;
+    protected BaseCustomService<Customer> getSevice() {
+        return customerService;
     }
-
 
     @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
                         Locale locale, ModelMap model) {
-        return "viettelpost.page.admin.user";
+        return "viettelpost.page.manager.customer";
     }
-
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                          Locale locale, ModelMap model) {
-        return "viettelpost.page.admin.newuser";
+    public String newCustomer(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                              Locale locale, ModelMap model) {
+        return "viettelpost.page.manager.customer.addedit";
     }
 
-    @RequestMapping(value = {"/edit/{userId}"}, method = RequestMethod.GET)
-    public String editUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                           Locale locale, ModelMap model, @PathVariable("userId") Long userId) {
-        model.addAttribute("userId", userId);
-        return "viettelpost.page.admin.newuser";
+    @RequestMapping(value = {"/edit/{customerId}"}, method = RequestMethod.GET)
+    public String newCustomer(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                              Locale locale, ModelMap model, @PathVariable("customerId") Long customerId) {
+        model.addAttribute("customerId", customerId);
+        return "viettelpost.page.manager.customer.addedit";
     }
 }

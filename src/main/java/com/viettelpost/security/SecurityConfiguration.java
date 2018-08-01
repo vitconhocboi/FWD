@@ -93,11 +93,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public CustomBasicAuthenticationEntryPoint getBasicAuthEntryPoint() {
-        return new CustomBasicAuthenticationEntryPoint();
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new LegacyEncoder();
     }

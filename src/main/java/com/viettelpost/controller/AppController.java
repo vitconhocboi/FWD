@@ -50,13 +50,7 @@ public class AppController {
         List<Page> Tabs = null;
         if (principal instanceof UserDetails) {
             UserCustom user = (UserCustom) principal;
-
-            if (httpSession.getAttribute(AppConstant.MENU_SESSION) != null) {
-                Tabs = (List<Page>) httpSession.getAttribute(AppConstant.MENU_SESSION);
-            } else {
-                Tabs = AppHelper.getMenusForUser(user.getLstPages());
-                httpSession.setAttribute(AppConstant.MENU_SESSION, Tabs);
-            }
+            Tabs = user.getLstMenu();
         }
         return Tabs;
     }

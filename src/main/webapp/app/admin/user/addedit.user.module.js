@@ -11,7 +11,6 @@ $(document).ready(function () {
                 url: '/admin/user/getById/' + userId,
                 success: function (data) {
                     if (data.success) {
-                        debugger
                         app.convertObjectToObservable(data.data, self.user);
                     } else {
                         toastr.error("Có lỗi xảy ra", "ERR");
@@ -57,7 +56,6 @@ $(document).ready(function () {
                         class: 'btn',
                         icon: 'fa-check',
                         action: function () {
-                            debugger
                             app.makePost({
                                 url: '/admin/user/save',
                                 data: JSON.stringify(app.convertFormObservableJson(self.user)),
