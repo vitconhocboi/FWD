@@ -18,7 +18,7 @@
     <!-- Default Page -->
     <!-- Home Page -->
     <definition name="viettelpost.page.home" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/index.jsp"/>
     </definition>
 
@@ -30,48 +30,58 @@
 
     <!-- Errors Pages -->
     <definition name="viettelpost.page.notfound" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/errors/notFound.jsp"/>
     </definition>
 
     <definition name="viettelpost.page.error" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/errors/serverError.jsp"/>
     </definition>
 
     <definition name="viettelpost.page.accessdenied" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/accessDenied.jsp"/>
     </definition>
 
     <!--quan ly user-->
     <definition name="viettelpost.page.admin.user" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/index.jsp"/>
     </definition>
     <definition name="viettelpost.page.admin.newuser" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/addedituser.jsp"/>
     </definition>
 
     <!--quan ly phong ban-->
     <definition name="viettelpost.page.admin.department" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/index.jsp"/>
     </definition>
     <definition name="viettelpost.page.admin.department.edit" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/department/edit.jsp"/>
     </definition>
 
     <!--quan ly khach hang-->
     <definition name="viettelpost.page.manager.customer" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/manage/customer/index.customer.jsp"/>
     </definition>
     <definition name="viettelpost.page.manager.customer.addedit" extends="base-definition">
-        <put-attribute name="title" value="Vietnam Single Window"/>
+        <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/manage/customer/addedit.customer.jsp"/>
+    </definition>
+
+    <!--quan ly doi tac-->
+    <definition name="viettelpost.page.manager.partner" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/partner/index.partner.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.manager.partner.addedit" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/partner/addedit.partner.jsp"/>
     </definition>
 
 </tiles-definitions>

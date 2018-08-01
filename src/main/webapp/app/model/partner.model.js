@@ -1,0 +1,21 @@
+var Partner = function () {
+    this.partnerId = ko.observable();
+    this.partnerName = ko.observable();
+    this.address = ko.observable();
+    this.taxCode = ko.observable();
+    this.email = ko.observable();
+    this.phone = ko.observable();
+    this.contactStaff = ko.observable();
+    this.phoneContactStaff = ko.observable();
+    this.userCs = ko.observable();
+    this.phoneUserCs = ko.observable();
+    this.establishmentDate = ko.observable();
+    this.businessType = ko.observable();
+    this.journey = ko.observable();
+    this.status = ko.observable();
+    this.createdUser = ko.observable();
+    this.createdDate = ko.observable();
+    this.updatedUser = ko.observable();
+    this.updatedDate = ko.observable();
+    this.objectTypeDate = ['createdDate', 'updatedDate', 'establishmentDate'];
+}
