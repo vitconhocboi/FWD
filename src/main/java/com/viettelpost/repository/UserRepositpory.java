@@ -4,5 +4,5 @@ import com.viettelpost.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepositpory extends JpaRepository<User, Long> {
-    User findFirstByUsername(String username);
+    User findFirstByUserName(String username);
 }

@@ -129,7 +129,6 @@
                                             <th class="text-center">Nhân viên liên hệ</th>
                                             <th class="text-center">Số điện thoại nhân viên liên hệ</th>
                                             <th class="text-center">Nhân viên cs</th>
-                                            <th class="text-center">Số điện thoại nhân viên cs</th>
                                             <th class="text-center">Ngày thành lập</th>
                                             <th class="text-center">Loại hình kinh doanh</th>
                                             <th class="text-center">Tuyến đi chính</th>
@@ -151,7 +150,6 @@
                                             <td class="text-center" data-bind="text: item.contactStaff"></td>
                                             <td class="text-center" data-bind="text: item.phoneContactStaff"></td>
                                             <td class="text-center" data-bind="text: item.userCs"></td>
-                                            <td class="text-center" data-bind="text: item.phoneUserCs"></td>
                                             <td class="text-center"
                                                 data-bind="text: item.establishmentDate()?moment(item.establishmentDate()).format('DD/MM/YYYY'):''">
                                             </td>

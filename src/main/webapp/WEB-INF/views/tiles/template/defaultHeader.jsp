@@ -19,7 +19,7 @@
                     <i class="icon-key"></i> logout </a>
             </p>
             <p>
-                <a href="#" class="nsw-color-w" target="_blank">
+                <a href="/updateUserInfo" class="nsw-color-w" target="_blank">
                     <i class="icon-user"></i> update
                 </a>
 

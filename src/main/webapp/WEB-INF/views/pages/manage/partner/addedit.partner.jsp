@@ -118,18 +118,6 @@
                                                     </select>
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    Số điện thoại nhân viên cs
-                                                    <span class="nsw-require-field">*</span>
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:partner.phoneUserCs">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label class="col-sm-2">
                                                     Ngày thành lập
                                                     <span class="nsw-require-field">*</span>
                                                 </label>
@@ -140,6 +128,10 @@
                                                            placeholder="dd/mm/yyyy"
                                                            data-bind="datepicker: partner.establishmentDate"/>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Loại hình vận tải cung cấp
                                                 </label>
@@ -147,10 +139,6 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:partner.businessType">
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Các tuyến đi chính
                                                 </label>

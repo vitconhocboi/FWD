@@ -23,7 +23,7 @@ public class UserCustom extends User {
     private com.viettelpost.model.User userModel;
 
     public UserCustom(com.viettelpost.model.User user, List<Page> lstPages, Collection<? extends GrantedAuthority> authorities) {
-        super(user.getUsername(), user.getPassword(), authorities);
+        super(user.getUserName(), user.getPassword(), authorities);
         this.userModel = user;
         this.lstPages = lstPages;
         this.lstMenu = AppHelper.getMenusForUser(lstPages);

@@ -19,16 +19,20 @@ public class UserService extends BaseCustomService<User> {
     @Autowired
     protected EntityManager entityManager;
 
+    private static final String BCRYP_TYPE = "$";
+
     private static final PasswordEncoder BCRYPT = new BCryptPasswordEncoder();
 
 
     public User findByUsername(String username) {
-        return userRepositpory.findFirstByUsername(username);
+        return userRepositpory.findFirstByUserName(username);
     }
 
     @Override
     public User save(User bo) throws Exception {
-        bo.setPassword(BCRYPT.encode(bo.getPassword()));
+        if (!bo.getPassword().startsWith(BCRYP_TYPE)) {
+            bo.setPassword(BCRYPT.encode(bo.getPassword()));
+        }
         return super.save(bo);
     }
 }

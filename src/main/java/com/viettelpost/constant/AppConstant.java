@@ -71,6 +71,7 @@ public class AppConstant {
         public static final String UserName = "loggedinuser";
         public static final String Version = "version";
         public static final String User = "user";
+        public static final String UserId = "userId";
     }
 
     public interface Display {

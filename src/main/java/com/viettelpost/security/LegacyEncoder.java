@@ -43,7 +43,7 @@ public class LegacyEncoder implements PasswordEncoder {
         }
 //        return result;
 //
-        return false;
+        return true;
     }
 
     public static String encryptSHA1(String pwd, String salt) throws Exception {

@@ -43,13 +43,15 @@
                                         <div class="col-sm-6">
                                             <label class="col-sm-3">Tên phòng ban: </label>
                                             <div class="col-md-9">
-                                                <input data-bind="value:selected.deptName" class="col-sm-12" disabled>
+                                                <input data-bind="value:selected.deptName"
+                                                       class="form-control  col-sm-12" disabled>
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <label class="col-sm-3">Trực thuộc: </label>
                                             <div class="col-md-9">
-                                                <input data-bind="value:selected.parentName" class="col-sm-12" disabled>
+                                                <input data-bind="value:selected.parentName"
+                                                       class="form-control col-sm-12" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -57,11 +59,18 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="col-sm-6">
+                                            <label class="col-sm-3">Mã đơn vị: </label>
+                                            <div class="col-md-9">
+                                                <input data-bind="value:selected.unitCode"
+                                                       class="form-control  col-sm-12" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
                                             <label class="col-md-3">Loại phòng ban: </label>
                                             <div class="col-md-9">
                                                 <select id="trangThaiHoSo" name="trangThaiHoSo"
                                                         class="form-control col-sm-9"
-                                                        data-bind="value: selected.deptType">
+                                                        data-bind="value: selected.deptType" disabled>
                                                     <option>--Chọn loại phòng ban--</option>
                                                     <option value="0">Phòng ban</option>
                                                     <option value="1">Chi nhánh</option>

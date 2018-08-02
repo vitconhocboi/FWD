@@ -53,6 +53,10 @@
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/addedituser.jsp"/>
     </definition>
+    <definition name="viettelpost.page.admin.user.updateInfo" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/admin/user/updateInfo.jsp"/>
+    </definition>
 
     <!--quan ly phong ban-->
     <definition name="viettelpost.page.admin.department" extends="base-definition">

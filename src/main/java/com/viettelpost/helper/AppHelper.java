@@ -5,7 +5,10 @@
  */
 package com.viettelpost.helper;
 
+import com.viettelpost.controller.json.ResponseJson;
 import com.viettelpost.model.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,5 +45,21 @@ public class AppHelper {
             }
         }
         return null;
+    }
+
+    public static ResponseEntity<Object> createResponseEntity(Object data, Number total, String message, boolean success,
+                                                              HttpStatus httpStatus) {
+
+        ResponseJson item = new ResponseJson();
+
+        item.setData(data);
+
+        item.setTotal(total);
+
+        item.setMessage(message);
+
+        item.setSuccess(success);
+
+        return new ResponseEntity<>(item, httpStatus);
     }
 }

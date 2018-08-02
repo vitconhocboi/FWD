@@ -3,7 +3,7 @@ $(document).ready(function () {
         self = this;
         self.searchUser = new function () {
             var that = this;
-            this.username = new function () {
+            this.userName = new function () {
                 var that = this;
                 this.VALUE_VIEW = ko.observable();
                 this.OPERATOR = "LIKE";
@@ -21,7 +21,22 @@ $(document).ready(function () {
             };
             this.active = ko.observable();
             this.deptId = ko.observable();
-
+            this.email = new function () {
+                var that = this;
+                this.VALUE_VIEW = ko.observable();
+                this.OPERATOR = "LIKE";
+                this.VALUE = function () {
+                    return that.VALUE_VIEW() ? ('%' + that.VALUE_VIEW() + '%') : undefined;
+                };
+            };
+            this.phone = new function () {
+                var that = this;
+                this.VALUE_VIEW = ko.observable();
+                this.OPERATOR = "LIKE";
+                this.VALUE = function () {
+                    return that.VALUE_VIEW() ? ('%' + that.VALUE_VIEW() + '%') : undefined;
+                };
+            };
         };
         self.danhsachphongban = ko.observableArray();
         self.danhsachuser = ko.observableArray();
@@ -119,7 +134,7 @@ $(document).ready(function () {
             if (item && item.userId()) {
                 pop = app.popup({
                     title: "Thông báo",
-                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa người dùng <b>' + item.username() + '</b>',
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa người dùng <b>' + item.userName() + '</b>',
                     width: 400,
                     buttons: [
                         {

@@ -26,6 +26,8 @@ public class Department {
     Long parentId;
     @Column(name = "DEPT_PATH")
     String deptPath;
+    @Column(name = "UNIT_CODE")
+    String unitCode;
 
     public Long getId() {
         return id;
@@ -65,5 +67,13 @@ public class Department {
 
     public void setDeptPath(String deptPath) {
         this.deptPath = deptPath;
+    }
+
+    public String getUnitCode() {
+        return unitCode;
+    }
+
+    public void setUnitCode(String unitCode) {
+        this.unitCode = unitCode;
     }
 }

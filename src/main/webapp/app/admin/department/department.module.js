@@ -51,6 +51,7 @@ $(document).ready(function () {
                     self.selected.parentId(item.parentId);
                     self.selected.deptPath(item.deptPath);
                     self.selected.parentName(item.parentName);
+                    self.selected.unitCode(item.unitCode);
                 }
             });
         }

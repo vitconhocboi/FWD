@@ -44,9 +44,6 @@ public class Partner {
     @Column(name = "USER_CS")
     private Long userCs;
 
-    @Column(name = "PHONE_USER_CS")
-    private String phoneUserCs;
-
     @Column(name = "ESTABLISHMENT_DATE")
     private Date establishmentDate;
 
@@ -141,14 +138,6 @@ public class Partner {
 
     public void setUserCs(Long userCs) {
         this.userCs = userCs;
-    }
-
-    public String getPhoneUserCs() {
-        return phoneUserCs;
-    }
-
-    public void setPhoneUserCs(String phoneUserCs) {
-        this.phoneUserCs = phoneUserCs;
     }
 
     public Date getEstablishmentDate() {

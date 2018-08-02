@@ -18,10 +18,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -68,4 +65,18 @@ public class DepartmentController extends BaseController<Department> {
         return "viettelpost.page.admin.department.edit";
     }
 
+    @Override
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<Object> save(@RequestBody Department object) {
+        if (object.getId() == null) {
+            object.setId(departmentService.getSequenceByName("dept_seq"));
+        }
+        String parentDeptPath = "";
+        if (object.getParentId() != null) {
+            Department parent = departmentService.findById(object.getParentId());
+            parentDeptPath = parent.getDeptPath();
+        }
+        object.setDeptPath(parentDeptPath + object.getId() + "_");
+        return super.save(object);
+    }
 }

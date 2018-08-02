@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,12 @@ public class BaseCustomService<Tbo> {
             result.add(bo);
         }
         return result;
+    }
+
+    public Long getSequenceByName(String sequenceName) {
+        Query q = entityManager.createNativeQuery("SELECT " + sequenceName + ".NEXTVAL FROM DUAL");
+        BigDecimal seq = (BigDecimal) q.getSingleResult();
+        return seq != null ? seq.longValue() : null;
     }
 
     public List<Tbo> search(Map<String, Object> searchParams) {

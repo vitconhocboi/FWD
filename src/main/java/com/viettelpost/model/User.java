@@ -3,6 +3,7 @@ package com.viettelpost.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "USERS")
@@ -17,17 +18,38 @@ public class User {
     )
     @GeneratedValue(generator = "SequenceGenerator")
     @Column(name = "USER_ID")
-    Long userId;
-    @Column(name = "USER_NAME")
-    String username;
-    @Column(name = "PASSWORD")
-    String password;
-    @Column(name = "FULL_NAME")
-    String fullName;
+    private Long userId;
+
     @Column(name = "ACTIVE")
-    Long active;
+    private Long active;
+
+    @Column(name = "USER_NAME")
+    private String userName;
+
+    @Column(name = "FULL_NAME")
+    private String fullName;
+
+    @Column(name = "PASSWORD")
+    private String password;
+
     @Column(name = "DEPT_ID")
-    Long deptId;
+    private Long deptId;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "PHONE")
+    private String phone;
+
+    @Column(name = "DATE_OF_BIRTH")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
+
+    @Column(name = "ADDRESS")
+    private String address;
+
+    @Transient
+    private String departmentName;
 
     public Long getUserId() {
         return userId;
@@ -35,30 +57,6 @@ public class User {
 
     public void setUserId(Long userId) {
         this.userId = userId;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public Long getActive() {
@@ -69,6 +67,30 @@ public class User {
         this.active = active;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public Long getDeptId() {
         return deptId;
     }
@@ -77,7 +99,43 @@ public class User {
         this.deptId = deptId;
     }
 
-    public String getOrderColumn() {
-        return "userId";
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

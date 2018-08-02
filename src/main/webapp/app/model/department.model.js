@@ -5,5 +5,6 @@ var Department = function () {
     this.parentId = ko.observable();
     this.parentName = ko.observable();
     this.deptPath = ko.observable();
+    this.unitCode = ko.observable();
     this.objectTypeDate = [];
 }

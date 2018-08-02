@@ -8,7 +8,6 @@ var Partner = function () {
     this.contactStaff = ko.observable();
     this.phoneContactStaff = ko.observable();
     this.userCs = ko.observable();
-    this.phoneUserCs = ko.observable();
     this.establishmentDate = ko.observable();
     this.businessType = ko.observable();
     this.journey = ko.observable();

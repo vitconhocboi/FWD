@@ -54,7 +54,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_DBA"));
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
-        List<String> customRole = roleService.getListRoleByUserName(user.getUsername());
+        List<String> customRole = roleService.getListRoleByUserName(user.getUserName());
         for (String role : customRole) {
             authorities.add(new SimpleGrantedAuthority(role));
         }

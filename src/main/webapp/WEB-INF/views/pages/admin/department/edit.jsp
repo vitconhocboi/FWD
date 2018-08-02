@@ -17,7 +17,7 @@
                             <div class="col-sm-6">
                                 <label class="col-sm-3">Tên phòng ban: </label>
                                 <div class="col-md-9">
-                                    <input data-bind="value:currentDepartment.deptName" class="col-sm-12">
+                                    <input data-bind="value:currentDepartment.deptName" class="form-control col-sm-12">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -36,6 +36,13 @@
                     </div>
                     <div class="form-group">
                         <div class="col-sm-12">
+                            <div class="col-sm-6">
+                                <label class="col-sm-3">Mã đơn vị: </label>
+                                <div class="col-md-9">
+                                    <input data-bind="value:currentDepartment.unitCode"
+                                           class="form-control  col-sm-12">
+                                </div>
+                            </div>
                             <div class="col-sm-6">
                                 <label class="col-md-3">Loại phòng ban: </label>
                                 <div class="col-md-9">

@@ -29,7 +29,7 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
     @Autowired
     private HttpSession httpSession;
 
-    private List<String> urlByPass = Arrays.asList("/", "", "/noaccess");
+    private List<String> urlByPass = Arrays.asList("/", "", "/noaccess", "/updateUserInfo", "saveUserInfo");
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {

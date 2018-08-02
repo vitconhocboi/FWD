@@ -21,12 +21,24 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
+                                                    Tên người dùng
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value : searchUser.fullName.VALUE_VIEW">
+                                                </div>
+                                                <label class="col-sm-2">
                                                     User đăng nhập
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:searchUser.username.VALUE_VIEW">
+                                                           data-bind="value:searchUser.userName.VALUE_VIEW">
                                                 </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Phòng ban
                                                 </label>
@@ -40,17 +52,6 @@
                                                             optionsCaption: '--Chọn phòng ban--'">
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label class="col-sm-2">
-                                                    Tên người dùng
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value : searchUser.fullName.VALUE_VIEW">
-                                                </div>
                                                 <label class="col-sm-2">
                                                     Trạng thái
                                                 </label>
@@ -62,6 +63,25 @@
                                                         <option value="0">Không hoạt động</option>
                                                     </select>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-2">
+                                                    Email
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value : searchUser.phone.VALUE_VIEW">
+                                                </div>
+                                                <label class="col-sm-2">
+                                                    Số điện thoại
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:searchUser.email.VALUE_VIEW">
+                                                </div>
+
                                             </div>
                                         </div>
                                         <div class="form-group nsw-text-center">
@@ -93,8 +113,10 @@
                                         <thead>
                                         <tr class="nsw-tr tr-nsw1-bgcolor">
                                             <th class="text-center">STT</th>
-                                            <th class="text-center">Tên đăng nhập</th>
                                             <th class="text-center">Tên đầy đủ</th>
+                                            <th class="text-center">Tên đăng nhập</th>
+                                            <th class="text-center">Số điện thoại</th>
+                                            <th class="text-center">Email</th>
                                             <th class="text-center">Phòng ban</th>
                                             <th class="text-center">Trạng thái</th>
                                             <th class="text-center">Sửa</th>
@@ -106,8 +128,10 @@
                                         <tr>
                                             <td class="text-center"
                                                 data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
-                                            <td class="text-center" data-bind="text: item.username"></td>
                                             <td class="text-center" data-bind="text: item.fullName"></td>
+                                            <td class="text-center" data-bind="text: item.userName"></td>
+                                            <td class="text-center" data-bind="text: item.phone"></td>
+                                            <td class="text-center" data-bind="text: item.email"></td>
                                             <td class="text-center" data-bind="text: item.deptId"></td>
                                             <td class="text-center"
                                                 data-bind="text: item.active()==1?'Hoạt động':'Không hoạt động'"></td>
