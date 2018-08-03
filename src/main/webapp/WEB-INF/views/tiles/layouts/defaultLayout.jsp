@@ -19,8 +19,8 @@
           type="text/css"/>
     <link href="<c:url value='/static/assets/global/plugins/simple-line-icons/simple-line-icons.min.css' />"
           rel="stylesheet" type="text/css"/>
-    <link href="<c:url value='/static/assets/global/plugins/bootstrap/css/bootstrap.css" rel="stylesheet' />"
-          type="text/css"/>
+    <link href="<c:url value='/static/assets/global/plugins/bootstrap/css/bootstrap.css' />"
+          rel="stylesheet" type="text/css"/>
     <link href="<c:url value='/static/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css' />"
           rel="stylesheet" type="text/css"/>
 
@@ -82,7 +82,8 @@
     <script src="<c:url value='/static/assets/global/plugins/jquery.min.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/assets/global/plugins/bootstrap/js/bootstrap.min.js' />"
             type="text/javascript"></script>
-    <script src="<c:url value='/static/assets/global/plugins/js.cookie.min.js" type="text/javascript' />"></script>
+    <script src="<c:url value='/static/assets/global/plugins/js.cookie.min.js' />"
+            type="text/javascript"></script>
     <script src="<c:url value='/static/assets/global/plugins/jquery.blockui.min.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js' />"
             type="text/javascript"></script>

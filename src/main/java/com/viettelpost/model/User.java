@@ -48,6 +48,9 @@ public class User {
     @Column(name = "ADDRESS")
     private String address;
 
+    @Column(name = "USER_TYPE")
+    private Long userType;
+
     @Transient
     private String departmentName;
 
@@ -137,5 +140,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Long userType) {
+        this.userType = userType;
     }
 }

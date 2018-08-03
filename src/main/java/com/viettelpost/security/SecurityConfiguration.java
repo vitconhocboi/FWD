@@ -41,9 +41,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     PersistentTokenRepository tokenRepository;
 
     @Autowired
-    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
-        auth.authenticationProvider(authenticationProvider());
+    CustomAuthenticationProvider customAuthenticationProvider;
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(customAuthenticationProvider);
     }
 
     @Override
@@ -57,14 +59,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/login/**", "/static/**", "/app/**").permitAll()
-                .antMatchers("/", "/list")
-                .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/file")
-                .access("hasRole('USER') or hasRole('ADMIN') or hasRole('DBA')")
-                .antMatchers("/newuser/**", "/delete-user-*").access("hasRole('ADMIN')").antMatchers("/edit-user-*")
-                .access("hasRole('ADMIN') or hasRole('DBA')")
-                .and()
-                .authorizeRequests().anyRequest().authenticated()
+                .antMatchers("/")
+                .access("hasRole('USER')")
+                .anyRequest().authenticated()
 //                .and()
 //                .httpBasic().authenticationEntryPoint(getBasicAuthEntryPoint())
                 .and()

@@ -26,10 +26,7 @@ import java.util.List;
 public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
     protected static final Logger LOGGER = LoggerFactory.getLogger(CustomHandlerInterceptor.class);
 
-    @Autowired
-    private HttpSession httpSession;
-
-    private List<String> urlByPass = Arrays.asList("/", "", "/noaccess", "/updateUserInfo", "saveUserInfo");
+    private List<String> urlByPass = Arrays.asList("/", "", "/noaccess", "/updateUserInfo", "/saveUserInfo");
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -54,11 +51,31 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
                 } else {
                     response.sendRedirect("/noaccess");
                 }
-
             }
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        try {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+            if (principal instanceof UserDetails && !urlByPass.contains(request.getServletPath())) {
+
+                UserCustom user = (UserCustom) principal;
+                Page page = checkRolePages(user.getLstPages(), request.getServletPath());
+                if (page == null) {
+                    response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+                    response.getOutputStream().print("You are not authorized to access this resource");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return super.preHandle(request, response, handler);
     }
 
     private Page checkRolePages(List<Page> lst, String url) {

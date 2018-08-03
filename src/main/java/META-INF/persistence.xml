@@ -4,6 +4,8 @@
     <persistence-unit name="NewPersistenceUnit">
         <class>com.viettelpost.model.Partner</class>
         <class>com.viettelpost.model.Users</class>
+        <class>com.viettelpost.model.Port</class>
+        <class>com.viettelpost.model.RouteDetail</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@192.168.0.130:1521:db12c"/>
             <property name="toplink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>

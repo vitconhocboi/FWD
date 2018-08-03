@@ -7,11 +7,16 @@ package com.viettelpost.helper;
 
 import com.viettelpost.controller.json.ResponseJson;
 import com.viettelpost.model.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author PhongNguyen
@@ -61,5 +66,27 @@ public class AppHelper {
         item.setSuccess(success);
 
         return new ResponseEntity<>(item, httpStatus);
+    }
+
+    public static ResponseJson callRestTemplate(String uri, Object body, HttpMethod httpMethod, Map<String, Object> params) {
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri);
+        if (params != null) {
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
+                builder.queryParam(entry.getKey(), String.valueOf(entry.getValue()));
+            }
+        }
+        uri = builder.build().encode().toString();
+        List<HttpMessageConverter<?>> converters = new ArrayList<>();
+        converters.add(new MappingJackson2HttpMessageConverter());
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.setMessageConverters(converters);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Object> entity = new HttpEntity<>(body, headers);
+        ResponseEntity<ResponseJson> response = restTemplate.exchange(uri, httpMethod, entity, ResponseJson.class);
+
+        ResponseJson responseJson = response.getBody();
+        return response.getBody();
     }
 }

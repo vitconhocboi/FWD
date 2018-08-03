@@ -1,8 +1,8 @@
 $(document).ready(function () {
     function ViewModel() {
         self = this;
-        self.partner = new function () {
-            this.partnerName = new function () {
+        self.port = new function () {
+            this.portName = new function () {
                 var that = this;
                 this.VALUE_VIEW = ko.observable();
                 this.VALUE = function () {
@@ -10,7 +10,7 @@ $(document).ready(function () {
                 };
                 this.OPERATOR = "LIKE";
             };
-            this.address = new function () {
+            this.portCode = new function () {
                 var that = this;
                 this.VALUE_VIEW = ko.observable();
                 this.VALUE = function () {
@@ -18,7 +18,7 @@ $(document).ready(function () {
                 };
                 this.OPERATOR = "LIKE";
             };
-            this.taxCode = new function () {
+            this.area = new function () {
                 var that = this;
                 this.VALUE_VIEW = ko.observable();
                 this.VALUE = function () {
@@ -26,7 +26,7 @@ $(document).ready(function () {
                 };
                 this.OPERATOR = "LIKE";
             };
-            this.contactStaff = new function () {
+            this.country = new function () {
                 var that = this;
                 this.VALUE_VIEW = ko.observable();
                 this.VALUE = function () {
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 };
                 this.OPERATOR = "LIKE";
             };
-            this.businessType = new function () {
+            this.location = new function () {
                 var that = this;
                 this.VALUE_VIEW = ko.observable();
                 this.VALUE = function () {
@@ -42,18 +42,8 @@ $(document).ready(function () {
                 };
                 this.OPERATOR = "LIKE";
             };
-            this.journey = new function () {
-                var that = this;
-                this.VALUE_VIEW = ko.observable();
-                this.VALUE = function () {
-                    return that.VALUE_VIEW() ? '%' + that.VALUE_VIEW() + '%' : undefined;
-                };
-                this.OPERATOR = "LIKE";
-            };
-            this.userCs = ko.observable();
-            this.status = ko.observable();
         }
-        self.listPartner = ko.observableArray();
+        self.listPort = ko.observableArray();
         self.pagingVM = new PagingVM({pageSize: 5, totalCount: 0});
 
         self.search = function () {
@@ -62,17 +52,17 @@ $(document).ready(function () {
         }
 
         self.searchPaging = function (showMsg) {
-            console.log(app.convertFormObservableJson(self.partner));
-            self.listPartner.removeAll();
-            self.partner.currentPage = self.pagingVM.currentPage();
-            self.partner.pageSize = self.pagingVM.pageSize();
+            console.log(app.convertFormObservableJson(self.port));
+            self.listPort.removeAll();
+            self.port.currentPage = self.pagingVM.currentPage();
+            self.port.pageSize = self.pagingVM.pageSize();
             app.makePost({
-                url: '/manage/partner/searchPaging',
-                data: JSON.stringify(app.convertFormObservableJson(self.partner)),
+                url: '/manage/port/searchPaging',
+                data: JSON.stringify(app.convertFormObservableJson(self.port)),
                 success: function (data) {
                     if (data.success) {
-                        for (const user of data.data) {
-                            self.listPartner.push(app.convertObjectToObservable(user, new Partner()));
+                        for (const port of data.data) {
+                            self.listPort.push(app.convertObjectToObservable(port, new Port()));
                             self.pagingVM.totalCount(data.total);
                         }
                         if (showMsg) {
@@ -125,14 +115,14 @@ $(document).ready(function () {
         };
 
         self.edit = function (item) {
-            location.href = app.appContext + '/manage/partner/edit/' + item.partnerId();
+            location.href = app.appContext + '/manage/port/edit/' + item.portId();
         }
 
         self.delete = function (item) {
-            if (item && item.partnerId()) {
+            if (item && item.portId()) {
                 pop = app.popup({
                     title: "Thông báo",
-                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa khách hàng <b>' + item.partnerName() + '</b>',
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa cảng vận tải <b>' + item.portName() + '</b>',
                     width: 400,
                     buttons: [
                         {
@@ -141,11 +131,11 @@ $(document).ready(function () {
                             icon: 'fa-check',
                             action: function () {
                                 app.makePost({
-                                    url: '/manage/partner/delete',
-                                    data: JSON.stringify(item.partnerId()),
+                                    url: '/manage/port/delete',
+                                    data: JSON.stringify(item.portId()),
                                     success: function (data) {
                                         if (data.success) {
-                                            toastr.success("Xóa khách hàng thành công", "Thông báo");
+                                            toastr.success("Xóa cảng vận tải thành công", "Thông báo");
                                             self.search();
                                         } else {
                                             toastr.error("Có lỗi xảy ra", "ERR");
@@ -161,12 +151,12 @@ $(document).ready(function () {
                     ]
                 });
             } else {
-                toastr.error("Bạn chưa chọn khách hàng để xóa", "ERR");
+                toastr.error("Bạn chưa chọn cảng vận tải để xóa", "ERR");
             }
         }
 
         self.addnew = function () {
-            location.href = app.appContext + '/manage/partner/new';
+            location.href = app.appContext + '/manage/port/new';
         }
 
         self.search();

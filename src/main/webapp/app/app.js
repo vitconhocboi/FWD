@@ -378,7 +378,7 @@ APP.prototype = {
             action = button.action;
             css = typeof button.class === 'string' ? button.class : 'btn';
             icon = typeof button.icon === 'string' ? button.icon : 'fa-check';
-            footer.append($('<a id="button_' + id + '" href="javascript:void(0)" class="' + css + '"><i class="fa fa-lg ' + icon + '"></i> ' + button.name + '</a>'));
+            footer.append($('<a id="button_' + id + '" href="javascript:void(0)" class="' + css + ' "><i class="fa fa-lg ' + icon + '"></i> ' + button.name + '</a>'));
             $('#button_' + id).on('click', click(i));
         }
 
