@@ -35,13 +35,13 @@ public class PortController extends BaseController<Port> {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newPort(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+    public String newEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
                           Locale locale, ModelMap model) {
         return "viettelpost.page.manager.port.addedit";
     }
 
     @RequestMapping(value = {"/edit/{portId}"}, method = RequestMethod.GET)
-    public String editPort(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+    public String editEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
                            Locale locale, ModelMap model, @PathVariable("portId") Long portId) {
         model.addAttribute("portId", portId);
         return "viettelpost.page.manager.port.addedit";

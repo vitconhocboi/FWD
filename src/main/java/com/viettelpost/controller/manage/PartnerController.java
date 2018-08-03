@@ -34,13 +34,13 @@ public class PartnerController extends BaseController<Partner> {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newPartner(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                             Locale locale, ModelMap model) {
+    public String newEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                            Locale locale, ModelMap model) {
         return "viettelpost.page.manager.partner.addedit";
     }
 
     @RequestMapping(value = {"/edit/{partnerId}"}, method = RequestMethod.GET)
-    public String newPartner(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+    public String editEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
                              Locale locale, ModelMap model, @PathVariable("partnerId") Long partnerId) {
         model.addAttribute("partnerId", partnerId);
         return "viettelpost.page.manager.partner.addedit";

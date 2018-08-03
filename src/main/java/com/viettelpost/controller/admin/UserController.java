@@ -46,14 +46,14 @@ public class UserController extends BaseController<User> {
 
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                          Locale locale, ModelMap model) {
+    public String newEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                            Locale locale, ModelMap model) {
         return "viettelpost.page.admin.newuser";
     }
 
     @RequestMapping(value = {"/edit/{userId}"}, method = RequestMethod.GET)
-    public String editUser(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                           Locale locale, ModelMap model, @PathVariable("userId") Long userId) {
+    public String editEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                             Locale locale, ModelMap model, @PathVariable("userId") Long userId) {
         model.addAttribute("userId", userId);
         return "viettelpost.page.admin.newuser";
     }

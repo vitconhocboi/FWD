@@ -107,4 +107,14 @@
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/manage/route/addedit.route.jsp"/>
     </definition>
+
+    <!--quan ly dich vu-->
+    <definition name="viettelpost.page.manager.service" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/service/index.service.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.manager.service.addedit" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/service/addedit.service.jsp"/>
+    </definition>
 </tiles-definitions>

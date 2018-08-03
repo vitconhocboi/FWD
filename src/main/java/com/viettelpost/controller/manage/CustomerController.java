@@ -43,14 +43,14 @@ public class CustomerController extends BaseController<Customer> {
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
-    public String newCustomer(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                              Locale locale, ModelMap model) {
+    public String newEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                            Locale locale, ModelMap model) {
         return "viettelpost.page.manager.customer.addedit";
     }
 
     @RequestMapping(value = {"/edit/{customerId}"}, method = RequestMethod.GET)
-    public String newCustomer(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                              Locale locale, ModelMap model, @PathVariable("customerId") Long customerId) {
+    public String editEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                             Locale locale, ModelMap model, @PathVariable("customerId") Long customerId) {
         model.addAttribute("customerId", customerId);
         return "viettelpost.page.manager.customer.addedit";
     }

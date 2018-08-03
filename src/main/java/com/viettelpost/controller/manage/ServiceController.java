@@ -1,9 +1,9 @@
 package com.viettelpost.controller.manage;
 
 import com.viettelpost.controller.BaseController;
-import com.viettelpost.model.RouteDetail;
+import com.viettelpost.model.Service;
 import com.viettelpost.service.BaseCustomService;
-import com.viettelpost.service.RouteDetailService;
+import com.viettelpost.service.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,33 +16,35 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Locale;
 
-@RequestMapping(value = "/manage/route")
 @Controller
-public class RouteDetailController extends BaseController<RouteDetail> {
+@RequestMapping(value = "/manage/service")
+public class ServiceController extends BaseController<Service> {
     @Autowired
-    RouteDetailService routeDetailService;
+    ServiceService serviceService;
 
     @Override
-    protected BaseCustomService<RouteDetail> getSevice() {
-        return routeDetailService;
+    protected BaseCustomService<Service> getSevice() {
+        return serviceService;
     }
+
 
     @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
                         Locale locale, ModelMap model) {
-        return "viettelpost.page.manager.route";
+        return "viettelpost.page.manager.service";
     }
 
     @RequestMapping(value = {"/new"}, method = RequestMethod.GET)
     public String newEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                          Locale locale, ModelMap model) {
-        return "viettelpost.page.manager.route.addedit";
+                            Locale locale, ModelMap model) {
+        return "viettelpost.page.manager.service.addedit";
     }
 
-    @RequestMapping(value = {"/edit/{routeId}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/edit/{serviceId}"}, method = RequestMethod.GET)
     public String editEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                           Locale locale, ModelMap model, @PathVariable("routeId") Long routeId) {
-        model.addAttribute("routeId", routeId);
-        return "viettelpost.page.manager.route.addedit";
+                             Locale locale, ModelMap model, @PathVariable("serviceId") Long serviceId) {
+        model.addAttribute("serviceId", serviceId);
+        return "viettelpost.page.manager.service.addedit";
     }
+
 }

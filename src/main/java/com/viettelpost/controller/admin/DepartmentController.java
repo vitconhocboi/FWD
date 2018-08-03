@@ -52,15 +52,15 @@ public class DepartmentController extends BaseController<Department> {
     }
 
     @RequestMapping(value = {"/edit/{id}", ""}, method = RequestMethod.GET)
-    public String editDepartment(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                                 Locale locale, ModelMap model, @PathVariable("id") Long id) {
+    public String editEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                             Locale locale, ModelMap model, @PathVariable("id") Long id) {
         model.addAttribute("departmentId", id);
         return "viettelpost.page.admin.department.edit";
     }
 
     @RequestMapping(value = {"/new/{parentId}", ""}, method = RequestMethod.GET)
-    public String newDepartment(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
-                                Locale locale, ModelMap model, @PathVariable("parentId") Long parentId) {
+    public String newEntity(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
+                            Locale locale, ModelMap model, @PathVariable("parentId") Long parentId) {
         model.addAttribute("parentId", parentId);
         return "viettelpost.page.admin.department.edit";
     }
