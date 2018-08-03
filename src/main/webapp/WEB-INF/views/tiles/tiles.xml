@@ -87,6 +87,7 @@
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/manage/partner/addedit.partner.jsp"/>
     </definition>
+
     <!--quan ly cang-->
     <definition name="viettelpost.page.manager.port" extends="base-definition">
         <put-attribute name="title" value="Viettel logistic"/>
@@ -95,5 +96,15 @@
     <definition name="viettelpost.page.manager.port.addedit" extends="base-definition">
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/manage/port/addedit.port.jsp"/>
+    </definition>
+
+    <!--quan ly tuyen van tai-->
+    <definition name="viettelpost.page.manager.route" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/route/index.route.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.manager.route.addedit" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/route/addedit.route.jsp"/>
     </definition>
 </tiles-definitions>

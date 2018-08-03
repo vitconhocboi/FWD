@@ -3,11 +3,12 @@ package com.viettelpost.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User implements Serializable {
     @Id
     @GenericGenerator(
             name = "SequenceGenerator",

@@ -26,7 +26,10 @@ import java.util.List;
 public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
     protected static final Logger LOGGER = LoggerFactory.getLogger(CustomHandlerInterceptor.class);
 
-    private List<String> urlByPass = Arrays.asList("/", "", "/noaccess", "/updateUserInfo", "/saveUserInfo");
+    private List<String> urlByPass = Arrays.asList("/", "", "/noaccess",
+            "/updateUserInfo", "/saveUserInfo",
+            "/swagger-resources/configuration/ui",
+            "/swagger-resources", "/v2/api-docs");
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -73,7 +76,7 @@ public class CustomHandlerInterceptor extends HandlerInterceptorAdapter {
                 }
             }
         } catch (Exception e) {
-            LOGGER.error(e.getMessage(), e);
+            return false;
         }
         return super.preHandle(request, response, handler);
     }

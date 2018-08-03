@@ -43,8 +43,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     CustomAuthenticationProvider customAuthenticationProvider;
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
@@ -61,9 +61,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login/**", "/static/**", "/app/**").permitAll()
                 .antMatchers("/")
                 .access("hasRole('USER')")
-                .anyRequest().authenticated()
-//                .and()
-//                .httpBasic().authenticationEntryPoint(getBasicAuthEntryPoint())
+                .and()
+                .authorizeRequests().anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage(AppConstant.ControllerURI.LOGIN)
@@ -87,19 +86,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers().xssProtection()
                 .and().frameOptions().disable();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new LegacyEncoder();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return authenticationProvider;
     }
 
     @Bean

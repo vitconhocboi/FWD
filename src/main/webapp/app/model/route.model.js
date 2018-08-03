@@ -1,0 +1,19 @@
+var RouteDetail = function () {
+    this.routeId = ko.observable();
+    this.type = ko.observable();
+    this.portOfDepartureId = ko.observable();
+    this.portOfDestinationId = ko.observable();
+    this.transitTime = ko.observable();
+    this.condition = ko.observable();
+    this.preisCharge = ko.observable();
+    this.localCharge = ko.observable();
+    this.currency = ko.observable();
+    this.valid = ko.observable();
+    this.partnerId = ko.observable();
+    this.contactPerson = ko.observable();
+    this.phone = ko.observable();
+    this.email = ko.observable();
+    this.schedule = ko.observable();
+    this.note = ko.observable();
+    this.objectTypeDate = ['valid'];
+}

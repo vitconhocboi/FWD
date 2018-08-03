@@ -13,54 +13,76 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <span class="caption-subject bold uppercase">Tìm kiếm cảng vận tải</span>
+                                    <span class="caption-subject bold uppercase">Tìm kiếm tuyến vận tải</span>
                                 </div>
                                 <div class="panel-body">
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Tên cảng vận tải
+                                                    Cảng đi
                                                 </label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:port.portName.VALUE_VIEW">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="options: $root.listPort,
+                                                            optionsText: 'portName',
+                                                            optionsValue: 'portId',
+                                                            valueAllowUnset: true,
+                                                            value: route.portOfDepartureId,
+                                                            optionsCaption: '--Chọn cảng đi--'">
+                                                    </select>
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    Mã cảng vận tải
+                                                    Cảng đến
                                                 </label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:port.portCode.VALUE_VIEW">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label class="col-sm-2">
-                                                    Khu vực
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:port.area.VALUE_VIEW">
-                                                </div>
-                                                <label class="col-sm-2">
-                                                    Quốc gia
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:port.country.VALUE_VIEW">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="options: $root.listPort,
+                                                            optionsText: 'portName',
+                                                            optionsValue: 'portId',
+                                                            valueAllowUnset: true,
+                                                            value: route.portOfDestinationId,
+                                                            optionsCaption: '--Chọn cảng đến--'">
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Địa điểm
+                                                    Đối tác
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="options: $root.listPartner,
+                                                            optionsText: 'partnerName',
+                                                            optionsValue: 'partnerId',
+                                                            valueAllowUnset: true,
+                                                            value: route.partnerId,
+                                                            optionsCaption: '--Chọn đối tác--'">
+                                                    </select>
+                                                </div>
+                                                <label class="col-sm-2">
+                                                    Loại tuyến vận tải
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="value: route.type">
+                                                        <option value="">--Chọn loại tuyến vận tải--</option>
+                                                        <option value="0">Vận tải hàng hải</option>
+                                                        <option value="1">Vận tải hàng không</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-2">
+                                                    Giá cước tối đa
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:port.location.VALUE_VIEW">
+                                                           data-bind="value:route.preisCharge.VALUE_VIEW">
                                                 </div>
                                             </div>
                                         </div>
@@ -85,7 +107,7 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <span class="caption-subject bold uppercase">Danh sách cảng vận tải</span>
+                                    <span class="caption-subject bold uppercase">Danh sách tuyến vận tải</span>
                                 </div>
                                 <div class="panel-body">
                                     <table class="table table-striped table-bordered table-hover table-checkable order-column"
@@ -93,25 +115,43 @@
                                         <thead>
                                         <tr class="nsw-tr tr-nsw1-bgcolor">
                                             <th class="text-center">STT</th>
-                                            <th class="text-center">Tên cảng vận tải</th>
-                                            <th class="text-center">Mã cảng vận tải</th>
-                                            <th class="text-center">Khu vực</th>
-                                            <th class="text-center">Quốc gia</th>
-                                            <th class="text-center">Địa điểm</th>
+                                            <th class="text-center">Tên cảng đi</th>
+                                            <th class="text-center">Tên cảng đến</th>
+                                            <th class="text-center">Loại hình vận tải</th>
+                                            <th class="text-center">Tên đối tác</th>
+                                            <th class="text-center">Thời gian vận chuyển</th>
+                                            <th class="text-center">Điều kiện hàng hóa</th>
+                                            <th class="text-center">Giá cước</th>
+                                            <th class="text-center">Phụ phí</th>
+                                            <th class="text-center">Loại tiền tệ</th>
+                                            <th class="text-center">Ngày hiệu lực</th>
+                                            <th class="text-center">Lịch đi hàng tuần</th>
+                                            <th class="text-center">Ghi chú</th>
                                             <th class="text-center">Sửa</th>
                                             <th class="text-center">Xóa</th>
                                         </tr>
                                         </thead>
                                         <tbody id="list-container"
-                                               data-bind="foreach: { data: $root.listPort, as: 'item'}">
+                                               data-bind="foreach: { data: $root.listRoute, as: 'item'}">
                                         <tr>
                                             <td class="text-center"
                                                 data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
-                                            <td class="text-center" data-bind="text: item.portName"></td>
-                                            <td class="text-center" data-bind="text: item.portCode"></td>
-                                            <td class="text-center" data-bind="text: item.area"></td>
-                                            <td class="text-center" data-bind="text: item.country"></td>
-                                            <td class="text-center" data-bind="text: item.location"></td>
+                                            <td class="text-center"
+                                                data-bind="text: $root.getPortName(item.portOfDepartureId())"></td>
+                                            <td class="text-center"
+                                                data-bind="text: $root.getPortName(item.portOfDestinationId())"></td>
+                                            <td class="text-center" data-bind="text: item.type"></td>
+                                            <td class="text-center"
+                                                data-bind="text: $root.getPartnerName(item.partnerId())"></td>
+                                            <td class="text-center" data-bind="text: item.transitTime"></td>
+                                            <td class="text-center" data-bind="text: item.condition"></td>
+                                            <td class="text-center" data-bind="text: item.preisCharge"></td>
+                                            <td class="text-center" data-bind="text: item.localCharge"></td>
+                                            <td class="text-center" data-bind="text: item.currency"></td>
+                                            <td class="text-center"
+                                                data-bind="text: item.valid()?moment(item.valid()).format('DD/MM/YYYY'):''"></td>
+                                            <td class="text-center" data-bind="text: item.schedule"></td>
+                                            <td class="text-center" data-bind="text: item.note"></td>
                                             <td class="text-center">
                                                 <a href="javascript:;"
                                                    data-bind="click: $root.edit">
@@ -169,7 +209,11 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<c:url value="/app/manage/port/index.port.module.js"/>"
+<script type="text/javascript" src="<c:url value="/app/manage/route/index.route.module.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/route.model.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/port.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/partner.model.js"/>"
         charset="utf-8"></script>

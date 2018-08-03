@@ -62,7 +62,9 @@ $(document).ready(function () {
                                 success: function (data) {
                                     if (data.success) {
                                         toastr.success("Lưu khách hàng thành công", "Thông báo");
-                                        location.href = app.appContext + '/manage/customer/';
+                                        setTimeout(function () {
+                                            location.href = app.appContext + '/manage/customer/';
+                                        }, 1000);
                                     } else {
                                         toastr.error("Có lỗi xảy ra", "ERR");
                                     }

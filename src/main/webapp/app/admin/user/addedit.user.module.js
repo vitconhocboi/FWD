@@ -62,7 +62,9 @@ $(document).ready(function () {
                                 success: function (data) {
                                     if (data.success) {
                                         toastr.success("Lưu người dùng thành công", "Thông báo");
-                                        location.href = app.appContext + '/admin/user/';
+                                        setTimeout(function () {
+                                            location.href = app.appContext + '/admin/user/';
+                                        }, 1000);
                                     } else {
                                         toastr.error("Có lỗi xảy ra", "ERR");
                                     }

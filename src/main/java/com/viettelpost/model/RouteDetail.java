@@ -1,20 +1,27 @@
 package com.viettelpost.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "ROUTE_DETAIL")
 public class RouteDetail {
     @Id
+    @GenericGenerator(
+            name = "SequenceGenerator",
+            strategy = "com.viettelpost.util.SequenceGeneratorIfNotExists",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "route_detail_seq"),
+            }
+    )
+    @GeneratedValue(generator = "SequenceGenerator")
     @Column(name = "ROUTE_ID")
     private Long routeId;
 
     @Column(name = "TYPE")
-    private Long type;
+    private String type;
 
     @Column(name = "PORT_OF_DEPARTURE_ID")
     private Long portOfDepartureId;
@@ -66,11 +73,11 @@ public class RouteDetail {
         this.routeId = routeId;
     }
 
-    public Long getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Long type) {
+    public void setType(String type) {
         this.type = type;
     }
 

@@ -64,7 +64,9 @@ $(document).ready(function () {
                                 success: function (data) {
                                     if (data.success) {
                                         toastr.success("Lưu phòng ban thành công", "Thông báo");
-                                        location.href = app.appContext + '/admin/department/';
+                                        setTimeout(function () {
+                                            location.href = app.appContext + '/admin/department/';
+                                        }, 1000);
                                     } else {
                                         toastr.error("Có lỗi xảy ra", "ERR");
                                     }

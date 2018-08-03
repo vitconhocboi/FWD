@@ -11,7 +11,6 @@ $(document).ready(function () {
                 url: '/manage/port/getById/' + portId,
                 success: function (data) {
                     if (data.success) {
-                        debugger
                         app.convertObjectToObservable(data.data, self.port);
                     } else {
                         toastr.error("Có lỗi xảy ra", "ERR");
@@ -46,8 +45,10 @@ $(document).ready(function () {
                                 data: JSON.stringify(app.convertFormObservableJson(self.port)),
                                 success: function (data) {
                                     if (data.success) {
-                                        toastr.success("Lưu đối tác thành công", "Thông báo");
-                                        location.href = app.appContext + '/manage/port/';
+                                        toastr.success("Lưu cảng vận tải thành công", "Thông báo");
+                                        setTimeout(function () {
+                                            location.href = app.appContext + '/manage/port/';
+                                        }, 1000);
                                     } else {
                                         toastr.error("Có lỗi xảy ra", "ERR");
                                     }
