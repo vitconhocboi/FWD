@@ -368,6 +368,7 @@ APP.prototype = {
             return function (e) {
                 e.preventDefault();
                 buttons[i].action();
+                popup.modal('hide');
                 return false;
             };
         };

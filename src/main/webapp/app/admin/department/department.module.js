@@ -112,7 +112,6 @@ $(document).ready(function () {
                                             toastr.error("Có lỗi xảy ra", "ERR");
                                         }
                                     });
-                                    pop.modal('hide');
                                 }
                             }
                         ]
