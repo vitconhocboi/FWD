@@ -137,10 +137,10 @@
                                         </div>
                                         <div class="form-group nsw-text-center">
                                             <a href="javascript:;" class="btn green"
-                                               data-bind="click: $root.search"><i class="fa fa-plus"></i>
+                                               data-bind="click: $root.search"><i class="fa fa-search"></i>
                                                 Tìm kiếm</a>
                                             <a href="javascript:;" class="btn green"
-                                               data-bind="click: $root.addnewcustomer"><i class="fa fa-edit"></i>
+                                               data-bind="click: $root.addnewcustomer"><i class="fa fa-plus"></i>
                                                 Thêm mới</a>
                                         </div>
                                     </form>

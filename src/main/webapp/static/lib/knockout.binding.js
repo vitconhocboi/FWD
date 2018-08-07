@@ -59,10 +59,10 @@ ko.bindingHandlers.autoComplete = {
 ko.bindingHandlers.safeText = {
     update: function (element, valueAccessor, allBindingsAccessor) {
         var options = ko.utils.unwrapObservable(valueAccessor()),
-                value = ko.utils.unwrapObservable(options.value),
-                property = ko.utils.unwrapObservable(options.property),
-                fallback = ko.utils.unwrapObservable(options.default) || "",
-                text;
+            value = ko.utils.unwrapObservable(options.value),
+            property = ko.utils.unwrapObservable(options.property),
+            fallback = ko.utils.unwrapObservable(options.default) || "",
+            text;
 
         text = value ? (options.property ? value[property] : value) : fallback;
         ko.bindingHandlers.text.update(element, function () {
@@ -110,98 +110,86 @@ ko.bindingHandlers.datepicker = {
     }
 };
 
-Date.prototype.toShortDateString = function ()
-{
+
+Date.prototype.toShortDateString = function () {
     return (this.getDate() > 9 ? this.getDate() : "0" + this.getDate())
-            + "/"
-            + ((this.getMonth() + 1) > 9 ? (this.getMonth() + 1) : "0" + (this.getMonth() + 1))
-            + "/"
-            + this.getFullYear();
+        + "/"
+        + ((this.getMonth() + 1) > 9 ? (this.getMonth() + 1) : "0" + (this.getMonth() + 1))
+        + "/"
+        + this.getFullYear();
 };
 
 ko.bindingHandlers.dateDate =
-        {
-            update: function (element, valueAccessor, allBindingsAccessor)
-            {
-                return ko.bindingHandlers.text.update(element, function ()
-                {
-                    var value = ko.utils.unwrapObservable(valueAccessor());
-                    if (value == null)
-                    {
-                        return null;
-                    }
+    {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            return ko.bindingHandlers.text.update(element, function () {
+                var value = ko.utils.unwrapObservable(valueAccessor());
+                if (value == null) {
+                    return null;
+                }
 //            console.log("value -> ", value);
-                    //if (typeof value === "string")
-                    //{
-                    value = new Date(value);
-                    //}
-                    return value.getDate();
-                }, allBindingsAccessor, null, null);
-            }
-        };
+                //if (typeof value === "string")
+                //{
+                value = new Date(value);
+                //}
+                return value.getDate();
+            }, allBindingsAccessor, null, null);
+        }
+    };
 
 ko.bindingHandlers.dateMonth =
-        {
-            update: function (element, valueAccessor, allBindingsAccessor)
-            {
-                return ko.bindingHandlers.text.update(element, function ()
-                {
-                    var value = ko.utils.unwrapObservable(valueAccessor());
-                    if (value == null)
-                    {
-                        return null;
-                    }
+    {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            return ko.bindingHandlers.text.update(element, function () {
+                var value = ko.utils.unwrapObservable(valueAccessor());
+                if (value == null) {
+                    return null;
+                }
 //            console.log("value -> ", value);
-                    //if (typeof value === "string")
-                    //{
-                    value = new Date(value);
-                    //}
-                    return 1 + value.getMonth();
-                }, allBindingsAccessor, null, null);
-            }
-        };
+                //if (typeof value === "string")
+                //{
+                value = new Date(value);
+                //}
+                return 1 + value.getMonth();
+            }, allBindingsAccessor, null, null);
+        }
+    };
 
 ko.bindingHandlers.dateYear =
-        {
-            update: function (element, valueAccessor, allBindingsAccessor)
-            {
-                return ko.bindingHandlers.text.update(element, function ()
-                {
-                    var value = ko.utils.unwrapObservable(valueAccessor());
-                    if (value == null)
-                    {
-                        return null;
-                    }
+    {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            return ko.bindingHandlers.text.update(element, function () {
+                var value = ko.utils.unwrapObservable(valueAccessor());
+                if (value == null) {
+                    return null;
+                }
 //            console.log("value -> ", value);
-                    //if (typeof value === "string")
-                    //{
-                    value = new Date(value);
-                    //}
-                    return 1900 + value.getYear();
-                }, allBindingsAccessor, null, null);
-            }
-        };
+                //if (typeof value === "string")
+                //{
+                value = new Date(value);
+                //}
+                return 1900 + value.getYear();
+            }, allBindingsAccessor, null, null);
+        }
+    };
 
 ko.bindingHandlers.date =
-        {
-            update: function (element, valueAccessor, allBindingsAccessor)
-            {
-                return ko.bindingHandlers.text.update(element, function ()
-                {
-                    var value = ko.utils.unwrapObservable(valueAccessor());
-                    if (value == null)
-                    {
-                        return null;
-                    }
+    {
+        update: function (element, valueAccessor, allBindingsAccessor) {
+            return ko.bindingHandlers.text.update(element, function () {
+                var value = ko.utils.unwrapObservable(valueAccessor());
+                if (value == null) {
+                    return null;
+                }
 //            console.log("value -> ", value);
-                    //if (typeof value === "string")
-                    //{
-                    value = new Date(value);
-                    //}
-                    return value.toShortDateString();
-                }, allBindingsAccessor, null, null);
-            }
-        };
+                //if (typeof value === "string")
+                //{
+                value = new Date(value);
+                //}
+                return value.toShortDateString();
+            }, allBindingsAccessor, null, null);
+        }
+    };
 
 ko.bindingHandlers.datalist = (function () {
     function getVal(rawItem, prop) {
@@ -214,15 +202,16 @@ ko.bindingHandlers.datalist = (function () {
             return ref === getVal(item, prop);
         });
     }
+
     return {
         init: function (element, valueAccessor, allBindingsAccessor) {
             var setup = valueAccessor(),
-                    textProperty = ko.unwrap(setup.optionsText),
-                    valueProperty = ko.unwrap(setup.optionsValue),
-                    dataItems = ko.unwrap(setup.options),
-                    myValue = setup.value,
-                    koValue = allBindingsAccessor().value,
-                    datalist = document.createElement("DATALIST");
+                textProperty = ko.unwrap(setup.optionsText),
+                valueProperty = ko.unwrap(setup.optionsValue),
+                dataItems = ko.unwrap(setup.options),
+                myValue = setup.value,
+                koValue = allBindingsAccessor().value,
+                datalist = document.createElement("DATALIST");
 
             // create an associated <datalist> element
             datalist.id = element.getAttribute("list");
@@ -231,8 +220,8 @@ ko.bindingHandlers.datalist = (function () {
             // when the value is changed, write to the associated myValue observable
             function onNewValue(newVal) {
                 var dataItems = ko.unwrap(setup.options),
-                        selectedItem = findItem(dataItems, textProperty, newVal),
-                        newValue = selectedItem ? getVal(selectedItem, valueProperty) : void 0;
+                    selectedItem = findItem(dataItems, textProperty, newVal),
+                    newValue = selectedItem ? getVal(selectedItem, valueProperty) : void 0;
 
                 if (ko.isWriteableObservable(myValue)) {
                     myValue(newValue);
@@ -259,9 +248,9 @@ ko.bindingHandlers.datalist = (function () {
         },
         update: function (element, valueAccessor) {
             var setup = valueAccessor(),
-                    datalist = element.list,
-                    dataItems = ko.unwrap(setup.options),
-                    textProperty = ko.unwrap(setup.optionsText);
+                datalist = element.list,
+                dataItems = ko.unwrap(setup.options),
+                textProperty = ko.unwrap(setup.optionsText);
 
             // rebuild list of options when an underlying observable changes
             datalist.innerHTML = "";
@@ -274,3 +263,123 @@ ko.bindingHandlers.datalist = (function () {
         }
     };
 })();
+
+ko.bindingHandlers.jqAuto = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        var options = valueAccessor() || {},
+            allBindings = allBindingsAccessor(),
+            unwrap = ko.utils.unwrapObservable,
+            modelValue = allBindings.jqAutoValue,
+            source = allBindings.jqAutoSource,
+            query = allBindings.jqAutoQuery,
+            valueProp = allBindings.jqAutoSourceValue,
+            inputValueProp = allBindings.jqAutoSourceInputValue || valueProp,
+            labelProp = allBindings.jqAutoSourceLabel || inputValueProp;
+
+        //function that is shared by both select and change event handlers
+        function writeValueToModel(valueToWrite) {
+            if (ko.isWriteableObservable(modelValue)) {
+                modelValue(valueToWrite);
+            } else {  //write to non-observable
+                if (allBindings['_ko_property_writers'] && allBindings['_ko_property_writers']['jqAutoValue'])
+                    allBindings['_ko_property_writers']['jqAutoValue'](valueToWrite);
+            }
+        }
+
+        //on a selection write the proper value to the model
+        options.select = function (event, ui) {
+            debugger
+            writeValueToModel(ui.item ? ui.item.actualValue : null);
+        };
+
+        //on a change, make sure that it is a valid value or clear out the model value
+        options.change = function (event, ui) {
+            var currentValue = $(element).val();
+            var matchingItem = ko.utils.arrayFirst(unwrap(source), function (item) {
+                return unwrap(inputValueProp ? item[inputValueProp] : item) === currentValue;
+            });
+
+            if (!matchingItem) {
+                writeValueToModel(null);
+            }
+        }
+
+        //hold the autocomplete current response
+        var currentResponse = null;
+
+        //handle the choices being updated in a DO, to decouple value updates from source (options) updates
+        var mappedSource = ko.dependentObservable({
+            read: function () {
+                mapped = ko.utils.arrayMap(unwrap(source), function (item) {
+                    var result = {};
+                    result.label = labelProp ? unwrap(item[labelProp]) : unwrap(item).toString();  //show in pop-up choices
+                    result.value = inputValueProp ? unwrap(item[inputValueProp]) : unwrap(item).toString();  //show in input box
+                    result.actualValue = valueProp ? unwrap(item[valueProp]) : item;  //store in model
+                    return result;
+                });
+                return mapped;
+            },
+            write: function (newValue) {
+                source(newValue);  //update the source observableArray, so our mapped value (above) is correct
+                if (currentResponse) {
+                    currentResponse(mappedSource());
+                }
+            },
+            disposeWhenNodeIsRemoved: element
+        });
+
+        if (query) {
+            options.source = function (request, response) {
+                currentResponse = response;
+                query.call(this, request.term, mappedSource);
+            }
+        } else {
+            //whenever the items that make up the source are updated, make sure that autocomplete knows it
+            mappedSource.subscribe(function (newValue) {
+                $(element).autocomplete("option", "source", newValue);
+            });
+
+            options.source = mappedSource();
+            options.create = function () {
+                $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                    debugger
+                    return $('<li>')
+                        .append('<a><b>' + item.label + '</b>' + item.value + '</a>')
+                        .appendTo(ul);
+                };
+            }
+        }
+
+
+        //initialize autocomplete
+        // $(element).autocomplete(options);
+        $(element).autocomplete(options, {
+            create: function () {
+                $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                    return $('<li>')
+                        .append('<a><b>' + item.value + '</b><br>' + item.label + '</a>')
+                        .appendTo(ul);
+                };
+            }
+        });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel) {
+        //update value based on a model change
+        var allBindings = allBindingsAccessor(),
+            unwrap = ko.utils.unwrapObservable,
+            modelValue = unwrap(allBindings.jqAutoValue) || '',
+            valueProp = allBindings.jqAutoSourceValue,
+            inputValueProp = allBindings.jqAutoSourceInputValue || valueProp;
+
+        //if we are writing a different property to the input than we are writing to the model, then locate the object
+        if (valueProp && inputValueProp !== valueProp) {
+            var source = unwrap(allBindings.jqAutoSource) || [];
+            var modelValue = ko.utils.arrayFirst(source, function (item) {
+                return unwrap(item[valueProp]) === modelValue;
+            }) || {};
+        }
+
+        //update the element with the value that should be shown in the input
+        $(element).val(modelValue && inputValueProp !== valueProp ? unwrap(modelValue[inputValueProp]) : modelValue.toString());
+    }
+};

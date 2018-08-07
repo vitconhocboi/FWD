@@ -20,132 +20,161 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Tên công ty
+                                                    Tên khách hàng
                                                     <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.customerName">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="options: $root.listCustomer,
+                                                            optionsText: 'customerName',
+                                                            optionsValue: 'customerId',
+                                                            valueAllowUnset: true,
+                                                            value: order.customerId,
+                                                            event:{ change: $root.selectCustomer},
+                                                            optionsCaption: '--Chọn khách hàng--'">
+                                                    </select>
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    Địa chỉ
-                                                    <span class="nsw-require-field">*</span>
+                                                    Thông tin xuất hóa đơn
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.address">
+                                                           data-bind="value:order.customerInvoiceName">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Số điện thoại
-                                                    <span class="nsw-require-field">*</span>
+                                                    Địa chỉ
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.phone">
+                                                           data-bind="value:order.address">
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Mã số thuế
-                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.taxCode">
+                                                           data-bind="value:order.taxCode" disabled>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Nhân viên liên hệ
-                                                    <span class="nsw-require-field">*</span>
+                                                    Người liên hệ
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.contactStaff">
+                                                           data-bind="value:order.contactPerson">
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    Số điện thoại nhân viên liên hệ
-                                                    <span class="nsw-require-field">*</span>
+                                                    Số điện thoại liên hệ
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.phoneContactStaff">
+                                                           data-bind="value:order.phoneContact">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Ngày thành lập
-                                                    <span class="nsw-require-field">*</span>
+                                                    Email thoại liên hệ
                                                 </label>
                                                 <div class="col-sm-4">
-                                                    <input name="establishmentDate" id="establishmentDate"
-                                                           class="form-control form-control-inline date-picker"
-                                                           data-date-format="dd/mm/yyyy" size="16" type="text"
-                                                           placeholder="dd/mm/yyyy"
-                                                           data-bind="datepicker: customer.establishmentDate"/>
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.emailContact">
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    Nhân viên sale
-                                                    <span class="nsw-require-field">*</span>
+                                                    Chức vụ
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.position">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-2">
+                                                    Mô tả hàng hóa
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.merchandise">
+                                                </div>
+                                                <label class="col-sm-2">
+                                                    Địa điểm giao hàng
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.deliveryAddress">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-2">
+                                                    Trọng lương/số khối/Số cont
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.quantity">
+                                                </div>
+                                                <label class="col-sm-2">
+                                                    Loại đơn vị
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.unit">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-2">
+                                                    Cảng đi
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
-                                                            data-bind="options: $root.listUser,
-                                                            optionsText: 'fullName',
-                                                            optionsValue: 'userId',
+                                                            data-bind="options: $root.listPort,
+                                                            optionsText: 'portName',
+                                                            optionsValue: 'portId',
                                                             valueAllowUnset: true,
-                                                            value: customer.userSaleId,
-                                                            optionsCaption: '--Chọn nhân viên sale--'">
+                                                            value: order.startPortId,
+                                                            event:{ change: $root.selectStartPort},
+                                                            optionsCaption: '--Chọn cảng đi--'">
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Trạng thái
-                                                    <span class="nsw-require-field">*</span>
+                                                    Cảng đến
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
-                                                            data-bind="value: customer.status">
-                                                        <option value="">--Chọn trạng thái--</option>
-                                                        <option value="1">Hoạt động</option>
-                                                        <option value="0">Không hoạt động</option>
+                                                            data-bind="options: $root.listPort,
+                                                            optionsText: 'portName',
+                                                            optionsValue: 'portId',
+                                                            valueAllowUnset: true,
+                                                            value: order.endPortId,
+                                                            event:{ change: $root.selectEndPort},
+                                                            optionsCaption: '--Chọn cảng đến--'">
                                                     </select>
-                                                </div>
-                                                <label class="col-sm-2">
-                                                    Loại hình kinh doanh
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.businessType">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Nhu cầu xuất nhập hàng hóa
+                                                    Ghi chú
                                                 </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.merchandize">
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control col-sm-12"
+                                                              data-bind="value:order.note">
+                                                    </textarea>
                                                 </div>
-                                                <label class="col-sm-2">
-                                                    Các tuyến đi chính
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:customer.journey">
-                                                </div>
-
                                             </div>
                                         </div>
                                         <div class="form-group nsw-text-center">
@@ -167,11 +196,13 @@
     </div>
 </div>
 <script>
-    var customerId = "${customerId}";
+    var orderId = "${orderId}";
 </script>
-<script type="text/javascript" src="<c:url value="/app/manage/customer/addedit.customer.module.js"/>"
+<script type="text/javascript" src="<c:url value="/app/orders/order_manage/addedit.order_manage.module.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/orders.model.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/customer.model.js"/>"
         charset="utf-8"></script>
-<script type="text/javascript" src="<c:url value="/app/model/user.model.js"/>"
+<script type="text/javascript" src="<c:url value="/app/model/port.model.js"/>"
         charset="utf-8"></script>

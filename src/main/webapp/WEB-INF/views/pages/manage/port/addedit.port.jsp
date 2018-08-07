@@ -83,10 +83,10 @@
                                         </div>
                                         <div class="form-group nsw-text-center">
                                             <a href="javascript:;" class="btn green"
-                                               data-bind="click: $root.save"><i class="fa fa-plus"></i>
+                                               data-bind="click: $root.save"><i class="fa fa-save"></i>
                                                 Lưu</a>
                                             <a href="javascript:;" class="btn green"
-                                               data-bind="click: $root.back"><i class="fa fa-edit"></i>
+                                               data-bind="click: $root.back"><i class="fa fa-backward"></i>
                                                 Trở lại</a>
                                         </div>
                                     </form>

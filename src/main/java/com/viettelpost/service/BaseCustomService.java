@@ -236,7 +236,7 @@ public class BaseCustomService<Tbo> {
         return genericType;
     }
 
-    protected User getCurrentUserModel() {
+    public User getCurrentUserModel() {
         return ((UserCustom) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
     }
 }

@@ -80,6 +80,9 @@
 
     <!-- BEGIN CORE PLUGINS -->
     <script src="<c:url value='/static/assets/global/plugins/jquery.min.js' />" type="text/javascript"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" type="text/css"
+          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
     <script src="<c:url value='/static/assets/global/plugins/bootstrap/js/bootstrap.min.js' />"
             type="text/javascript"></script>
     <script src="<c:url value='/static/assets/global/plugins/js.cookie.min.js' />"
@@ -117,19 +120,16 @@
     <script src="<c:url value='/static/lib/knockout.common.vm.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/sockjs-0.3.4.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/stomp.js' />" type="text/javascript"></script>
-    <script src="<c:url value='/app/knockout.common.vm.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/moment.min.js' />" type="text/javascript"></script>
 
     <script type="text/javascript">
         var context = '${pageContext.request.contextPath}';
     </script>
 
-    <script src="<c:url value='/app/constants.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/app/extension.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/app/all.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/app/util.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/app/app.js?v=${version}' />" type="text/javascript"></script>
-    <script src="<c:url value='/app/knockout.extenders.js?v=${version}' />" type="text/javascript"></script>
 </head>
 
 <body class="page-container-bg-solid">
@@ -141,7 +141,6 @@
         app = new APP();
         app.version = '${version}';
         app.init({context: context});
-        Util.context = context;
     });
 </script>
 <c:if test="${loggedinuser != null}">

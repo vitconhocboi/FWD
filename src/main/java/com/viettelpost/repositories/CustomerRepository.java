@@ -1,4 +1,4 @@
-package com.viettelpost.repository;
+package com.viettelpost.repositories;
 
 import com.viettelpost.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -13,54 +13,33 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <span class="caption-subject bold uppercase">Tìm kiếm user</span>
+                                    <span class="caption-subject bold uppercase">Tìm kiếm tuyến vận tải</span>
                                 </div>
                                 <div class="panel-body">
-                                    <form role="form" class="form-horizontal " name="searchForm01"
-                                          id="searchForm01">
+                                    <form class="form-horizontal">
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Tên người dùng
+                                                    Mã hóa đơn
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value : searchUser.fullName.VALUE_VIEW">
+                                                           style="text-transform: uppercase"
+                                                           data-bind="value:order.orderNo.VALUE_VIEW">
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    User đăng nhập
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:searchUser.userName.VALUE_VIEW">
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label class="col-sm-2">
-                                                    Phòng ban
+                                                    Tên khách hàng
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
-                                                            data-bind="options: $root.danhsachphongban,
-                                                            optionsText: 'deptName',
-                                                            optionsValue: 'id',
+                                                            data-bind="options: $root.listCustomer,
+                                                            optionsText: 'customerName',
+                                                            optionsValue: 'customerId',
                                                             valueAllowUnset: true,
-                                                            value: searchUser.deptId,
-                                                            optionsCaption: '--Chọn phòng ban--'">
-                                                    </select>
-                                                </div>
-                                                <label class="col-sm-2">
-                                                    Trạng thái
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <select class="form-control col-sm-12"
-                                                            data-bind="value: searchUser.active">
-                                                        <option value="">--Chọn trạng thái--</option>
-                                                        <option value="1">Hoạt động</option>
-                                                        <option value="0">Không hoạt động</option>
+                                                            value: order.customerId,
+                                                            event:{ change: $root.selectCustomer},
+                                                            optionsCaption: '--Chọn khách hàng--'">
                                                     </select>
                                                 </div>
                                             </div>
@@ -68,20 +47,19 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Email
+                                                    Mã số thuế
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value : searchUser.phone.VALUE_VIEW">
+                                                           data-bind="value:order.taxCode.VALUE_VIEW">
                                                 </div>
                                                 <label class="col-sm-2">
-                                                    Số điện thoại
+                                                    Người liên hệ
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:searchUser.email.VALUE_VIEW">
+                                                           data-bind="value:order.contactPerson.VALUE_VIEW">
                                                 </div>
-
                                             </div>
                                         </div>
                                         <div class="form-group nsw-text-center">
@@ -89,7 +67,7 @@
                                                data-bind="click: $root.search"><i class="fa fa-search"></i>
                                                 Tìm kiếm</a>
                                             <a href="javascript:;" class="btn green"
-                                               data-bind="click: $root.addnewuser"><i class="fa fa-plus"></i>
+                                               data-bind="click: $root.addnew"><i class="fa fa-plus"></i>
                                                 Thêm mới</a>
                                         </div>
                                     </form>
@@ -105,7 +83,7 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <span class="caption-subject bold uppercase">Danh sách người dùng</span>
+                                    <span class="caption-subject bold uppercase">Danh sách hóa đơn</span>
                                 </div>
                                 <div class="panel-body">
                                     <table class="table table-striped table-bordered table-hover table-checkable order-column"
@@ -113,37 +91,59 @@
                                         <thead>
                                         <tr class="nsw-tr tr-nsw1-bgcolor">
                                             <th class="text-center">STT</th>
-                                            <th class="text-center">Tên đầy đủ</th>
-                                            <th class="text-center">Tên đăng nhập</th>
-                                            <th class="text-center">Số điện thoại</th>
-                                            <th class="text-center">Email</th>
-                                            <th class="text-center">Phòng ban</th>
+                                            <th class="text-center">Lịch sử</th>
+                                            <th class="text-center">Mã hóa đơn</th>
+                                            <th class="text-center">Tên khách hàng</th>
+                                            <th class="text-center">Đươn vị thực hiện</th>
+                                            <th class="text-center">Cảng đi</th>
+                                            <th class="text-center">Cảng đến</th>
                                             <th class="text-center">Trạng thái</th>
+                                            <th class="text-center">Dự kiến ngày đi</th>
+                                            <th class="text-center">Đự kiến ngày đến</th>
+                                            <th class="text-center">Hàng hóa</th>
+                                            <th class="text-center">Trọng lượng/ Số khối/ Số cont</th>
+                                            <th class="text-center">Loại đơn vị</th>
+                                            <th class="text-center">Ghi chú</th>
                                             <th class="text-center">Sửa</th>
                                             <th class="text-center">Xóa</th>
                                         </tr>
                                         </thead>
                                         <tbody id="list-container"
-                                               data-bind="foreach: { data: $root.danhsachuser, as: 'item'}">
+                                               data-bind="foreach: { data: $root.listOrders, as: 'item'}">
                                         <tr>
                                             <td class="text-center"
                                                 data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
-                                            <td class="text-center" data-bind="text: item.fullName"></td>
-                                            <td class="text-center" data-bind="text: item.userName"></td>
-                                            <td class="text-center" data-bind="text: item.phone"></td>
-                                            <td class="text-center" data-bind="text: item.email"></td>
-                                            <td class="text-center" data-bind="text: item.deptId"></td>
-                                            <td class="text-center"
-                                                data-bind="text: item.active()==1?'Hoạt động':'Không hoạt động'"></td>
                                             <td class="text-center">
                                                 <a href="javascript:;"
-                                                   data-bind="click: $root.editUser">
+                                                   data-bind="click: $root.showHistory">
+                                                    <i class="fa fa-history"></i>
+                                                </a>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="javascript:;"
+                                                   data-bind="click: $root.viewDetail,text: item.orderNo">
+                                                </a>
+                                            </td>
+                                            <td class="text-center" data-bind="text: item.customerName"></td>
+                                            <td class="text-center" data-bind="text: item.deptName"></td>
+                                            <td class="text-center" data-bind="text: item.startPortName"></td>
+                                            <td class="text-center" data-bind="text: item.endPortName"></td>
+                                            <td class="text-center" data-bind="text: item.status"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center"></td>
+                                            <td class="text-center" data-bind="text: item.merchandise"></td>
+                                            <td class="text-center" data-bind="text: item.quantity"></td>
+                                            <td class="text-center" data-bind="text: item.unit"></td>
+                                            <td class="text-center" data-bind="text: item.note"></td>
+                                            <td class="text-center">
+                                                <a href="javascript:;"
+                                                   data-bind="click: $root.edit">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             </td>
                                             <td class="text-center">
                                                 <a href="javascript:;"
-                                                   data-bind="click: $root.deleteUser">
+                                                   data-bind="click: $root.delete">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </td>
@@ -192,9 +192,11 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<c:url value="/app/admin/user/user.module.js"/>"
+
+
+<script type="text/javascript" src="<c:url value="/app/orders/order_manage/index.order_manage.module.js"/>"
         charset="utf-8"></script>
-<script type="text/javascript" src="<c:url value="/app/model/department.model.js"/>"
+<script type="text/javascript" src="<c:url value="/app/model/orders.model.js"/>"
         charset="utf-8"></script>
-<script type="text/javascript" src="<c:url value="/app/model/user.model.js"/>"
+<script type="text/javascript" src="<c:url value="/app/model/customer.model.js"/>"
         charset="utf-8"></script>

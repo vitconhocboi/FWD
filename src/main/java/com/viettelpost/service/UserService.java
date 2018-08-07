@@ -1,7 +1,7 @@
 package com.viettelpost.service;
 
 import com.viettelpost.model.User;
-import com.viettelpost.repository.UserRepositpory;
+import com.viettelpost.repositories.UserRepositpory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
