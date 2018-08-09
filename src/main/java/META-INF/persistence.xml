@@ -8,6 +8,9 @@
         <class>com.viettelpost.model.RouteDetail</class>
         <class>com.viettelpost.model.Service</class>
         <class>com.viettelpost.model.Orders</class>
+        <class>com.viettelpost.model.PartnerService</class>
+        <class>com.viettelpost.model.Price</class>
+        <class>com.viettelpost.model.OrderDetail</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@192.168.1.19:1521:db12c"/>
             <property name="toplink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>

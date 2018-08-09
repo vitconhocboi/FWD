@@ -131,4 +131,12 @@
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/orders/order_manage/view.order_manage.jsp"/>
     </definition>
+    <definition name="viettelpost.page.orders.manage.price" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/orders/order_manage/price.order_manage.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.orders.manage.profit" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/orders/order_manage/profit.order_manage.jsp"/>
+    </definition>
 </tiles-definitions>

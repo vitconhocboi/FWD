@@ -8,6 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -238,5 +239,14 @@ public class BaseCustomService<Tbo> {
 
     public User getCurrentUserModel() {
         return ((UserCustom) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
+    }
+
+    public boolean checkRole(String role) {
+        for (GrantedAuthority grantedRole : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
+            if (role.equals(grantedRole.getAuthority())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

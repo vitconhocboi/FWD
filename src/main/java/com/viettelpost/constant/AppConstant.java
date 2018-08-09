@@ -17,11 +17,7 @@ public class AppConstant {
 
     public interface Common {
 
-        public static final String APPLET = "viettelpost.applet.path";
-        public static final String ISSIGN = "viettelpost.sign";
-        public static final String COMMONURL = "viettelpost.common.url";
         public static final String BREADCRUMB = "breadcrumbs";
-        public static final String FILESERVICES = "viettelpost.file.services.url";
     }
 
     public interface Breadcrumb {
@@ -36,13 +32,7 @@ public class AppConstant {
         public static final String yyyyMMddhhmmss = "yyyyMMddhhmmss";
     }
 
-    public interface API {
-
-        public static final String viettelpost_API_TOKHAI = "viettelpost.api.tokhai";
-        public static final String viettelpost_API_DSHQ = "viettelpost.api.danhsachhq";
-    }
-
-    public interface  Pages {
+    public interface Pages {
 
         public static final String HOME = "viettelpost.page.home";
         public static final String LOGIN = "viettelpost.page.login";
@@ -80,6 +70,14 @@ public class AppConstant {
         public static final String Show = " ";
         public static final String HideImportName = "hideImport";
         public static final String IsView = "IsView";
+    }
+
+
+    public interface ORDER_STATUS {
+        public static final String NEW = "0";
+        public static final String PRICE_CS = "1";
+        public static final String PRICE_OP = "2";
+        public static final String PROFIT = "3";
     }
 
     public static String redirectPage(String pageName) {

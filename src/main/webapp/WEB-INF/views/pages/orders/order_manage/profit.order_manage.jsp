@@ -547,7 +547,7 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitContract"/>
+                                                <input data-bind="value: $root.profitContract" style="width:100%">
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
@@ -564,7 +564,7 @@
                                             <td class=xl114 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.fund"/>
+                                                <input data-bind="value: $root.fund" style="width:100%"/>
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
@@ -583,7 +583,7 @@
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundSale"/>
+                                                <input data-bind="value: $root.fundSale" style="width:100%"/>
                                             </td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
@@ -602,12 +602,12 @@
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundCS"/>
+                                                <input data-bind="value: $root.fundCS" style="width:100%"/>
                                             </td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl117 style='border-left:none'>
-                                                <span data-bind="text: $root.rateCS"/>
+                                                <span data-bind="text: $root.rateCS "/>
                                             </td>
                                         </tr>
                                         <tr height=35 style='height:26.25pt'>
@@ -621,7 +621,7 @@
                                             <td class=xl120 style='border-left:none'>&nbsp;</td>
                                             <td class=xl120 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundOP"/>
+                                                <input data-bind="value: $root.fundOP" style="width:100%"/>
                                             </td>
                                             <td class=xl122 style='border-left:none'>&nbsp;</td>
                                             <td class=xl122 style='border-left:none'>&nbsp;</td>
@@ -704,7 +704,7 @@
 <script>
     var orderId = "${orderId}";
 </script>
-<script type="text/javascript" src="<c:url value="/app/orders/order_manage/view.order_manage.module.js"/>"
+<script type="text/javascript" src="<c:url value="/app/orders/order_manage/profit.order_manage.module.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/orders.model.js"/>"
         charset="utf-8"></script>

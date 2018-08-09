@@ -66,9 +66,11 @@
                                             <a href="javascript:;" class="btn green"
                                                data-bind="click: $root.search"><i class="fa fa-search"></i>
                                                 Tìm kiếm</a>
-                                            <a href="javascript:;" class="btn green"
-                                               data-bind="click: $root.addnew"><i class="fa fa-plus"></i>
-                                                Thêm mới</a>
+                                            <sec:authorize access="hasAnyRole('SALE','ADMIN')">
+                                                <a href="javascript:;" class="btn green"
+                                                   data-bind="click: $root.addnew"><i class="fa fa-plus"></i>
+                                                    Thêm mới</a>
+                                            </sec:authorize>
                                         </div>
                                     </form>
                                 </div>
@@ -104,13 +106,16 @@
                                             <th class="text-center">Trọng lượng/ Số khối/ Số cont</th>
                                             <th class="text-center">Loại đơn vị</th>
                                             <th class="text-center">Ghi chú</th>
-                                            <th class="text-center">Sửa</th>
-                                            <th class="text-center">Xóa</th>
+                                            <sec:authorize access="hasAnyRole('SALE','ADMIN')">
+                                                <th class="text-center">Sửa</th>
+                                                <th class="text-center">Xóa</th>
+                                            </sec:authorize>
                                         </tr>
                                         </thead>
                                         <tbody id="list-container"
                                                data-bind="foreach: { data: $root.listOrders, as: 'item'}">
-                                        <tr>
+                                        <tr data-bind="click: $root.selectOrder,style: { 'background-color': $root.selectedOrder()==item?'#adb4c1':''}"
+                                            style="cursor: pointer">
                                             <td class="text-center"
                                                 data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
                                             <td class="text-center">
@@ -128,25 +133,28 @@
                                             <td class="text-center" data-bind="text: item.deptName"></td>
                                             <td class="text-center" data-bind="text: item.startPortName"></td>
                                             <td class="text-center" data-bind="text: item.endPortName"></td>
-                                            <td class="text-center" data-bind="text: item.status"></td>
+                                            <td class="text-center"
+                                                data-bind="text: $root.getStatusName(item.status())"></td>
                                             <td class="text-center"></td>
                                             <td class="text-center"></td>
                                             <td class="text-center" data-bind="text: item.merchandise"></td>
                                             <td class="text-center" data-bind="text: item.quantity"></td>
                                             <td class="text-center" data-bind="text: item.unit"></td>
                                             <td class="text-center" data-bind="text: item.note"></td>
-                                            <td class="text-center">
-                                                <a href="javascript:;"
-                                                   data-bind="click: $root.edit">
-                                                    <i class="fa fa-edit"></i>
-                                                </a>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="javascript:;"
-                                                   data-bind="click: $root.delete">
-                                                    <i class="fa fa-trash"></i>
-                                                </a>
-                                            </td>
+                                            <sec:authorize access="hasAnyRole('SALE','ADMIN')">
+                                                <td class="text-center">
+                                                    <a href="javascript:;"
+                                                       data-bind="click: $root.edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </td>
+                                                <td class="text-center">
+                                                    <a href="javascript:;"
+                                                       data-bind="click: $root.delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </td>
+                                            </sec:authorize>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -183,16 +191,39 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group nsw-text-center">
+                                        <sec:authorize access="hasAnyRole('CS','OP','ADMIN')">
+                                            <a href="javascript:;" class="btn green"
+                                               data-bind="click: $root.price, visible:$root.checkBtnPrice"><i
+                                                    class="fa fa-dollar"></i>
+                                                Báo giá</a>
+                                        </sec:authorize>
+                                        <sec:authorize access="hasAnyRole('SALE','CS','OP','ADMIN')">
+                                            <a href="javascript:;" class="btn green"
+                                               data-bind="click: $root.approve,visible:$root.checkbtnApprove"><i
+                                                    class="fa fa-apple"></i>
+                                                Duyệt</a>
+                                        </sec:authorize>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
+<sec:authorize access="hasRole('ADMIN')" var="hasRoleAdmin"></sec:authorize>
+<sec:authorize access="hasRole('CS')" var="hasRoleCS"></sec:authorize>
+<sec:authorize access="hasRole('OP')" var="hasRoleOP"></sec:authorize>
 
+<script type="text/javascript">
+    var hasRoleAdmin = '${hasRoleAdmin}';
+    var hasRoleCS = '${hasRoleCS}';
+    var hasRoleOP = '${hasRoleOP}';
+</script>
 
 <script type="text/javascript" src="<c:url value="/app/orders/order_manage/index.order_manage.module.js"/>"
         charset="utf-8"></script>

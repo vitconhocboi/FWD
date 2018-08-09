@@ -270,25 +270,29 @@ ko.bindingHandlers.jqAuto = {
             allBindings = allBindingsAccessor(),
             unwrap = ko.utils.unwrapObservable,
             modelValue = allBindings.jqAutoValue,
-            source = allBindings.jqAutoSource,
+            eventSelect = allBindings.eventSelect,
+            source = allBindings.jqAutoSource || ko.observableArray(),
             query = allBindings.jqAutoQuery,
             valueProp = allBindings.jqAutoSourceValue,
+            valuePropValid = allBindings.jqValidValue,
             inputValueProp = allBindings.jqAutoSourceInputValue || valueProp,
             labelProp = allBindings.jqAutoSourceLabel || inputValueProp;
 
         //function that is shared by both select and change event handlers
         function writeValueToModel(valueToWrite) {
-            if (ko.isWriteableObservable(modelValue)) {
+            if (ko.isWriteableObservable(modelValue) || typeof modelValue == 'function') {
                 modelValue(valueToWrite);
             } else {  //write to non-observable
                 if (allBindings['_ko_property_writers'] && allBindings['_ko_property_writers']['jqAutoValue'])
                     allBindings['_ko_property_writers']['jqAutoValue'](valueToWrite);
             }
+            if (eventSelect) {
+                eventSelect(valueToWrite);
+            }
         }
 
         //on a selection write the proper value to the model
         options.select = function (event, ui) {
-            debugger
             writeValueToModel(ui.item ? ui.item.actualValue : null);
         };
 
@@ -315,6 +319,7 @@ ko.bindingHandlers.jqAuto = {
                     result.label = labelProp ? unwrap(item[labelProp]) : unwrap(item).toString();  //show in pop-up choices
                     result.value = inputValueProp ? unwrap(item[inputValueProp]) : unwrap(item).toString();  //show in input box
                     result.actualValue = valueProp ? unwrap(item[valueProp]) : item;  //store in model
+                    result.validTo = valuePropValid ? unwrap(item[valuePropValid]) : '';  //store in model
                     return result;
                 });
                 return mapped;
@@ -340,14 +345,6 @@ ko.bindingHandlers.jqAuto = {
             });
 
             options.source = mappedSource();
-            options.create = function () {
-                $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
-                    debugger
-                    return $('<li>')
-                        .append('<a><b>' + item.label + '</b>' + item.value + '</a>')
-                        .appendTo(ul);
-                };
-            }
         }
 
 
@@ -357,7 +354,7 @@ ko.bindingHandlers.jqAuto = {
             create: function () {
                 $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
                     return $('<li>')
-                        .append('<a><b>' + item.value + '</b><br>' + item.label + '</a>')
+                        .append('<a><b>' + item.value + '</b><br>' + item.label + (item.validTo ? ('<br> Hiệu lực: ' + moment(item.validTo).format('DD/MM/YYYY')) : '') + '</a>')
                         .appendTo(ul);
                 };
             }

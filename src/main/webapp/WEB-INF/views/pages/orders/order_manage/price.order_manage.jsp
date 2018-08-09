@@ -277,31 +277,97 @@
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
+                                        <tr>
+                                            <td>Dịch vụ</td>
+                                            <td>
+                                                <input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getService,
+                                                 jqAutoValue: selectedServiceRevenue,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 eventSelect: selectServiceRevenue,
+                                                 jqAutoSourceInputValue: 'serviceName'"
+                                                       style="width:100%"
+                                                       placeholder="Chọn dịch vụ..."/>
+                                            </td>
+                                            <td>Đối tác</td>
+                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getPartnerPriceRevenue,
+                                                 jqAutoValue: selectedPartnerPriceRevenue,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 jqValidValue:'validTo',
+                                                 jqAutoSourceInputValue: 'partnerName'"
+                                                                   style="width:100%"
+                                                                   placeholder="Chọn đối tác..."/></td>
+                                            <td style="text-align: left"><a
+                                                    href="javascript:;"
+                                                    class="fa fa-plus"
+                                                    data-bind="click: $root.addAmountRevenue"></a>
+                                            </td>
+                                        </tr>
                                         <tbody data-bind="foreach: { data: $root.listAmountRevenue, as: 'item'}">
-                                        <tr height=20 style='height:15.0pt'>
+                                        <tr height=20 style='height:15.0pt'
+                                            data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
                                             <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <span>-</span>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <a
+                                                            href="javascript:;"
+                                                            class="fa fa-trash"
+                                                            data-bind="click: $root.removeAmountRevenue"></a>
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
+                                                    <span>-</span>
+                                                </div>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.serviceName" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.serviceName" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.price" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.price" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.exchangeRate" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.quantity" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.quantity" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.tax" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.tax" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountNotVat"/>
@@ -357,31 +423,97 @@
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
+                                        <tr style="margin-top: 5px">
+                                            <td>Dịch vụ</td>
+                                            <td>
+                                                <input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getService,
+                                                 jqAutoValue: selectedServiceRent,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 eventSelect: selectServiceRent,
+                                                 jqAutoSourceInputValue: 'serviceName'"
+                                                       style="width:100%"
+                                                       placeholder="Chọn dịch vụ..."/>
+                                            </td>
+                                            <td>Đối tác</td>
+                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getPartnerPriceRent,
+                                                 jqAutoValue: selectedPartnerPriceRent,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 jqValidValue:'validTo',
+                                                 jqAutoSourceInputValue: 'partnerName'"
+                                                                   style="width:100%"
+                                                                   placeholder="Chọn đối tác..."/></td>
+                                            <td style="text-align: left;"><a
+                                                    href="javascript:;"
+                                                    class="fa fa-plus"
+                                                    data-bind="click: $root.addAmountRent"></a>
+                                            </td>
+                                        </tr>
                                         <tbody data-bind="foreach: { data: $root.listAmountRent, as: 'item'}">
-                                        <tr height=20 style='height:15.0pt'>
+                                        <tr height=20 style='height:15.0pt'
+                                            data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
                                             <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <span>-</span>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <a
+                                                            href="javascript:;"
+                                                            class="fa fa-trash"
+                                                            data-bind="click: $root.removeAmountRent"></a>
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
+                                                    <span>-</span>
+                                                </div>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.serviceName" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.serviceName" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.price" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.price" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.exchangeRate" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.quantity" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.quantity" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.tax" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.tax" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountNotVat"/>
@@ -416,31 +548,97 @@
                                             </td>
                                             <td class=xl105 style='border-left:none'>&nbsp;</td>
                                         </tr>
+                                        <tr style="margin-top: 5px">
+                                            <td>Dịch vụ</td>
+                                            <td>
+                                                <input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getService,
+                                                 jqAutoValue: selectedServiceProcess,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 eventSelect: selectServiceProcess,
+                                                 jqAutoSourceInputValue: 'serviceName'"
+                                                       style="width:100%"
+                                                       placeholder="Chọn dịch vụ..."/>
+                                            </td>
+                                            <td>Đối tác</td>
+                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getPartnerPriceProcess,
+                                                 jqAutoValue: selectedPartnerPriceProcess,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 jqValidValue:'validTo',
+                                                 jqAutoSourceInputValue: 'partnerName'"
+                                                                   style="width:100%"
+                                                                   placeholder="Chọn đối tác..."/></td>
+                                            <td style="text-align: left; "><a
+                                                    href="javascript:;"
+                                                    class="fa fa-plus"
+                                                    data-bind="click: $root.addAmountProcess"></a>
+                                            </td>
+                                        </tr>
                                         <tbody data-bind="foreach: { data: $root.listAmountProcess, as: 'item'}">
-                                        <tr height=20 style='height:15.0pt'>
+                                        <tr height=20 style='height:15.0pt'
+                                            data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
                                             <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <span>-</span>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <a
+                                                            href="javascript:;"
+                                                            class="fa fa-trash"
+                                                            data-bind="click: $root.removeAmountRevenue"></a>
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
+                                                    <span>-</span>
+                                                </div>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.serviceName" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.serviceName" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.price" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.price" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.exchangeRate" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.quantity" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.quantity" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.tax" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.tax" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountNotVat"/>
@@ -475,31 +673,97 @@
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
+                                        <tr style="margin-top: 5px">
+                                            <td>Dịch vụ</td>
+                                            <td>
+                                                <input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getService,
+                                                 jqAutoValue: selectedServicePay,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 eventSelect: selectServicePay,
+                                                 jqAutoSourceInputValue: 'serviceName'"
+                                                       style="width:100%"
+                                                       placeholder="Chọn dịch vụ..."/>
+                                            </td>
+                                            <td>Đối tác</td>
+                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
+                                                 jqAutoQuery: getPartnerPricePay,
+                                                 jqAutoValue: selectedPartnerPricePay,
+                                                 jqAutoSourceLabel: 'displayName',
+                                                 jqValidValue:'validTo',
+                                                 jqAutoSourceInputValue: 'partnerName'"
+                                                                   style="width:100%"
+                                                                   placeholder="Chọn đối tác..."/></td>
+                                            <td style="text-align: left;"><a
+                                                    href="javascript:;"
+                                                    class="fa fa-plus"
+                                                    data-bind="click: $root.addAmountPay"></a>
+                                            </td>
+                                        </tr>
                                         <tbody data-bind="foreach: { data: $root.listAmountPay, as: 'item'}">
-                                        <tr height=20 style='height:15.0pt'>
+                                        <tr height=20 style='height:15.0pt'
+                                            data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
                                             <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <span>-</span>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <a
+                                                            href="javascript:;"
+                                                            class="fa fa-trash"
+                                                            data-bind="click: $root.removeAmountRevenue"></a>
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
+                                                    <span>-</span>
+                                                </div>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.serviceName" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.serviceName" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.price" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.price" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.exchangeRate" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.quantity" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.quantity" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
+                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
+                                                    <input
+                                                            data-bind="value: item.tax" style="width:100%">
+                                                </div>
+                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.tax" style="width:100%"/>
+                                                </div>
                                             </td>
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountNotVat"/>
@@ -686,8 +950,8 @@
                                     </table>
                                     <div class="form-group nsw-text-center" style="margin-top: 30px">
                                         <a href="javascript:;" class="btn green"
-                                           data-bind="click: $root.edit"><i class="fa fa-edit"></i>
-                                            Chỉnh sửa</a>
+                                           data-bind="click: $root.save"><i class="fa fa-save"></i>
+                                            Lưu</a>
                                         <a href="javascript:;" class="btn green"
                                            data-bind="click: $root.back"><i class="fa fa-backward"></i>
                                             Trở lại</a>
@@ -704,9 +968,13 @@
 <script>
     var orderId = "${orderId}";
 </script>
-<script type="text/javascript" src="<c:url value="/app/orders/order_manage/view.order_manage.module.js"/>"
+<script type="text/javascript" src="<c:url value="/app/orders/order_manage/price.order_manage.module.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/orders.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/service.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/price.model.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/orderdetail.model.js"/>"
         charset="utf-8"></script>

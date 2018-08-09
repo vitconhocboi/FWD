@@ -947,7 +947,9 @@ APP.prototype = {
                     observable ? observable[pro] : undefined,
                     observable && observable.objectTypeDate && observable.objectTypeDate.indexOf(pro) >= 0);
                 if (observable && ko.isObservable(observable[pro])) {
-                    observable[pro](val);
+                    if (ko.isWriteableObservable(observable[pro])) {
+                        observable[pro](val);
+                    }
                 } else if (typeof  observable[pro] == 'object') {
                     // observable[pro] = val;
                 } else {

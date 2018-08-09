@@ -17869,12 +17869,12 @@ Light Table
 .table.table-light.table-hover > tbody > tr > td:hover,
 .table.table-light.table-hover > tbody > tr > th:hover,
 .table.table-light.table-hover > tbody > tr:hover > td {
-    background: #f9fafb !important;
+    /*background: #f9fafb !important;*/
 }
 
 .table-hover > tbody > tr:hover,
 .table-hover > tbody > tr:hover > td {
-    background: #f3f4f6 !important;
+    /*background: #f3f4f6 !important;*/
 }
 
 /***
@@ -31534,9 +31534,22 @@ Color library demo
 .btn .fa {
     padding-right: 5px;
 }
-.input-file-margin{
+
+.input-file-margin {
     margin-left: 0px !important;
 }
+
 .label-text-right {
     text-align: right;
+}
+
+input.currency {
+    text-align: right;
+    padding-right: 15px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
