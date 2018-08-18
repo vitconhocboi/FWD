@@ -1,16 +1,14 @@
 package com.viettelpost.security;
 
-import com.google.gson.Gson;
 import com.viettelpost.controller.json.ResponseJson;
 import com.viettelpost.helper.AppHelper;
-import com.viettelpost.model.User;
-import com.viettelpost.model.UserCustom;
+import com.viettelpost.entity.User;
+import com.viettelpost.entity.UserCustom;
 import com.viettelpost.service.PageService;
 import com.viettelpost.service.RoleService;
 import com.viettelpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

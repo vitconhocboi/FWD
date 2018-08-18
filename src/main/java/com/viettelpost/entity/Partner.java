@@ -1,4 +1,4 @@
-package com.viettelpost.model;
+package com.viettelpost.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -6,66 +6,82 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "CUSTOMER")
-public class Customer {
+@Table(name = "PARTNER")
+public class Partner {
     @Id
     @GenericGenerator(
             name = "SequenceGenerator",
             strategy = "com.viettelpost.util.SequenceGeneratorIfNotExists",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "customer_seq"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "partner_seq"),
             }
     )
     @GeneratedValue(generator = "SequenceGenerator")
-    @Column(name = "customer_id")
-    Long customerId;
-    @Column(name = "customer_name")
-    String customerName;
-    @Column(name = "address")
-    String address;
-    @Column(name = "tax_code")
-    String taxCode;
-    @Column(name = "phone")
-    String phone;
-    @Column(name = "contact_staff")
-    String contactStaff;
-    @Column(name = "phone_contact_staff")
-    String phoneContactStaff;
-    @Column(name = "user_sale_id")
-    Long userSaleId;
-    @Column(name = "establishment_date")
-    Date establishmentDate;
-    @Column(name = "business_type")
-    String businessType;
-    @Column(name = "merchandize")
-    String merchandize;
-    @Column(name = "journey")
-    String journey;
-    @Column(name = "status")
-    String status;
-    @Column(name = "created_user")
-    Long createdUser;
-    @Column(name = "created_date")
-    Date createdDate;
-    @Column(name = "updated_user")
-    Long updatedUser;
-    @Column(name = "updated_date")
-    Date updatedDate;
+    @Column(name = "PARTNER_ID")
+    private Long partnerId;
 
-    public Long getCustomerId() {
-        return customerId;
+    @Column(name = "PARTNER_NAME")
+    private String partnerName;
+
+    @Column(name = "ADDRESS")
+    private String address;
+
+    @Column(name = "TAX_CODE")
+    private String taxCode;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "PHONE")
+    private String phone;
+
+    @Column(name = "CONTACT_STAFF")
+    private String contactStaff;
+
+    @Column(name = "PHONE_CONTACT_STAFF")
+    private String phoneContactStaff;
+
+    @Column(name = "USER_CS")
+    private Long userCs;
+
+    @Column(name = "ESTABLISHMENT_DATE")
+    private Date establishmentDate;
+
+    @Column(name = "BUSINESS_TYPE")
+    private String businessType;
+
+    @Column(name = "JOURNEY")
+    private String journey;
+
+    @Column(name = "STATUS")
+    private Long status;
+
+    @Column(name = "CREATED_USER")
+    private Long createdUser;
+
+    @Column(name = "CREATED_DATE")
+    private Date createdDate;
+
+    @Column(name = "UPDATED_USER")
+    private Long updatedUser;
+
+    @Column(name = "UPDATED_DATE")
+    private Date updatedDate;
+
+    public Long getPartnerId() {
+        return partnerId;
     }
 
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getPartnerName() {
+        return partnerName;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
     }
 
     public String getAddress() {
@@ -82,6 +98,14 @@ public class Customer {
 
     public void setTaxCode(String taxCode) {
         this.taxCode = taxCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPhone() {
@@ -108,12 +132,12 @@ public class Customer {
         this.phoneContactStaff = phoneContactStaff;
     }
 
-    public Long getUserSaleId() {
-        return userSaleId;
+    public Long getUserCs() {
+        return userCs;
     }
 
-    public void setUserSaleId(Long userSaleId) {
-        this.userSaleId = userSaleId;
+    public void setUserCs(Long userCs) {
+        this.userCs = userCs;
     }
 
     public Date getEstablishmentDate() {
@@ -132,14 +156,6 @@ public class Customer {
         this.businessType = businessType;
     }
 
-    public String getMerchandize() {
-        return merchandize;
-    }
-
-    public void setMerchandize(String merchandize) {
-        this.merchandize = merchandize;
-    }
-
     public String getJourney() {
         return journey;
     }
@@ -148,11 +164,11 @@ public class Customer {
         this.journey = journey;
     }
 
-    public String getStatus() {
+    public Long getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Long status) {
         this.status = status;
     }
 

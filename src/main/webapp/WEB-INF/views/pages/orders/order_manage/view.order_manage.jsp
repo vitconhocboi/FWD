@@ -88,8 +88,8 @@
                                             </td>
                                         </tr>
                                         <tr height=25 style='mso-height-source:userset;height:18.75pt'>
-                                            <td colspan=10 height=25 class=xl143 style='height:18.75pt'>Ngày……. Tháng
-                                                ..…. N&#259;m 2018
+                                            <td colspan=10 height=25 class=xl143 style='height:18.75pt'>
+                                                <span data-bind="text: order.estimatedStartDate()?('Ngày ' +moment(order.estimatedStartDate()).format('DD')+' Tháng '+moment(order.estimatedStartDate()).format('MM')+' Năm '+moment(order.estimatedStartDate()).format('YYYY') ):'Ngày ... Tháng ... Năm ...'"/>
                                             </td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>
@@ -188,9 +188,13 @@
                                         <tr height=20 style='height:15.0pt'>
                                             <td colspan=2 height=20 class=xl76 style='height:15.0pt'>D&#7921; ki&#7871;n
                                                 ngày &#273;i <font class="font20">(ETD)</font></td>
-                                            <td colspan=4 class=xl88>10/4/2016</td>
+                                            <td colspan=4 class=xl88>
+                                                <span data-bind="text: order.estimatedStartDate()?moment(order.estimatedStartDate()).format('DD/MM/YYYY'):''"/>
+                                            </td>
                                             <td class=xl87>Ngày d&#7921; ki&#7871;n &#273;&#7871;n</td>
-                                            <td class=xl88>10/12/2016</td>
+                                            <td class=xl88>
+                                                <span data-bind="text: order.estimatedEndDate()?moment(order.estimatedEndDate()).format('DD/MM/YYYY'):''"/>
+                                            </td>
                                             <td class=xl76>S&#7889; cont/Seal:</td>
                                             <td class=xl84>MU221258…</td>
                                         </tr>
@@ -375,11 +379,13 @@
                                             </td>
                                             <td class=xl100 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class="percent xl100" align=center style='border-left:none'>
                                                     <span
@@ -487,11 +493,13 @@
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class="xl100 percent" style='border-left:none'>
                                                     <span

@@ -6,7 +6,7 @@
 package com.viettelpost.helper;
 
 import com.viettelpost.controller.json.ResponseJson;
-import com.viettelpost.model.Page;
+import com.viettelpost.entity.Page;
 import org.springframework.http.*;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;

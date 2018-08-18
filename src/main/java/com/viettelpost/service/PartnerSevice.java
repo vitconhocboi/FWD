@@ -1,6 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.Partner;
+import com.viettelpost.entity.Partner;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

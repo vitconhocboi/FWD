@@ -1,8 +1,8 @@
 package com.viettelpost.security;
 
-import com.viettelpost.model.Page;
-import com.viettelpost.model.User;
-import com.viettelpost.model.UserCustom;
+import com.viettelpost.entity.Page;
+import com.viettelpost.entity.User;
+import com.viettelpost.entity.UserCustom;
 import com.viettelpost.service.PageService;
 import com.viettelpost.service.RoleService;
 import com.viettelpost.service.UserService;

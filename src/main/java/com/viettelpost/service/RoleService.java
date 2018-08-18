@@ -1,6 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.Role;
+import com.viettelpost.entity.Role;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

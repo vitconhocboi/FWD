@@ -3,17 +3,17 @@ package com.viettelpost.controller.orders;
 import com.viettelpost.constant.AppConstant;
 import com.viettelpost.controller.BaseController;
 import com.viettelpost.helper.AppHelper;
-import com.viettelpost.model.*;
+import com.viettelpost.entity.*;
+import com.viettelpost.model.ProcessOrder;
+import com.viettelpost.model.SaveRevenue;
 import com.viettelpost.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -179,13 +179,13 @@ public class OrderManageController extends BaseController<Orders> {
 
 
     @RequestMapping(value = "/save_revenue/{orderId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> saveRevenue(@RequestBody List<OrderDetail> lst, @PathVariable("orderId") Long orderId) {
+    public ResponseEntity<Object> saveRevenue(@RequestBody SaveRevenue revenue, @PathVariable("orderId") Long orderId) {
         if (ordersService.checkRole("ROLE_CS") || ordersService.checkRole("ROLE_OP") || ordersService.checkRole("ROLE_ADMIN")) {
             try {
                 User user = ordersService.getCurrentUserModel();
                 Department dept = departmentService.findById(user.getDeptId());
                 orderDetailService.deleteByOrderId(orderId);
-                for (OrderDetail detail : lst) {
+                for (OrderDetail detail : revenue.getLstOrderDetails()) {
 //                    if (detail.getUserId() == null || user.getUserId().equals(detail.getUserId())) {
                     if (detail.getId() == null) {
                         detail.setUserId(user.getUserId());
@@ -200,6 +200,9 @@ public class OrderManageController extends BaseController<Orders> {
                     orderDetailService.save(detail);
 //                    }
                 }
+                Orders order = ordersService.findById(orderId);
+                order.setRateProfit(revenue.getProfitRate());
+                ordersService.save(order);
                 return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
             } catch (Exception ex) {
                 LOGGER.error(ex.getMessage(), ex);
@@ -210,8 +213,8 @@ public class OrderManageController extends BaseController<Orders> {
         }
     }
 
-    @RequestMapping(value = "/approve/{orderId}/{flow}", method = RequestMethod.GET)
-    public ResponseEntity<Object> approve(@PathVariable("orderId") Long orderId, @PathVariable("flow") String flow) {
+    @RequestMapping(value = "/approve/{orderId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> approve(@PathVariable("orderId") Long orderId, @RequestBody String flow) {
         int num = ordersService.approve(orderId, flow);
         if (num > 0) {
             return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
@@ -220,9 +223,33 @@ public class OrderManageController extends BaseController<Orders> {
         }
     }
 
-    @RequestMapping(value = "/check_approve_permession/{orderId}/{flow}", method = RequestMethod.GET)
-    public ResponseEntity<Object> checkApprovePermission(@PathVariable("orderId") Long orderId, @PathVariable("flow") String flow) {
-        if (ordersService.checkPermissionApprove(orderId, flow)) {
+
+    @RequestMapping(value = "/process_order/{orderId}", method = RequestMethod.POST)
+    @Transactional
+    public ResponseEntity<Object> processOrder(@PathVariable("orderId") Long orderId, @RequestBody ProcessOrder processOrder) {
+        try {
+            Orders order = ordersService.findById(orderId);
+            order.setEstimatedStartDate(processOrder.getEstimatedStartDate());
+            order.setEstimatedEndDate(processOrder.getEstimatedEndDate());
+
+            ordersService.save(order);
+
+            int num = ordersService.approve(orderId, processOrder.getFlowSign());
+            if (num > 0) {
+                return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
+            } else {
+                return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.FORBIDDEN);
+            }
+
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+            return AppHelper.createResponseEntity(null, 1, "", false, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/check_approve_permession/{orderId}", method = RequestMethod.POST)
+    public ResponseEntity<Object> checkApprovePermission(@PathVariable("orderId") Long orderId, @RequestBody List<String> flows) {
+        if (ordersService.checkPermissionApprove(orderId, flows)) {
             return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
         } else {
             return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.OK);

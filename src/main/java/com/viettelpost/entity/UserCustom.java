@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.viettelpost.model;
+package com.viettelpost.entity;
 
 import com.viettelpost.helper.AppHelper;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,9 +20,9 @@ import java.util.List;
 public class UserCustom extends User {
     private List<Page> lstPages = new ArrayList<>();
     private List<Page> lstMenu = new ArrayList<>();
-    private com.viettelpost.model.User userModel;
+    private com.viettelpost.entity.User userModel;
 
-    public UserCustom(com.viettelpost.model.User user, List<Page> lstPages, Collection<? extends GrantedAuthority> authorities) {
+    public UserCustom(com.viettelpost.entity.User user, List<Page> lstPages, Collection<? extends GrantedAuthority> authorities) {
         super(user.getUserName(), user.getPassword(), authorities);
         this.userModel = user;
         this.lstPages = lstPages;
@@ -37,7 +37,7 @@ public class UserCustom extends User {
         return lstMenu;
     }
 
-    public com.viettelpost.model.User getUserModel() {
+    public com.viettelpost.entity.User getUserModel() {
         return userModel;
     }
 }

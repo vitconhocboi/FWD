@@ -1,9 +1,8 @@
-package com.viettelpost.model;
+package com.viettelpost.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "SERVICE")

@@ -34,5 +34,10 @@ var Orders = function () {
     this.rateCsThreshold = ko.observable();
     this.rateOpThreshold = ko.observable();
     this.rateContractThreshold = ko.observable();
-    this.objectTypeDate = ['createdDate', 'updatedDate'];
+    this.rateProfit = ko.observable();
+    this.estimatedStartDate = ko.observable();
+    this.estimatedEndDate = ko.observable();
+
+
+    this.objectTypeDate = ['createdDate', 'updatedDate', 'estimatedStartDate', 'estimatedEndDate'];
 }

@@ -1,8 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.Customer;
-import com.viettelpost.model.UserCustom;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.viettelpost.entity.Customer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

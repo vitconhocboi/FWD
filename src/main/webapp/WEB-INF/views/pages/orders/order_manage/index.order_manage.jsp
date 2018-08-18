@@ -135,8 +135,12 @@
                                             <td class="text-center" data-bind="text: item.endPortName"></td>
                                             <td class="text-center"
                                                 data-bind="text: $root.getStatusName(item.status())"></td>
-                                            <td class="text-center"></td>
-                                            <td class="text-center"></td>
+                                            <td class="text-center"
+                                                data-bind="text: item.estimatedStartDate()?moment(item.estimatedStartDate()).format('DD/MM/YYYY'):''">
+                                            </td>
+                                            <td class="text-center"
+                                                data-bind="text: item.estimatedEndDate()?moment(item.estimatedEndDate()).format('DD/MM/YYYY'):''">
+                                            </td>
                                             <td class="text-center" data-bind="text: item.merchandise"></td>
                                             <td class="text-center" data-bind="text: item.quantity"></td>
                                             <td class="text-center" data-bind="text: item.unit"></td>

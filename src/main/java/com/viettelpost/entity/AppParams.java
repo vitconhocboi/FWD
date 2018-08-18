@@ -1,4 +1,4 @@
-package com.viettelpost.model;
+package com.viettelpost.entity;
 
 import javax.persistence.*;
 

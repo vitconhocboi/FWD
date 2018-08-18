@@ -1,11 +1,9 @@
-package com.viettelpost.model;
+package com.viettelpost.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.util.Date;
-import java.util.Objects;
 
 @Entity
 @Table(name = "ORDERS")
@@ -111,16 +109,30 @@ public class Orders {
 
     @Column(name = "PAYMENT_WITHIN")
     private Long paymentWithin;
+
     @Column(name = "RATE_ORDER_THRESHOLD")
     private Float rateOrderThreshold;
+
     @Column(name = "RATE_SALE_THRESHOLD")
     private Float rateSaleThreshold;
+
     @Column(name = "RATE_CS_THRESHOLD")
     private Float rateCsThreshold;
+
     @Column(name = "RATE_OP_THRESHOLD")
     private Float rateOpThreshold;
+
     @Column(name = "RATE_CONTRACT_THRESHOLD")
     private Float rateContractThreshold;
+
+    @Column(name = "RATE_PROFIT")
+    private Float rateProfit;
+
+    @Column(name = "ESTIMATED_START_DATE")
+    private Date estimatedStartDate;
+
+    @Column(name = "ESTIMATED_END_DATE")
+    private Date estimatedEndDate;
 
     public Long getOrderId() {
         return orderId;
@@ -410,5 +422,28 @@ public class Orders {
         this.rateContractThreshold = rateContractThreshold;
     }
 
+    public Float getRateProfit() {
+        return rateProfit;
+    }
 
+    public void setRateProfit(Float rateProfit) {
+        this.rateProfit = rateProfit;
+
+    }
+
+    public Date getEstimatedStartDate() {
+        return estimatedStartDate;
+    }
+
+    public void setEstimatedStartDate(Date estimatedStartDate) {
+        this.estimatedStartDate = estimatedStartDate;
+    }
+
+    public Date getEstimatedEndDate() {
+        return estimatedEndDate;
+    }
+
+    public void setEstimatedEndDate(Date estimatedEndDate) {
+        this.estimatedEndDate = estimatedEndDate;
+    }
 }

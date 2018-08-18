@@ -5,6 +5,9 @@ $(document).ready(function () {
         self.checkBtnPrice = ko.observable(false);
         self.checkbtnApprove = ko.observable(false);
         self.checkProfitDistribute = ko.observable(false);
+        self.estimatedStartDate = ko.observable();
+        self.estimatedEndDate = ko.observable();
+        self.endDate = ko.observable();
 
         self.selectOrder = function (data) {
             console.log('selected');
@@ -24,8 +27,9 @@ $(document).ready(function () {
             }
 
             //check approve
-            app.makeGet({
-                url: '/orders/manage/check_approve_permession/' + self.selectedOrder().orderId() + '/APPROVE',
+            app.makePost({
+                url: '/orders/manage/check_approve_permession/' + self.selectedOrder().orderId(),
+                data: JSON.stringify(['APPROVE', 'PROCESS_ORDER']),
                 success: function (data) {
                     if (data.success) {
                         self.checkbtnApprove(true);
@@ -205,34 +209,103 @@ $(document).ready(function () {
         }
 
         self.approve = function () {
-            pop = app.popup({
-                title: "Thông báo",
-                html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn duyệt đơn hàng <b>' + self.selectedOrder().orderNo() + '</b>',
-                width: 400,
-                buttons: [
-                    {
-                        name: "Đồng ý",
-                        class: 'btn',
-                        icon: 'fa-check',
-                        action: function () {
-                            app.makeGet({
-                                url: '/orders/manage/approve/' + self.selectedOrder().orderId() + '/APPROVE',
-                                success: function (data) {
-                                    if (data.success) {
-                                        toastr.success("Duyệt đơn hàng thành công", "Thông báo");
-                                        self.searchPaging(false);
-                                    } else {
+            if (self.selectedOrder().status() == 3 && self.selectedOrder().rateProfit() > self.selectedOrder().rateOrderThreshold()) {
+                pop = app.popup({
+                    title: "Thông báo",
+                    html: 'Đơn hàng <b>' + self.selectedOrder().orderNo() + '</b> đã đủ điều kiện chuyển hàng. Bạn có chắc chắn muốn xử lý?' +
+                    '<form class="form-horizontal">' +
+                    '    <div class="form-group">' +
+                    '        <div class="col-sm-12">' +
+                    '            <label class="col-sm-4">' +
+                    '               Ngày dự kiến đi' +
+                    '                <span class="nsw-require-field">*</span>' +
+                    '            </label>' +
+                    '            <div class="col-sm-8">' +
+                    '                <input name="establishmentDate" ' +
+                    '                    class="form-control form-control-inline date-picker"' +
+                    '                    data-date-format="dd/mm/yyyy" size="16" type="text"' +
+                    '                    placeholder="dd/mm/yyyy"' +
+                    '                    data-bind="datepicker: $root.estimatedStartDate"/>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '    <div class="form-group">' +
+                    '        <div class="col-sm-12">' +
+                    '            <label class="col-sm-4">' +
+                    '                Ngày dự kiến đến' +
+                    '                <span class="nsw-require-field">*</span>' +
+                    '            </label>' +
+                    '            <div class="col-sm-8">' +
+                    '                <input name="establishmentDate"' +
+                    '                    class="form-control form-control-inline date-picker"' +
+                    '                    data-date-format="dd/mm/yyyy" size="16" type="text"' +
+                    '                    placeholder="dd/mm/yyyy"' +
+                    '                    data-bind="datepicker: $root.estimatedEndDate"/>' +
+                    '            </div>' +
+                    '        </div>' +
+                    '    </div>' +
+                    '</form>',
+                    width: 600,
+                    buttons: [
+                        {
+                            name: "Đồng ý",
+                            class: 'btn',
+                            icon: 'fa-check',
+                            action: function () {
+                                app.makePost({
+                                    url: '/orders/manage/process_order/' + self.selectedOrder().orderId(),
+                                    data: JSON.stringify({
+                                        estimatedStartDate: self.estimatedStartDate(),
+                                        estimatedEndDate: self.estimatedEndDate(),
+                                        flowSign: 'PROCESS_ORDER'
+                                    }),
+                                    success: function (data) {
+                                        if (data.success) {
+                                            toastr.success("Duyệt đơn hàng thành công", "Thông báo");
+                                            self.searchPaging(false);
+                                        } else {
+                                            toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
+                                        }
+                                    },
+                                    error: function (err) {
                                         toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
                                     }
-                                },
-                                error: function (err) {
-                                    toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
-                                }
-                            });
+                                });
+                            }
                         }
-                    }
-                ]
-            });
+                    ]
+                });
+                ko.applyBindings(vm, pop[0]);
+            } else {
+                pop = app.popup({
+                    title: "Thông báo",
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn duyệt đơn hàng <b>' + self.selectedOrder().orderNo() + '</b>',
+                    width: 400,
+                    buttons: [
+                        {
+                            name: "Đồng ý",
+                            class: 'btn',
+                            icon: 'fa-check',
+                            action: function () {
+                                app.makeGet({
+                                    url: '/orders/manage/approve/' + self.selectedOrder().orderId() + '/APPROVE',
+                                    success: function (data) {
+                                        if (data.success) {
+                                            toastr.success("Duyệt đơn hàng thành công", "Thông báo");
+                                            self.searchPaging(false);
+                                        } else {
+                                            toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
+                                        }
+                                    },
+                                    error: function (err) {
+                                        toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
+                                    }
+                                });
+                            }
+                        }
+                    ]
+                });
+            }
         }
 
         self.getStatusName = function (status) {
@@ -244,6 +317,8 @@ $(document).ready(function () {
                 return 'Chờ OP báo giá';
             } else if (status == 3) {
                 return 'Chờ phân bổ lợi nhuận';
+            } else if (status == 4) {
+                return 'Đang xử lý';
             }
         }
 
@@ -251,6 +326,8 @@ $(document).ready(function () {
     }
 
     var vm = new ViewModel();
+
+    ko.validation.makeBindingHandlerValidatable('datepicker');
 
     ko.applyBindings(vm);
 });

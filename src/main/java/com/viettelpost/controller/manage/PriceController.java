@@ -2,7 +2,7 @@ package com.viettelpost.controller.manage;
 
 import com.viettelpost.controller.BaseController;
 import com.viettelpost.helper.AppHelper;
-import com.viettelpost.model.Price;
+import com.viettelpost.entity.Price;
 import com.viettelpost.service.BaseCustomService;
 import com.viettelpost.service.PriceService;
 import org.springframework.beans.factory.annotation.Autowired;

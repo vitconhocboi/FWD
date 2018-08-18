@@ -1,15 +1,11 @@
 package com.viettelpost.security;
 
-import com.google.gson.Gson;
 import com.viettelpost.constant.AppConstant;
-import com.viettelpost.controller.BaseController;
-import com.viettelpost.helper.AppHelper;
-import com.viettelpost.model.Breadcrumb;
-import com.viettelpost.model.Page;
-import com.viettelpost.model.UserCustom;
+import com.viettelpost.entity.Breadcrumb;
+import com.viettelpost.entity.Page;
+import com.viettelpost.entity.UserCustom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
@@ -18,7 +14,6 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

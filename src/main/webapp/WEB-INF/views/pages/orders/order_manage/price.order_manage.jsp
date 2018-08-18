@@ -188,9 +188,9 @@
                                         <tr height=20 style='height:15.0pt'>
                                             <td colspan=2 height=20 class=xl76 style='height:15.0pt'>D&#7921; ki&#7871;n
                                                 ngày &#273;i <font class="font20">(ETD)</font></td>
-                                            <td colspan=4 class=xl88>10/4/2016</td>
+                                            <td colspan=4 class=xl88></td>
                                             <td class=xl87>Ngày d&#7921; ki&#7871;n &#273;&#7871;n</td>
-                                            <td class=xl88>10/12/2016</td>
+                                            <td class=xl88></td>
                                             <td class=xl76>S&#7889; cont/Seal:</td>
                                             <td class=xl84>MU221258…</td>
                                         </tr>

@@ -1,6 +1,7 @@
 package com.viettelpost.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -23,6 +24,7 @@ import java.util.Locale;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "com.viettelpost")
+@EntityScan("com.viettelpost.entity")
 @PropertySources(value = {
         @PropertySource("classpath:application.properties")})
 public class AppConfig extends WebMvcConfigurerAdapter {

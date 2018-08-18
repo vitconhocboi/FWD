@@ -188,9 +188,9 @@
                                         <tr height=20 style='height:15.0pt'>
                                             <td colspan=2 height=20 class=xl76 style='height:15.0pt'>D&#7921; ki&#7871;n
                                                 ngày &#273;i <font class="font20">(ETD)</font></td>
-                                            <td colspan=4 class=xl88>10/4/2016</td>
+                                            <td colspan=4 class=xl88></td>
                                             <td class=xl87>Ngày d&#7921; ki&#7871;n &#273;&#7871;n</td>
-                                            <td class=xl88>10/12/2016</td>
+                                            <td class=xl88></td>
                                             <td class=xl76>S&#7889; cont/Seal:</td>
                                             <td class=xl84>MU221258…</td>
                                         </tr>
@@ -288,16 +288,18 @@
                                                             data-bind="text: item.serviceName" style="width:100%"/>
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
-                                                    <input
-                                                            data-bind="value: item.price.formatted" style="width:100%"/>
+                                                <input
+                                                        data-bind="value: item.price.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
@@ -373,11 +375,13 @@
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
@@ -485,11 +489,13 @@
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
@@ -541,7 +547,8 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitContract.formatted" style="width:100%">
+                                                <span data-bind="text: $root.profitContract.formatted"
+                                                      style="width:100%">
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
@@ -569,7 +576,8 @@
                                         <tr height=34 style='height:25.5pt'>
                                             <td height=34 class=xl97 style='height:25.5pt;border-top:none'>-</td>
                                             <td class=xl161 width=212
-                                                style='border-left:none;width:159pt'>Nguồn quỹ cho bộ phận bán hàng (sales) = (6)*35%
+                                                style='border-left:none;width:159pt'>Nguồn quỹ cho bộ phận bán hàng
+                                                (sales) = (6)*35%
                                             </td>
                                             <td class=xl115 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>

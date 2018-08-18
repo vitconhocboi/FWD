@@ -1,6 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.OrderDetail;
+import com.viettelpost.entity.OrderDetail;
 import com.viettelpost.repositories.OrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

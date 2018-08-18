@@ -212,7 +212,7 @@ $(document).ready(function () {
                         action: function () {
                             app.makePost({
                                 url: '/orders/manage/save_revenue/' + orderId,
-                                data: JSON.stringify(listPrice),
+                                data: JSON.stringify({lstOrderDetails: listPrice, profitRate: self.profitRate()}),
                                 success: function (data) {
                                     if (data.success) {
                                         toastr.success("Lưu doanh thu thành công", "Thông báo");

@@ -1,7 +1,7 @@
 package com.viettelpost.controller.manage;
 
 import com.viettelpost.controller.BaseController;
-import com.viettelpost.model.RouteDetail;
+import com.viettelpost.entity.RouteDetail;
 import com.viettelpost.service.BaseCustomService;
 import com.viettelpost.service.RouteDetailService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,7 +1,7 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.User;
-import com.viettelpost.model.UserCustom;
+import com.viettelpost.entity.User;
+import com.viettelpost.entity.UserCustom;
 import com.viettelpost.util.Utils;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;

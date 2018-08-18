@@ -1,7 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.constant.AppConstant;
-import com.viettelpost.model.Orders;
+import com.viettelpost.entity.Orders;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -95,7 +94,7 @@ public class OrdersService extends BaseCustomService<Orders> {
         return query.executeUpdate();
     }
 
-    public boolean checkPermissionApprove(Long orderId, String flow) {
+    public boolean checkPermissionApprove(Long orderId, List<String> flows) {
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT 1 FROM  orders ");
         sql.append(" WHERE order_id = :orderId");
@@ -104,7 +103,7 @@ public class OrdersService extends BaseCustomService<Orders> {
         sql.append("                  FROM flow_sign_detail");
         sql.append("                 WHERE     ROWNUM = 1");
         sql.append("                       AND current_status = status");
-        sql.append("                       AND flow = :flow");
+        sql.append("                       AND flow IN :flow");
         sql.append("                       AND (user_id = :userId OR user_id IS NULL)");
         sql.append("                   AND (1=0 ");
         for (GrantedAuthority role : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
@@ -122,7 +121,7 @@ public class OrdersService extends BaseCustomService<Orders> {
         }
         Query query = entityManager.createNativeQuery(sql.toString());
         query.setParameter("orderId", orderId);
-        query.setParameter("flow", flow);
+        query.setParameter("flow", flows);
         query.setParameter("userId", getCurrentUserModel().getUserId());
         return !query.getResultList().isEmpty();
     }

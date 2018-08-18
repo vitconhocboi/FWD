@@ -2,16 +2,16 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
 
     <persistence-unit name="NewPersistenceUnit">
-        <class>com.viettelpost.model.Partner</class>
-        <class>com.viettelpost.model.Users</class>
-        <class>com.viettelpost.model.Port</class>
-        <class>com.viettelpost.model.RouteDetail</class>
-        <class>com.viettelpost.model.Service</class>
-        <class>com.viettelpost.model.Orders</class>
-        <class>com.viettelpost.model.PartnerService</class>
-        <class>com.viettelpost.model.Price</class>
-        <class>com.viettelpost.model.OrderDetail</class>
-        <class>com.viettelpost.model.AppParams</class>
+        <class>com.viettelpost.entity.Partner</class>
+        <class>com.viettelpost.entity.Users</class>
+        <class>com.viettelpost.entity.Port</class>
+        <class>com.viettelpost.entity.RouteDetail</class>
+        <class>com.viettelpost.entity.Service</class>
+        <class>com.viettelpost.entity.Orders</class>
+        <class>com.viettelpost.entity.PartnerService</class>
+        <class>com.viettelpost.entity.Price</class>
+        <class>com.viettelpost.entity.OrderDetail</class>
+        <class>com.viettelpost.entity.AppParams</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@192.168.1.19:1521:db12c"/>
             <property name="toplink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>

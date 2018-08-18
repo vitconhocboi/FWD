@@ -1,6 +1,6 @@
 package com.viettelpost.repositories;
 
-import com.viettelpost.model.OrderDetail;
+import com.viettelpost.entity.OrderDetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

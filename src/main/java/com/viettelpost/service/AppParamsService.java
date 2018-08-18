@@ -1,6 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.AppParams;
+import com.viettelpost.entity.AppParams;
 import com.viettelpost.repositories.AppParamsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

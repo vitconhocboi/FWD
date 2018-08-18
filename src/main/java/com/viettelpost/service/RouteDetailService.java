@@ -1,6 +1,6 @@
 package com.viettelpost.service;
 
-import com.viettelpost.model.RouteDetail;
+import com.viettelpost.entity.RouteDetail;
 import org.springframework.stereotype.Service;
 
 @Service
