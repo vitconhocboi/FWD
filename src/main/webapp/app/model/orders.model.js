@@ -28,5 +28,11 @@ var Orders = function () {
     this.note = ko.observable();
     this.createdDate = ko.observable();
     this.updatedDate = ko.observable();
+    this.paymentWithin = ko.observable();
+    this.rateOrderThreshold = ko.observable();
+    this.rateSaleThreshold = ko.observable();
+    this.rateCsThreshold = ko.observable();
+    this.rateOpThreshold = ko.observable();
+    this.rateContractThreshold = ko.observable();
     this.objectTypeDate = ['createdDate', 'updatedDate'];
 }

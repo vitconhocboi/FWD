@@ -4,6 +4,7 @@ $(document).ready(function () {
         self.selectedOrder = ko.observable();
         self.checkBtnPrice = ko.observable(false);
         self.checkbtnApprove = ko.observable(false);
+        self.checkProfitDistribute = ko.observable(false);
 
         self.selectOrder = function (data) {
             console.log('selected');
@@ -12,6 +13,7 @@ $(document).ready(function () {
             // check price
             self.checkbtnApprove(false);
             self.checkBtnPrice(false);
+            self.checkProfitDistribute(false);
 
             if (hasRoleAdmin == 'true' && (self.selectedOrder().status() == 1 || self.selectedOrder().status() == 2)) {
                 self.checkBtnPrice(true)
@@ -35,6 +37,14 @@ $(document).ready(function () {
                     self.checkbtnApprove(false);
                 }
             });
+
+            //check profit distribute
+
+            if (hasRoleAdmin == 'true' && self.selectedOrder().status() == 3) {
+                self.checkProfitDistribute(true)
+            } else if (hasRoleSale == 'true' && self.selectedOrder().status() == 3) {
+                self.checkProfitDistribute(true)
+            }
         }
 
         self.order = new function () {
@@ -149,7 +159,7 @@ $(document).ready(function () {
             if (item && item.orderId()) {
                 pop = app.popup({
                     title: "Thông báo",
-                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa đơn hàng <b>' + item.orderNo() + '</b>',
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa đơn hàng <b>' + item.orderNo() + '</b> <input>',
                     width: 400,
                     buttons: [
                         {
@@ -188,6 +198,10 @@ $(document).ready(function () {
 
         self.price = function () {
             location.href = app.appContext + '/orders/manage/price/' + self.selectedOrder().orderId();
+        }
+
+        self.profitDistribute = function () {
+            location.href = app.appContext + '/orders/manage/profit/' + self.selectedOrder().orderId();
         }
 
         self.approve = function () {

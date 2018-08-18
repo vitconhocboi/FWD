@@ -380,3 +380,47 @@ ko.bindingHandlers.jqAuto = {
         $(element).val(modelValue && inputValueProp !== valueProp ? unwrap(modelValue[inputValueProp]) : modelValue.toString());
     }
 };
+
+
+function format(value, fixed) {
+    if (value == null) return;
+    fixed = fixed || 0;
+    toks = value.toFixed(fixed).replace('-', '').split('.');
+    var display = $.map(toks[0].split('').reverse(), function (elm, i) {
+        return [(i % 3 === 0 && i > 0 ? ',' : ''), elm];
+    }).reverse().join('') + (fixed > 0 ? ('.' + toks[1]) : '');
+
+    return value < 0 ? '-' + display : display;
+};
+
+ko.subscribable.fn.numberic = function (fixed) {
+    var target = this;
+
+    var writeTarget = function (value) {
+        if (ko.isWriteableObservable(target)) {
+            var stripped = value != null ? value.toString()
+                .replace(/[^0-9.-]/g, '') : '';
+            target(parseFloat(stripped));
+        }
+    };
+
+    var result = ko.computed({
+        read: function () {
+            return target();
+        },
+        write: writeTarget
+    });
+
+    result.formatted = ko.computed({
+        read: function () {
+            return format(target(), fixed);
+        },
+        write: writeTarget
+    });
+
+    result.isNegative = ko.computed(function () {
+        return target() < 0;
+    });
+
+    return result;
+}

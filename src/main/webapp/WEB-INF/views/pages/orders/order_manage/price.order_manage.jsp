@@ -267,116 +267,53 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatRevenue"/>
+                                                <span data-bind="text: $root.sumAmountNotVatRevenue.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatRevenue"/>
+                                                <span data-bind="text: $root.sumAmountVatRevenue.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalRevenue"/>
+                                                <span data-bind="text: $root.sumAmountTotalRevenue.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dịch vụ</td>
-                                            <td>
-                                                <input data-bind="jqAuto: { autoFocus: true },
-                                                 jqAutoQuery: getService,
-                                                 jqAutoValue: selectedServiceRevenue,
-                                                 jqAutoSourceLabel: 'displayName',
-                                                 eventSelect: selectServiceRevenue,
-                                                 jqAutoSourceInputValue: 'serviceName'"
-                                                       style="width:100%"
-                                                       placeholder="Chọn dịch vụ..."/>
-                                            </td>
-                                            <td>Đối tác</td>
-                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
-                                                 jqAutoQuery: getPartnerPriceRevenue,
-                                                 jqAutoValue: selectedPartnerPriceRevenue,
-                                                 jqAutoSourceLabel: 'displayName',
-                                                 jqValidValue:'validTo',
-                                                 jqAutoSourceInputValue: 'partnerName'"
-                                                                   style="width:100%"
-                                                                   placeholder="Chọn đối tác..."/></td>
-                                            <td style="text-align: left"><a
-                                                    href="javascript:;"
-                                                    class="fa fa-plus"
-                                                    data-bind="click: $root.addAmountRevenue"></a>
-                                            </td>
                                         </tr>
                                         <tbody data-bind="foreach: { data: $root.listAmountRevenue, as: 'item'}">
                                         <tr height=20 style='height:15.0pt'
                                             data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
                                             <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <a
-                                                            href="javascript:;"
-                                                            class="fa fa-trash"
-                                                            data-bind="click: $root.removeAmountRevenue"></a>
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span>-</span>
-                                                </div>
+                                                <span>-</span>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.serviceName" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
                                                             data-bind="text: item.serviceName" style="width:100%"/>
-                                                </div>
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.price" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
-                                                </div>
+                                                            data-bind="text: item.price.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.exchangeRate" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
-                                                </div>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.quantity" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
-                                                </div>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.tax" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
-                                                </div>
+                                                            data-bind="text: item.tax.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: item.amountNotVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: item.amountVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -392,13 +329,13 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVat"/>
+                                                <span data-bind="text: $root.sumAmountNotVat.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVat"/>
+                                                <span data-bind="text: $root.sumAmountVat.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotal"/>
+                                                <span data-bind="text: $root.sumAmountTotal.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -413,13 +350,13 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatRent"/>
+                                                <span data-bind="text: $root.sumAmountNotVatRent.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatRent"/>
+                                                <span data-bind="text: $root.sumAmountVatRent.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalRent"/>
+                                                <span data-bind="text: $root.sumAmountTotalRent.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -478,51 +415,55 @@
                                             <td class=xl99 align=right style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.price" style="width:100%">
+                                                            data-bind="value: item.price.formatted" style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
+                                                            data-bind="text: item.price.formatted" style="width:100%"/>
                                                 </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.exchangeRate" style="width:100%">
+                                                            data-bind="value: item.exchangeRate.formatted"
+                                                            style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                                 </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.quantity" style="width:100%">
+                                                            data-bind="value: item.quantity.formatted"
+                                                            style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                                 </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.tax" style="width:100%">
+                                                            data-bind="value: item.tax.formatted" style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
+                                                            data-bind="text: item.tax.formatted" style="width:100%"/>
                                                 </div>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: item.amountNotVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: item.amountVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -538,120 +479,48 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatProcess"/>
+                                                <span data-bind="text: $root.sumAmountNotVatProcess.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatProcess"/>
+                                                <span data-bind="text: $root.sumAmountVatProcess.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalProcess"/>
+                                                <span data-bind="text: $root.sumAmountTotalProcess.formatted"/>
                                             </td>
                                             <td class=xl105 style='border-left:none'>&nbsp;</td>
                                         </tr>
-                                        <tr style="margin-top: 5px">
-                                            <td>Dịch vụ</td>
-                                            <td>
-                                                <input data-bind="jqAuto: { autoFocus: true },
-                                                 jqAutoQuery: getService,
-                                                 jqAutoValue: selectedServiceProcess,
-                                                 jqAutoSourceLabel: 'displayName',
-                                                 eventSelect: selectServiceProcess,
-                                                 jqAutoSourceInputValue: 'serviceName'"
-                                                       style="width:100%"
-                                                       placeholder="Chọn dịch vụ..."/>
-                                            </td>
-                                            <td>Đối tác</td>
-                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
-                                                 jqAutoQuery: getPartnerPriceProcess,
-                                                 jqAutoValue: selectedPartnerPriceProcess,
-                                                 jqAutoSourceLabel: 'displayName',
-                                                 jqValidValue:'validTo',
-                                                 jqAutoSourceInputValue: 'partnerName'"
-                                                                   style="width:100%"
-                                                                   placeholder="Chọn đối tác..."/></td>
-                                            <td style="text-align: left; "><a
-                                                    href="javascript:;"
-                                                    class="fa fa-plus"
-                                                    data-bind="click: $root.addAmountProcess"></a>
-                                            </td>
-                                        </tr>
-                                        <tbody data-bind="foreach: { data: $root.listAmountProcess, as: 'item'}">
-                                        <tr height=20 style='height:15.0pt'
-                                            data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
+                                        <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <a
-                                                            href="javascript:;"
-                                                            class="fa fa-trash"
-                                                            data-bind="click: $root.removeAmountRevenue"></a>
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span>-</span>
-                                                </div>
+                                                <span>-</span>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.serviceName" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.serviceName" style="width:100%"/>
-                                                </div>
+                                                <span style="width:100%">Chi phí sử dụng vốn</span>
                                             </td>
-                                            <td class=xl99 align=right style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.price" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
+                                            <td class="xl99 percent" align=right style='border-left:none '>
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
-                                                </div>
+                                                            data-bind="text: $root.order.paymentWithin()"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.exchangeRate" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
-                                                </div>
+                                            <td class=xl100 align="right" style='border-left:none'>
+                                                <span style="width:100%">1</span>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.quantity" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
-                                                </div>
+                                            <td class=xl100 align="right" style='border-left:none'>
+                                                <span style="width:100%">1</span>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.tax" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
-                                                </div>
+                                            <td class="xl100 percent" align="right" style='border-left:none'>
+                                                <span style="width:100%">10</span>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: $root.sumAmountNotVatProcess.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: $root.sumAmountVatProcess.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: $root.sumAmountTotalProcess.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
-                                        </tbody>
                                         <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl92 style='height:15.0pt;'>3</td>
                                             <td class=xl163 width=212
@@ -663,120 +532,16 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatPay"/>
+                                                <span data-bind="text: $root.sumAmountNotVatPay.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatPay"/>
+                                                <span data-bind="text: $root.sumAmountVatPay.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalPay"/>
+                                                <span data-bind="text: $root.sumAmountTotalPay.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
-                                        <tr style="margin-top: 5px">
-                                            <td>Dịch vụ</td>
-                                            <td>
-                                                <input data-bind="jqAuto: { autoFocus: true },
-                                                 jqAutoQuery: getService,
-                                                 jqAutoValue: selectedServicePay,
-                                                 jqAutoSourceLabel: 'displayName',
-                                                 eventSelect: selectServicePay,
-                                                 jqAutoSourceInputValue: 'serviceName'"
-                                                       style="width:100%"
-                                                       placeholder="Chọn dịch vụ..."/>
-                                            </td>
-                                            <td>Đối tác</td>
-                                            <td colspan="3"><input data-bind="jqAuto: { autoFocus: true },
-                                                 jqAutoQuery: getPartnerPricePay,
-                                                 jqAutoValue: selectedPartnerPricePay,
-                                                 jqAutoSourceLabel: 'displayName',
-                                                 jqValidValue:'validTo',
-                                                 jqAutoSourceInputValue: 'partnerName'"
-                                                                   style="width:100%"
-                                                                   placeholder="Chọn đối tác..."/></td>
-                                            <td style="text-align: left;"><a
-                                                    href="javascript:;"
-                                                    class="fa fa-plus"
-                                                    data-bind="click: $root.addAmountPay"></a>
-                                            </td>
-                                        </tr>
-                                        <tbody data-bind="foreach: { data: $root.listAmountPay, as: 'item'}">
-                                        <tr height=20 style='height:15.0pt'
-                                            data-bind="style: { 'background-color':!item.userId() || item.userId() == '${currentUserId}'? '#58b55e':''}">
-                                            <td height=20 class=xl97 style='height:15.0pt;'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <a
-                                                            href="javascript:;"
-                                                            class="fa fa-trash"
-                                                            data-bind="click: $root.removeAmountRevenue"></a>
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span>-</span>
-                                                </div>
-                                            </td>
-                                            <td class=xl161 width=212
-                                                style='border-left:none;width:159pt'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.serviceName" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.serviceName" style="width:100%"/>
-                                                </div>
-                                            </td>
-                                            <td class=xl99 align=right style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.price" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.price" style="width:100%"/>
-                                                </div>
-                                            </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.exchangeRate" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
-                                                </div>
-                                            </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.quantity" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
-                                                </div>
-                                            </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
-                                                    <input
-                                                            data-bind="value: item.tax" style="width:100%">
-                                                </div>
-                                                <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
-                                                    <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
-                                                </div>
-                                            </td>
-                                            <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
-                                            </td>
-                                            <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
-                                            </td>
-                                            <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
-                                            </td>
-                                            <td class=xl103 style='border-left:none'>&nbsp;</td>
-                                        </tr>
-                                        </tbody>
                                         <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl92 style='height:15.0pt;'>4</td>
                                             <td class=xl163 width=212
@@ -788,16 +553,16 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitNotVat"/>
+                                                <span data-bind="text: $root.profitNotVat.formatted"/>
                                             </td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitVat"/>
+                                                <span data-bind="text: $root.profitVat.formatted"/>
                                             </td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitTotal"/>
+                                                <span data-bind="text: $root.profitTotal.formatted"/>
                                             </td>
                                             <td class=xl111 style='border-left:none'>
-                                                <span data-bind="text: $root.profitRate"/>
+                                                <span data-bind="text: $root.profitRate.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>
@@ -811,12 +576,12 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitContract"/>
+                                                <span data-bind="text: $root.profitContract.formatted"/>
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl111 style='border-left:none'><span
-                                                    data-bind="text: $root.rateProfit"/></td>
+                                                    data-bind="text: $root.rateProfit.formatted"/></td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl92 style='height:15.0pt;border-top:none'>6</td>
@@ -828,12 +593,12 @@
                                             <td class=xl114 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.fund"/>
+                                                <span data-bind="text: $root.fund.formatted"/>
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl111 style='border-left:none'>
-                                                <span data-bind="text: $root.rateFund"/>
+                                                <span data-bind="text: $root.rateFund.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=34 style='height:25.5pt'>
@@ -847,12 +612,12 @@
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundSale"/>
+                                                <span data-bind="text: $root.fundSale.formatted"/>
                                             </td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>
-                                                <span data-bind="text: $root.rateSale"/>
+                                                <span data-bind="text: $root.rateSale.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=34 style='height:25.5pt'>
@@ -866,12 +631,12 @@
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundCS"/>
+                                                <span data-bind="text: $root.fundCS.formatted"/>
                                             </td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl117 style='border-left:none'>
-                                                <span data-bind="text: $root.rateCS"/>
+                                                <span data-bind="text: $root.rateCS.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=35 style='height:26.25pt'>
@@ -885,12 +650,12 @@
                                             <td class=xl120 style='border-left:none'>&nbsp;</td>
                                             <td class=xl120 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundOP"/>
+                                                <span data-bind="text: $root.fundOP.formatted"/>
                                             </td>
                                             <td class=xl122 style='border-left:none'>&nbsp;</td>
                                             <td class=xl122 style='border-left:none'>&nbsp;</td>
                                             <td class=xl123 style='border-left:none'>
-                                                <span data-bind="text: $root.rateOP"/>
+                                                <span data-bind="text: $root.rateOP.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>

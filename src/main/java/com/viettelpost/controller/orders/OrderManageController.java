@@ -3,14 +3,8 @@ package com.viettelpost.controller.orders;
 import com.viettelpost.constant.AppConstant;
 import com.viettelpost.controller.BaseController;
 import com.viettelpost.helper.AppHelper;
-import com.viettelpost.model.Department;
-import com.viettelpost.model.OrderDetail;
-import com.viettelpost.model.Orders;
-import com.viettelpost.model.User;
-import com.viettelpost.service.BaseCustomService;
-import com.viettelpost.service.DepartmentService;
-import com.viettelpost.service.OrderDetailService;
-import com.viettelpost.service.OrdersService;
+import com.viettelpost.model.*;
+import com.viettelpost.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +34,9 @@ public class OrderManageController extends BaseController<Orders> {
 
     @Autowired
     OrderDetailService orderDetailService;
+
+    @Autowired
+    AppParamsService appParamsService;
 
 
     @Override
@@ -135,6 +132,22 @@ public class OrderManageController extends BaseController<Orders> {
                 object.setDeptId(dept.getId());
                 object.setDeptCode(dept.getUnitCode());
                 object.setDeptName(dept.getDeptName());
+
+                List<AppParams> lstOrderParams = appParamsService.findByParType("FWD_RATE");
+
+                for (AppParams param : lstOrderParams) {
+                    if ("PROFIT_ORDER".equals(param.getParCode())) {
+                        object.setRateOrderThreshold(Float.valueOf(param.getParValue()));
+                    } else if ("PROFIT_CONTRACT".equals(param.getParCode())) {
+                        object.setRateContractThreshold(Float.valueOf(param.getParValue()));
+                    } else if ("FUND_SALE".equals(param.getParCode())) {
+                        object.setRateSaleThreshold(Float.valueOf(param.getParValue()));
+                    } else if ("FUND_CS".equals(param.getParCode())) {
+                        object.setRateCsThreshold(Float.valueOf(param.getParValue()));
+                    } else if ("FUND_OP".equals(param.getParCode())) {
+                        object.setRateOpThreshold(Float.valueOf(param.getParValue()));
+                    }
+                }
             } else {
                 object.setUpdatedDate(new Date());
             }
@@ -171,20 +184,21 @@ public class OrderManageController extends BaseController<Orders> {
             try {
                 User user = ordersService.getCurrentUserModel();
                 Department dept = departmentService.findById(user.getDeptId());
+                orderDetailService.deleteByOrderId(orderId);
                 for (OrderDetail detail : lst) {
-                    if (detail.getUserId() == null || user.getUserId().equals(detail.getUserId())) {
-                        if (detail.getId() == null) {
-                            detail.setUserId(user.getUserId());
-                            detail.setUserName(user.getFullName());
-                            detail.setDeptId(user.getDeptId());
-                            detail.setDeptCode(dept.getUnitCode());
-                            detail.setDeptName(dept.getDeptName());
-                            detail.setCreatedDate(new Date());
-                        } else {
-                            detail.setUpdatedDate(new Date());
-                        }
-                        orderDetailService.save(detail);
+//                    if (detail.getUserId() == null || user.getUserId().equals(detail.getUserId())) {
+                    if (detail.getId() == null) {
+                        detail.setUserId(user.getUserId());
+                        detail.setUserName(user.getFullName());
+                        detail.setDeptId(user.getDeptId());
+                        detail.setDeptCode(dept.getUnitCode());
+                        detail.setDeptName(dept.getDeptName());
+                        detail.setCreatedDate(new Date());
+                    } else {
+                        detail.setUpdatedDate(new Date());
                     }
+                    orderDetailService.save(detail);
+//                    }
                 }
                 return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
             } catch (Exception ex) {
@@ -211,7 +225,7 @@ public class OrderManageController extends BaseController<Orders> {
         if (ordersService.checkPermissionApprove(orderId, flow)) {
             return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
         } else {
-            return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.FORBIDDEN);
+            return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.OK);
         }
     }
 

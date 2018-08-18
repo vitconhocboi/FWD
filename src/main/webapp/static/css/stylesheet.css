@@ -1535,3 +1535,7 @@ td {
     mso-protection: unlocked visible;
     white-space: normal;
 }
+
+.percent::after{
+    content: "%";
+}

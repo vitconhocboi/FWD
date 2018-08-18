@@ -109,6 +109,19 @@ public class Orders {
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
 
+    @Column(name = "PAYMENT_WITHIN")
+    private Long paymentWithin;
+    @Column(name = "RATE_ORDER_THRESHOLD")
+    private Float rateOrderThreshold;
+    @Column(name = "RATE_SALE_THRESHOLD")
+    private Float rateSaleThreshold;
+    @Column(name = "RATE_CS_THRESHOLD")
+    private Float rateCsThreshold;
+    @Column(name = "RATE_OP_THRESHOLD")
+    private Float rateOpThreshold;
+    @Column(name = "RATE_CONTRACT_THRESHOLD")
+    private Float rateContractThreshold;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -348,4 +361,54 @@ public class Orders {
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
+
+    public Long getPaymentWithin() {
+        return paymentWithin;
+    }
+
+    public void setPaymentWithin(Long paymentWithin) {
+        this.paymentWithin = paymentWithin;
+    }
+
+    public Float getRateOrderThreshold() {
+        return rateOrderThreshold;
+    }
+
+    public void setRateOrderThreshold(Float rateOrderThreshold) {
+        this.rateOrderThreshold = rateOrderThreshold;
+    }
+
+    public Float getRateSaleThreshold() {
+        return rateSaleThreshold;
+    }
+
+    public void setRateSaleThreshold(Float rateSaleThreshold) {
+        this.rateSaleThreshold = rateSaleThreshold;
+    }
+
+    public Float getRateCsThreshold() {
+        return rateCsThreshold;
+    }
+
+    public void setRateCsThreshold(Float rateCsThreshold) {
+        this.rateCsThreshold = rateCsThreshold;
+    }
+
+    public Float getRateOpThreshold() {
+        return rateOpThreshold;
+    }
+
+    public void setRateOpThreshold(Float rateOpThreshold) {
+        this.rateOpThreshold = rateOpThreshold;
+    }
+
+    public Float getRateContractThreshold() {
+        return rateContractThreshold;
+    }
+
+    public void setRateContractThreshold(Float rateContractThreshold) {
+        this.rateContractThreshold = rateContractThreshold;
+    }
+
+
 }

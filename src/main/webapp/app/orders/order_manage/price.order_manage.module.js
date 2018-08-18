@@ -10,81 +10,6 @@ $(document).ready(function () {
         self.selectedServiceRevenue = ko.observable();
         self.selectedPartnerPriceRevenue = ko.observable();
 
-        self.sumAmountNotVatRevenue = ko.dependentObservable(function () {
-            var sum = 0;
-            for (const item of self.listAmountRevenue()) {
-                sum = sum + item.amountNotVat();
-            }
-            return sum;
-        });
-        self.sumAmountVatRevenue = ko.dependentObservable(function () {
-            var sum = 0;
-            for (const item of self.listAmountRevenue()) {
-                sum = sum + item.amountVat();
-            }
-            return sum;
-        });
-        self.sumAmountTotalRevenue = ko.dependentObservable(function () {
-            var sum = 0;
-            for (const item of self.listAmountRevenue()) {
-                sum = sum + item.amountTotal();
-            }
-            return sum;
-        });
-
-
-        self.addAmountRevenue = function () {
-            var orderDetail = new OrderDetail();
-            orderDetail.orderId(orderId);
-            orderDetail.groupCode("AMOUNT_REVENUE");
-            orderDetail.serviceId(self.selectedServiceRevenue().serviceId());
-            orderDetail.serviceName(self.selectedServiceRevenue().serviceName());
-            orderDetail.price(self.selectedPartnerPriceRevenue() ? self.selectedPartnerPriceRevenue().price() : self.selectedServiceRevenue() ? self.selectedServiceRevenue().cost() : '');
-            orderDetail.quantity(self.order.quantity());
-            orderDetail.exchangeRate(1);
-            self.listAmountRevenue.unshift(orderDetail);
-            self.selectedServiceRevenue(null);
-            self.selectedPartnerPriceRevenue(null);
-        }
-
-        self.removeAmountRevenue = function (item) {
-            self.listAmountRevenue.remove(item);
-        }
-
-        self.selectServiceRevenue = function (item) {
-            selectedServiceRevenue = item;
-            console.log('select service');
-            self.listPartnerPriceRevenue.removeAll();
-            if (item && item.serviceId()) {
-                app.makeGet({
-                    url: '/manage/price/findByServiceId/' + item.serviceId(),
-                    success: function (data) {
-                        if (data.success) {
-                            for (const price of data.data) {
-                                self.listPartnerPriceRevenue.push(app.convertObjectToObservable(price, new Price()));
-                            }
-                        } else {
-                            toastr.error("Có lỗi xảy ra", "ERR");
-                        }
-                    },
-                    error: function (err) {
-                        toastr.error(err, "ERR");
-                    }
-                });
-            }
-        };
-
-        self.getPartnerPriceRevenue = function (searchTerm, sourceArray) {
-            var result = [];
-            for (const pricePartner of self.listPartnerPriceRevenue()) {
-                if (pricePartner.partnerName().toLowerCase().startsWith(searchTerm.toLowerCase().trim())) {
-                    result.push(pricePartner);
-                }
-            }
-            sourceArray(result);
-
-        }
-
         //chi phi thue doi tac
 
         self.listPartnerPriceRent = ko.observableArray();
@@ -92,27 +17,49 @@ $(document).ready(function () {
         self.selectedServiceRent = ko.observable();
         self.selectedPartnerPriceRent = ko.observable();
 
-        self.sumAmountNotVatRent = ko.dependentObservable(function () {
+        self.sumAmountNotVatRevenue = ko.dependentObservable(function () {
             var sum = 0;
-            for (const item of self.listAmountRent()) {
+            for (const item of self.listAmountRevenue()) {
                 sum = sum + item.amountNotVat();
             }
             return sum;
-        });
-        self.sumAmountVatRent = ko.dependentObservable(function () {
+        }).numberic();
+        self.sumAmountVatRevenue = ko.dependentObservable(function () {
             var sum = 0;
-            for (const item of self.listAmountRent()) {
+            for (const item of self.listAmountRevenue()) {
                 sum = sum + item.amountVat();
             }
             return sum;
-        });
-        self.sumAmountTotalRent = ko.dependentObservable(function () {
+        }).numberic();
+        self.sumAmountTotalRevenue = ko.dependentObservable(function () {
             var sum = 0;
-            for (const item of self.listAmountRent()) {
+            for (const item of self.listAmountRevenue()) {
                 sum = sum + item.amountTotal();
             }
             return sum;
-        });
+        }).numberic();
+
+        self.sumAmountNotVatRent = ko.dependentObservable(function () {
+            var sum = 0;
+            for (const item of self.listAmountRevenue()) {
+                sum = sum + item.amountNotVat();
+            }
+            return sum;
+        }).numberic();
+        self.sumAmountVatRent = ko.dependentObservable(function () {
+            var sum = 0;
+            for (const item of self.listAmountRevenue()) {
+                sum = sum + item.amountVat();
+            }
+            return sum;
+        }).numberic();
+        self.sumAmountTotalRent = ko.dependentObservable(function () {
+            var sum = 0;
+            for (const item of self.listAmountRevenue()) {
+                sum = sum + item.amountTotal();
+            }
+            return sum;
+        }).numberic();
 
 
         self.addAmountRent = function () {
@@ -125,6 +72,18 @@ $(document).ready(function () {
             orderDetail.quantity(self.order.quantity());
             orderDetail.exchangeRate(1);
             self.listAmountRent.unshift(orderDetail);
+
+            //add revenue
+            var revenue = new OrderDetail();
+            revenue.orderId(orderId);
+            revenue.groupCode("AMOUNT_REVENUE");
+            revenue.serviceId(self.selectedServiceRent().serviceId());
+            revenue.serviceName(self.selectedServiceRent().serviceName());
+            revenue.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
+            revenue.quantity(self.order.quantity());
+            revenue.exchangeRate(1);
+            self.listAmountRevenue.unshift(revenue);
+
             self.selectedServiceRent(null);
             self.selectedPartnerPriceRent(null);
         }
@@ -167,96 +126,30 @@ $(document).ready(function () {
 
         }
 
-        //chi phi tu thuc hien
-        self.listPartnerPriceProcess = ko.observableArray();
-        self.listAmountProcess = ko.observableArray();
-        self.selectedServiceProcess = ko.observable();
-        self.selectedPartnerPriceProcess = ko.observable();
-
         self.sumAmountNotVatProcess = ko.dependentObservable(function () {
             var sum = 0;
-            for (const item of self.listAmountProcess()) {
-                sum = sum + item.amountNotVat();
-            }
+            sum = self.order.paymentWithin() * self.sumAmountNotVatRevenue() / 100;
             return sum;
-        });
+        }).numberic();
         self.sumAmountVatProcess = ko.dependentObservable(function () {
             var sum = 0;
-            for (const item of self.listAmountProcess()) {
-                sum = sum + item.amountVat();
-            }
+            sum = self.order.paymentWithin() * self.sumAmountVatRevenue() / 100;
             return sum;
-        });
+        }).numberic();
         self.sumAmountTotalProcess = ko.dependentObservable(function () {
-            var sum = 0;
-            for (const item of self.listAmountProcess()) {
-                sum = sum + item.amountTotal();
-            }
-            return sum;
-        });
+            return self.sumAmountNotVatProcess() + self.sumAmountVatProcess();
+        }).numberic();
 
-
-        self.addAmountProcess = function () {
-            var orderDetail = new OrderDetail();
-            orderDetail.orderId(orderId);
-            orderDetail.groupCode("AMOUNT_PROCESS");
-            orderDetail.serviceId(self.selectedServiceProcess().serviceId());
-            orderDetail.serviceName(self.selectedServiceProcess().serviceName());
-            orderDetail.price(self.selectedPartnerPriceProcess() ? self.selectedPartnerPriceProcess().price() : self.selectedServiceProcess() ? self.selectedServiceProcess().cost() : '');
-            orderDetail.quantity(self.order.quantity());
-            orderDetail.exchangeRate(1);
-            self.listAmountProcess.unshift(orderDetail);
-            self.selectedServiceProcess(null);
-            self.selectedPartnerPriceProcess(null);
-        }
-
-        self.removeAmountProcess = function (item) {
-            self.listAmountProcess.remove(item);
-        }
-
-        self.selectServiceProcess = function (item) {
-            selectedServiceProcess = item;
-            console.log('select service');
-            self.listPartnerPriceProcess.removeAll();
-            if (item && item.serviceId()) {
-                app.makeGet({
-                    url: '/manage/price/findByServiceId/' + item.serviceId(),
-                    success: function (data) {
-                        if (data.success) {
-                            for (const price of data.data) {
-                                self.listPartnerPriceProcess.push(app.convertObjectToObservable(price, new Price()));
-                            }
-                        } else {
-                            toastr.error("Có lỗi xảy ra", "ERR");
-                        }
-                    },
-                    error: function (err) {
-                        toastr.error(err, "ERR");
-                    }
-                });
-            }
-        };
-
-        self.getPartnerPriceProcess = function (searchTerm, sourceArray) {
-            var result = [];
-            for (const pricePartner of self.listPartnerPriceProcess()) {
-                if (pricePartner.partnerName().toLowerCase().startsWith(searchTerm.toLowerCase().trim())) {
-                    result.push(pricePartner);
-                }
-            }
-            sourceArray(result);
-
-        }
         //tong gia von
         self.sumAmountNotVat = ko.dependentObservable(function () {
             return self.sumAmountNotVatRent() + self.sumAmountNotVatProcess();
-        });
+        }).numberic();
         self.sumAmountVat = ko.dependentObservable(function () {
             return self.sumAmountVatRent() + self.sumAmountVatProcess();
-        });
+        }).numberic();
         self.sumAmountTotal = ko.dependentObservable(function () {
             return self.sumAmountTotalRent() + self.sumAmountTotalProcess();
-        });
+        }).numberic();
         //chi phi tra ho
         self.listPartnerPricePay = ko.observableArray();
         self.listAmountPay = ko.observableArray();
@@ -269,21 +162,21 @@ $(document).ready(function () {
                 sum = sum + item.amountNotVat();
             }
             return sum;
-        });
+        }).numberic();
         self.sumAmountVatPay = ko.dependentObservable(function () {
             var sum = 0;
             for (const item of self.listAmountPay()) {
                 sum = sum + item.amountVat();
             }
             return sum;
-        });
+        }).numberic();
         self.sumAmountTotalPay = ko.dependentObservable(function () {
             var sum = 0;
             for (const item of self.listAmountPay()) {
                 sum = sum + item.amountTotal();
             }
             return sum;
-        });
+        }).numberic();
 
 
         self.addAmountPay = function () {
@@ -339,53 +232,53 @@ $(document).ready(function () {
         }
         //end
         //tinh loi nhuan
-        self.profitContract = ko.observable(0);
-        self.fund = ko.observable(0);
-        self.fundSale = ko.observable(0);
-        self.fundCS = ko.observable(0);
-        self.fundOP = ko.observable(0);
+        self.profitContract = ko.observable(0).numberic();
+        self.fund = ko.observable(0).numberic();
+        self.fundSale = ko.observable(0).numberic();
+        self.fundCS = ko.observable(0).numberic();
+        self.fundOP = ko.observable(0).numberic();
         self.rateProfit = ko.dependentObservable(function () {
             return +(Math.round(self.profitContract() / (self.sumAmountNotVatRevenue() > 0 ? self.sumAmountNotVatRevenue() : 1) * 100 + "e+2") + "e-2");
-        });
+        }).numberic(2);
         self.rateFund = ko.dependentObservable(function () {
             return +(Math.round(self.fund() / (self.sumAmountNotVatRevenue() > 0 ? self.sumAmountNotVatRevenue() : 1) * 100 + "e+2") + "e-2");
-        });
+        }).numberic(2);
         self.rateSale = ko.dependentObservable(function () {
             return +(Math.round(self.fundSale() / (self.fund() > 0 ? self.fund() : 1) * 100 + "e+2") + "e-2");
-        });
+        }).numberic(2);
         self.rateCS = ko.dependentObservable(function () {
             return +(Math.round(self.fundCS() / (self.fund() > 0 ? self.fund() : 1) * 100 + "e+2") + "e-2");
-        });
+        }).numberic(2);
         self.rateOP = ko.dependentObservable(function () {
             return +(Math.round(self.fundOP() / (self.fund() > 0 ? self.fund() : 1) * 100 + "e+2") + "e-2");
-        });
+        }).numberic(2);
 
         self.profitNotVat = ko.dependentObservable(function () {
-            var profit = self.sumAmountNotVatRevenue() - self.sumAmountNotVat();
-            var profitContract = +(Math.round(self.sumAmountNotVatRevenue() * 2 / 100 + "e+2") + "e-2");
+            var profit = 0;
+            var profitContract = 0;
             self.profitContract(profitContract);
             var fund = profit - profitContract;
             self.fund(fund);
-            var fundSale = +(Math.round(fund * 35 / 100 + "e+2") + "e-2");
+            var fundSale = +(Math.round(fund * self.order.rateSaleThreshold() / 100 + "e+2") + "e-2");
             self.fundSale(fundSale);
-            var fundCS = +(Math.round(fund * 12.5 / 100 + "e+2") + "e-2");
+            var fundCS = +(Math.round(fund * self.order.rateCsThreshold() / 100 + "e+2") + "e-2");
             self.fundCS(fundCS);
-            var fundOP = +(Math.round(fund * 12.5 / 100 + "e+2") + "e-2");
+            var fundOP = +(Math.round(fund * self.order.rateOpThreshold() / 100 + "e+2") + "e-2");
             self.fundOP(fundOP);
-            var profitContract = +(Math.round(self.sumAmountNotVatRevenue() * 2 / 100 + "e+2") + "e-2");
+            var profitContract = +(Math.round(self.sumAmountNotVatRevenue() * self.order.rateContractThreshold() / 100 + "e+2") + "e-2");
             return profit;
-        });
+        }).numberic();
         self.profitVat = ko.dependentObservable(function () {
-            return self.sumAmountVatRevenue() - self.sumAmountVat();
-        });
+            return 0;
+        }).numberic();
 
         self.profitTotal = ko.dependentObservable(function () {
-            return self.sumAmountTotalRevenue() - self.sumAmountTotal();
-        });
+            return 0;
+        }).numberic();
 
         self.profitRate = ko.dependentObservable(function () {
-            return +(Math.round((self.profitNotVat() / (self.sumAmountNotVatRevenue() > 0 ? self.sumAmountNotVatRevenue() : 1) * 100) + "e+2") + "e-2");
-        });
+            return 0;
+        }).numberic(2);
 
 
         if (orderId) {
@@ -410,8 +303,6 @@ $(document).ready(function () {
                         for (const detail of data.data) {
                             if (detail.groupCode == 'AMOUNT_REVENUE') {
                                 self.listAmountRevenue.push(app.convertObjectToObservable(detail, new OrderDetail()));
-                            } else if (detail.groupCode == 'AMOUNT_PROCESS') {
-                                self.listAmountProcess.push(app.convertObjectToObservable(detail, new OrderDetail()));
                             } else if (detail.groupCode == 'AMOUNT_RENT') {
                                 self.listAmountRent.push(app.convertObjectToObservable(detail, new OrderDetail()));
                             } else if (detail.groupCode == 'AMOUNT_PAY') {
@@ -450,9 +341,9 @@ $(document).ready(function () {
 
         self.save = function () {
             var listPrice = [];
-            listPrice.push.apply(listPrice, self.listAmountRevenue().map(x => app.convertFormObservableJson(x)));
             listPrice.push.apply(listPrice, self.listAmountRent().map(x => app.convertFormObservableJson(x)));
-            listPrice.push.apply(listPrice, self.listAmountProcess().map(x => app.convertFormObservableJson(x)));
+            listPrice.push.apply(listPrice, self.listAmountRent().map(x => app.convertFormObservableJson(x)));
+            listPrice.push.apply(listPrice, self.listAmountRevenue().map(x => app.convertFormObservableJson(x)));
             listPrice.push.apply(listPrice, self.listAmountPay().map(x => app.convertFormObservableJson(x)));
             pop = app.popup({
                 title: "Thông báo",

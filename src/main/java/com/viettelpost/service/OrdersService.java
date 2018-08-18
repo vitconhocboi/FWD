@@ -105,7 +105,7 @@ public class OrdersService extends BaseCustomService<Orders> {
         sql.append("                 WHERE     ROWNUM = 1");
         sql.append("                       AND current_status = status");
         sql.append("                       AND flow = :flow");
-        sql.append("                       AND (user_id = 1 OR user_id IS NULL)");
+        sql.append("                       AND (user_id = :userId OR user_id IS NULL)");
         sql.append("                   AND (1=0 ");
         for (GrantedAuthority role : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
             sql.append("                        OR REGEXP_LIKE (role, '^" + role.getAuthority() + ",|," + role.getAuthority() + ",')");

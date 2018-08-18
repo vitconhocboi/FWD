@@ -168,6 +168,17 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
+                                                    Thời gian thanh toán
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <input class="form-control col-sm-12"
+                                                           data-bind="value:order.paymentWithin">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label class="col-sm-2">
                                                     Ghi chú
                                                 </label>
                                                 <div class="col-sm-10">

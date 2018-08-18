@@ -19,7 +19,7 @@
                                     <span class="caption-subject bold uppercase">Thông tin đơn hàng</span>
                                 </div>
                                 <div class="panel-body" align="center">
-                                    <table border=0 cellpadding=0 cellspacing=0 width=974 style='border-collapse:
+                                    <table id="orderReport" border=0 cellpadding=0 cellspacing=0 width=974 style='border-collapse:
  collapse;table-layout:fixed;width:731pt'>
                                         <col width=64 style='mso-width-source:userset;mso-width-alt:2340;width:48pt'>
                                         <col width=212 style='mso-width-source:userset;mso-width-alt:7753;width:159pt'>
@@ -144,7 +144,7 @@
                                             <td colspan=2 height=20 class=xl76 style='height:15.0pt'>Mã s&#7889;
                                                 thu&#7871;:
                                             </td>
-                                            <td colspan=4 class=xl80><span data-bind="text:order.taxCode"/></td>
+                                            <td colspan=4 class="xl80"><span data-bind="text:order.taxCode"/></td>
                                             <td class=xl83></td>
                                             <td class=xl78></td>
                                             <td class=xl85></td>
@@ -267,13 +267,13 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatRevenue"/>
+                                                <span data-bind="text: $root.sumAmountNotVatRevenue.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatRevenue"/>
+                                                <span data-bind="text: $root.sumAmountVatRevenue.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalRevenue"/>
+                                                <span data-bind="text: $root.sumAmountTotalRevenue.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -289,28 +289,30 @@
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
+                                                            data-bind="text: item.price.formatted" style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class=xl100 style='border-left:none; text-align: right'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted"
+                                                            style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class=xl100 style='border-left:none;text-align: right'>
                                                     <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted"
+                                                            style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class="percent xl100" style='border-left:none;text-align: center'>
                                                     <span
                                                             data-bind="text: item.tax" style="width:100%"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: item.amountNotVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: item.amountVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -326,13 +328,13 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVat"/>
+                                                <span data-bind="text: $root.sumAmountNotVat.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVat"/>
+                                                <span data-bind="text: $root.sumAmountVat.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotal"/>
+                                                <span data-bind="text: $root.sumAmountTotal.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -347,13 +349,13 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatRent"/>
+                                                <span data-bind="text: $root.sumAmountNotVatRent.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatRent"/>
+                                                <span data-bind="text: $root.sumAmountVatRent.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalRent"/>
+                                                <span data-bind="text: $root.sumAmountTotalRent.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -369,28 +371,28 @@
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
+                                                            data-bind="text: item.price.formatted" style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class=xl100 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class=xl100 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class="percent xl100" align=center style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
+                                                            data-bind="text: item.tax.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: item.amountNotVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: item.amountVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -406,54 +408,48 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatProcess"/>
+                                                <span data-bind="text: $root.sumAmountNotVatProcess.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatProcess"/>
+                                                <span data-bind="text: $root.sumAmountVatProcess.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalProcess"/>
+                                                <span data-bind="text: $root.sumAmountTotalProcess.formatted"/>
                                             </td>
                                             <td class=xl105 style='border-left:none'>&nbsp;</td>
                                         </tr>
-                                        <tbody data-bind="foreach: { data: $root.listAmountProcess, as: 'item'}">
                                         <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl97 style='height:15.0pt;'>
                                                 <span>-</span>
                                             </td>
                                             <td class=xl161 width=212
                                                 style='border-left:none;width:159pt'>
-                                                    <span
-                                                            data-bind="text: item.serviceName" style="width:100%"/>
+                                                <span style="width:100%">Chi phí sử dụng vốn</span>
                                             </td>
-                                            <td class=xl99 align=right style='border-left:none'>
+                                            <td class="xl99 percent" align=right style='border-left:none '>
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
+                                                            data-bind="text: $root.order.paymentWithin()"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                    <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
+                                            <td class=xl100 align="right" style='border-left:none'>
+                                                <span style="width:100%">1</span>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                    <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
+                                            <td class=xl100 align="right" style='border-left:none'>
+                                                <span style="width:100%">1</span>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
-                                                    <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
+                                            <td class="xl100 percent" align="center" style='border-left:none'>
+                                                <span style="width:100%">10</span>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: $root.sumAmountNotVatProcess.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: $root.sumAmountVatProcess.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: $root.sumAmountTotalProcess.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
-                                        </tbody>
                                         <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl92 style='height:15.0pt;'>3</td>
                                             <td class=xl163 width=212
@@ -465,13 +461,13 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountNotVatPay"/>
+                                                <span data-bind="text: $root.sumAmountNotVatPay.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountVatPay"/>
+                                                <span data-bind="text: $root.sumAmountVatPay.formatted"/>
                                             </td>
                                             <td class=xl114 style='border-left:none'>
-                                                <span data-bind="text: $root.sumAmountTotalPay"/>
+                                                <span data-bind="text: $root.sumAmountTotalPay.formatted"/>
                                             </td>
                                             <td class=xl96 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -487,28 +483,28 @@
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.price" style="width:100%"/>
+                                                            data-bind="text: item.price.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.exchangeRate" style="width:100%"/>
+                                                            data-bind="text: item.exchangeRate.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.quantity" style="width:100%"/>
+                                                            data-bind="text: item.quantity.formatted" style="width:100%"/>
                                             </td>
-                                            <td class=xl100 style='border-left:none'>
+                                            <td class="xl100 percent" style='border-left:none'>
                                                     <span
-                                                            data-bind="text: item.tax" style="width:100%"/>
+                                                            data-bind="text: item.tax.formatted" style="width:100%"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountNotVat"/>
+                                                <span data-bind="text: item.amountNotVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountVat"/>
+                                                <span data-bind="text: item.amountVat.formatted"/>
                                             </td>
                                             <td class=xl101>
-                                                <span data-bind="text: item.amountTotal"/>
+                                                <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
                                             <td class=xl103 style='border-left:none'>&nbsp;</td>
                                         </tr>
@@ -524,16 +520,16 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitNotVat"/>
+                                                <span data-bind="text: $root.profitNotVat.formatted"/>
                                             </td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitVat"/>
+                                                <span data-bind="text: $root.profitVat.formatted"/>
                                             </td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitTotal"/>
+                                                <span data-bind="text: $root.profitTotal.formatted"/>
                                             </td>
-                                            <td class=xl111 style='border-left:none'>
-                                                <span data-bind="text: $root.profitRate"/>
+                                            <td class="xl111 percent" style='border-left:none'>
+                                                <span data-bind="text: $root.profitRate.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>
@@ -547,12 +543,12 @@
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl94 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.profitContract"/>
+                                                <span data-bind="text: $root.profitContract.formatted"/>
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
-                                            <td class=xl111 style='border-left:none'><span
-                                                    data-bind="text: $root.rateProfit"/></td>
+                                            <td class="percent xl111" style='border-left:none'><span
+                                                    data-bind="text: $root.rateProfit.formatted"/></td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>
                                             <td height=20 class=xl92 style='height:15.0pt;border-top:none'>6</td>
@@ -564,12 +560,12 @@
                                             <td class=xl114 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114 style='border-left:none'>&nbsp;</td>
                                             <td class=xl114>
-                                                <span data-bind="text: $root.fund"/>
+                                                <span data-bind="text: $root.fund.formatted"/>
                                             </td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
                                             <td class=xl95 style='border-left:none'>&nbsp;</td>
-                                            <td class=xl111 style='border-left:none'>
-                                                <span data-bind="text: $root.rateFund"/>
+                                            <td class="xl111 percent" style='border-left:none'>
+                                                <span data-bind="text: $root.rateFund.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=34 style='height:25.5pt'>
@@ -583,12 +579,12 @@
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundSale"/>
+                                                <span data-bind="text: $root.fundSale.formatted"/>
                                             </td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
-                                            <td class=xl109 style='border-left:none'>
-                                                <span data-bind="text: $root.rateSale"/>
+                                            <td class="xl109 percent" style='border-left:none'>
+                                                <span data-bind="text: $root.rateSale.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=34 style='height:25.5pt'>
@@ -602,12 +598,12 @@
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl116 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundCS"/>
+                                                <span data-bind="text: $root.fundCS.formatted"/>
                                             </td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
                                             <td class=xl109 style='border-left:none'>&nbsp;</td>
-                                            <td class=xl117 style='border-left:none'>
-                                                <span data-bind="text: $root.rateCS"/>
+                                            <td class="xl117 percent" style='border-left:none'>
+                                                <span data-bind="text: $root.rateCS.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=35 style='height:26.25pt'>
@@ -621,12 +617,12 @@
                                             <td class=xl120 style='border-left:none'>&nbsp;</td>
                                             <td class=xl120 style='border-left:none'>&nbsp;</td>
                                             <td class=xl101>
-                                                <span data-bind="text: $root.fundOP"/>
+                                                <span data-bind="text: $root.fundOP.formatted"/>
                                             </td>
                                             <td class=xl122 style='border-left:none'>&nbsp;</td>
                                             <td class=xl122 style='border-left:none'>&nbsp;</td>
-                                            <td class=xl123 style='border-left:none'>
-                                                <span data-bind="text: $root.rateOP"/>
+                                            <td class="xl123 percent" style='border-left:none'>
+                                                <span data-bind="text: $root.rateOP.formatted"/>
                                             </td>
                                         </tr>
                                         <tr height=20 style='height:15.0pt'>
@@ -688,6 +684,9 @@
                                         <a href="javascript:;" class="btn green"
                                            data-bind="click: $root.edit"><i class="fa fa-edit"></i>
                                             Chỉnh sửa</a>
+                                        <a href="javascript:;" class="btn green"
+                                           data-bind="click: $root.tableToExcel"><i class="fa fa-file-excel-o"></i>
+                                            Download</a>
                                         <a href="javascript:;" class="btn green"
                                            data-bind="click: $root.back"><i class="fa fa-backward"></i>
                                             Trở lại</a>

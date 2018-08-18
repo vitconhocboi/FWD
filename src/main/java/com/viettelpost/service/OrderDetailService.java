@@ -4,10 +4,12 @@ import com.viettelpost.model.OrderDetail;
 import com.viettelpost.repositories.OrderDetailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class OrderDetailService extends BaseCustomService<OrderDetail> {
     @Autowired
     OrderDetailRepository orderDetailRepository;
@@ -16,7 +18,7 @@ public class OrderDetailService extends BaseCustomService<OrderDetail> {
         return orderDetailRepository.findAllByOrderIdOrderByGroupCode(orderId);
     }
 
-    public void deleteByOrderIdAnduAndUserId(Long orderId) {
-        orderDetailRepository.deleteByOrderIdAndUserId(orderId, getCurrentUserModel().getUserId());
+    public void deleteByOrderId(Long orderId) {
+        orderDetailRepository.deleteByOrderId(orderId);
     }
 }

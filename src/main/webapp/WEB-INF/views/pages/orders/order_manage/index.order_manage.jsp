@@ -198,6 +198,12 @@
                                                     class="fa fa-dollar"></i>
                                                 Báo giá</a>
                                         </sec:authorize>
+                                        <sec:authorize access="hasAnyRole('SALE','ADMIN')">
+                                            <a href="javascript:;" class="btn green"
+                                               data-bind="click: $root.profitDistribute,visible:$root.checkProfitDistribute"><i
+                                                    class="fa fa-apple"></i>
+                                                Phân bổ lợi nhuận</a>
+                                        </sec:authorize>
                                         <sec:authorize access="hasAnyRole('SALE','CS','OP','ADMIN')">
                                             <a href="javascript:;" class="btn green"
                                                data-bind="click: $root.approve,visible:$root.checkbtnApprove"><i
@@ -215,14 +221,17 @@
         </div>
     </div>
 </div>
+
 <sec:authorize access="hasRole('ADMIN')" var="hasRoleAdmin"></sec:authorize>
 <sec:authorize access="hasRole('CS')" var="hasRoleCS"></sec:authorize>
 <sec:authorize access="hasRole('OP')" var="hasRoleOP"></sec:authorize>
+<sec:authorize access="hasRole('SALE')" var="hasRoleSale"></sec:authorize>
 
 <script type="text/javascript">
     var hasRoleAdmin = '${hasRoleAdmin}';
     var hasRoleCS = '${hasRoleCS}';
     var hasRoleOP = '${hasRoleOP}';
+    var hasRoleSale = '${hasRoleSale}';
 </script>
 
 <script type="text/javascript" src="<c:url value="/app/orders/order_manage/index.order_manage.module.js"/>"
