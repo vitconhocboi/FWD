@@ -80,6 +80,25 @@ public class AppConstant {
         public static final String PROFIT = "3";
     }
 
+    public interface FINANCE_STATUS {
+        public static final Long WAIT = 0L;
+        public static final Long ACCEPTED = 1L;
+        public static final Long DENIED = -1L;
+    }
+
+    public interface FINANCE_PAYMENT_TYPE {
+        public static final Long BORROW = 0L;
+        public static final Long REFUND = 1L;
+        public static final Long DEBIT_CUSTOMER = 2L;
+        public static final Long DEBIT_PARTNER = 3L;
+    }
+
+    public interface FINANCE_TYPE {
+        public static final Long MEMBER = 0L;
+        public static final Long CUSTOMER = 1L;
+        public static final Long PARTNER = 2L;
+    }
+
     public static String redirectPage(String pageName) {
         return "redirect:/" + pageName;
     }

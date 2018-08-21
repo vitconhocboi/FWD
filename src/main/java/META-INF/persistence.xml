@@ -12,6 +12,8 @@
         <class>com.viettelpost.entity.Price</class>
         <class>com.viettelpost.entity.OrderDetail</class>
         <class>com.viettelpost.entity.AppParams</class>
+        <class>com.viettelpost.entity.DebtDetail</class>
+        <class>com.viettelpost.entity.DebtManagement</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@192.168.1.19:1521:db12c"/>
             <property name="toplink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>

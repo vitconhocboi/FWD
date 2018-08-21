@@ -209,10 +209,10 @@ $(document).ready(function () {
         }
 
         self.approve = function () {
-            if (self.selectedOrder().status() == 3 && self.selectedOrder().rateProfit() > self.selectedOrder().rateOrderThreshold()) {
+            if ((self.selectedOrder().status() == 3 && self.selectedOrder().rateProfit() > self.selectedOrder().rateOrderThreshold()) || self.selectedOrder().status() == 5) {
                 pop = app.popup({
                     title: "Thông báo",
-                    html: 'Đơn hàng <b>' + self.selectedOrder().orderNo() + '</b> đã đủ điều kiện chuyển hàng. Bạn có chắc chắn muốn xử lý?' +
+                    html: 'Đơn hàng <b>' + self.selectedOrder().orderNo() + '</b> đã đủ điều kiện chuyển hàng. Bạn có chắc chắn muốn xử lý?<br>' +
                     '<form class="form-horizontal">' +
                     '    <div class="form-group">' +
                     '        <div class="col-sm-12">' +
@@ -287,8 +287,9 @@ $(document).ready(function () {
                             class: 'btn',
                             icon: 'fa-check',
                             action: function () {
-                                app.makeGet({
-                                    url: '/orders/manage/approve/' + self.selectedOrder().orderId() + '/APPROVE',
+                                app.makePost({
+                                    url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
+                                    data: 'APPROVE',
                                     success: function (data) {
                                         if (data.success) {
                                             toastr.success("Duyệt đơn hàng thành công", "Thông báo");

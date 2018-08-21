@@ -139,4 +139,15 @@
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/orders/order_manage/profit.order_manage.jsp"/>
     </definition>
+
+    <!--quan ly tai chinh-->
+    <!--xin tam ung-->
+    <definition name="viettelpost.page.finances.advance.payment" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/finance/advance_payment/index.advance.payment.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.finances.advance.payment.addedit" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/finance/advance_payment/addedit.advance.payment.jsp"/>
+    </definition>
 </tiles-definitions>

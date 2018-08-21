@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -88,6 +89,19 @@ public class BaseCustomService<Tbo> {
                         params.add(searchValue);
                     } else if (searchParams.get(param) instanceof Map) {
                         Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
+
+                        if (map.get("FROM") != null) {
+                            sql.append("AND a." + param + " >=  :param_" + params.size() + " ");
+                            Object searchValue = Utils.covnertToOriginalType(field, map.get("FROM"));
+                            params.add(searchValue);
+                        }
+
+                        if (map.get("TO") != null) {
+                            sql.append("AND a." + param + " <=  :param_" + params.size() + " ");
+                            Object searchValue = Utils.covnertToOriginalType(field, map.get("TO"));
+                            params.add(searchValue);
+                        }
+
                         if (map.get("VALUE") != null && map.get("OPERATOR") != null) {
                             String operator = map.get("OPERATOR").toString();
                             Object searchValue;
@@ -241,9 +255,10 @@ public class BaseCustomService<Tbo> {
         return ((UserCustom) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserModel();
     }
 
-    public boolean checkRole(String role) {
+    public boolean checkRole(String... roles) {
+        List<String> lstRole = Arrays.asList(roles);
         for (GrantedAuthority grantedRole : SecurityContextHolder.getContext().getAuthentication().getAuthorities()) {
-            if (role.equals(grantedRole.getAuthority())) {
+            if (lstRole.contains(grantedRole.getAuthority())) {
                 return true;
             }
         }
