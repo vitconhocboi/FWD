@@ -1,0 +1,100 @@
+<form class="form-horizontal">
+    <div class="form-group">
+        <div class="col-sm-12">
+            <label class="col-sm-2">
+                Từ ngày
+                <span class="nsw-require-field">*</span>
+            </label>
+            <div class="col-sm-4">
+                <input class="form-control form-control-inline date-picker"
+                       data-date-format="dd/mm/yyyy" size="16" type="text"
+                       placeholder="dd/mm/yyyy"
+                       data-bind="datepicker: payment.createdDate.FROM"/>
+            </div>
+            <label class="col-sm-2">
+                Đến ngày
+                <span class="nsw-require-field">*</span>
+            </label>
+            <div class="col-sm-4">
+                <input class="form-control form-control-inline date-picker"
+                       data-date-format="dd/mm/yyyy" size="16" type="text"
+                       placeholder="dd/mm/yyyy"
+                       data-bind="datepicker: payment.createdDate.TO"/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group nsw-text-center">
+        <a href="javascript:;" class="btn green"
+           data-bind="click: $root.search"><i class="fa fa-search"></i>
+            Xem</a>
+    </div>
+</form>
+<div class="panel-body">
+    <table class="table table-striped table-bordered table-hover table-checkable order-column"
+           id="sample_1">
+        <thead>
+        <tr class="nsw-tr tr-nsw1-bgcolor">
+            <th class="text-center">STT</th>
+            <th class="text-center">Tên nhân viên</th>
+            <th class="text-center">Đối tượng công nợ</th>
+            <th class="text-center">Số tiền</th>
+            <th class="text-center">Loại công nợ</th>
+            <th class="text-center">Ngày công nợ</th>
+            <th class="text-center">Lý do</th>
+            <th class="text-center">Ghi chú</th>
+        </tr>
+        </thead>
+        <tbody id="list-container"
+               data-bind="foreach: { data: $root.listAdvancePayment, as: 'item'}">
+        <tr data-bind="click: $root.selectedItem,style: { 'background-color': $root.selectedItem()==item?'#adb4c1':''}"
+            style="cursor: pointer">
+            <td class="text-center"
+                data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
+            <td class="text-center" data-bind="text: item.objectDebtName"></td>
+            <td class="text-center" data-bind="text: item.objectDebtName"></td>
+            <td class="text-center"
+                data-bind="text: item.amount.formatted"></td>
+            <td class="text-center" data-bind="text: $root.getPaymentTypeName(item.paymentType())"></td>
+            <td class="text-center"
+                data-bind="text: item.createdDate()?moment(item.createdDate()).format('DD/MM/YYYY'):''"></td>
+            <td class="text-center" data-bind="text: item.reason"></td>
+            <td class="text-center"
+                data-bind="text: item.note">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="row">
+        <div class="col-md-12 nsw-text-right">
+            <div class="nsw-flr" data-bind="if: pagingVM.totalCount() > 5">
+                <ul class="flip pull-left pagination pagination-sm">
+                    <li data-bind="css: { disabled: !pagingVM.firstPageActive() }"
+                        class="previous disabled"><a href="#" aria-label="First"
+                                                     data-bind="click: goToFirst">
+                        Trang đầu
+                    </a></li>
+                    <li data-bind="css: { disabled: !pagingVM.previousPageActive()  }"
+                        class="previous disabled"><a href="#" aria-label="Previous"
+                                                     data-bind="click: goToPrevious">
+                        Trang trước
+                    </a></li>
+                    <!-- ko foreach: $root.pagingVM.getPages() -->
+                    <li data-bind="css: { active: $data == $root.pagingVM.currentPage() }">
+                        <a href="#"
+                           data-bind="text: $data, click: $root.goToPage.bind($data)"></a>
+                    </li>
+                    <!-- /ko -->
+                    <li data-bind="css: { disabled: !pagingVM.nextPageActive() }"
+                        class="next"><a href="#" aria-label="Next"
+                                        data-bind="click: goToNext">
+                        Trang sau
+                    </a></li>
+                    <li data-bind="css: { disabled: !pagingVM.lastPageActive() }"
+                        class="next"><a href="#" aria-label="Last"
+                                        data-bind="click: goToLast">Trang cuối
+                    </a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
