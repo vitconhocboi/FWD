@@ -3,6 +3,7 @@ package com.viettelpost.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.InputStream;
 import java.util.Date;
 
 @Entity
@@ -50,6 +51,15 @@ public class DebtDetail {
     @Column(name = "ORDER_ID")
     private Long orderId;
 
+    @Column(name = "ORDER_NO")
+    private String orderNo;
+
+    @Column(name = "SERVICE_ID")
+    private Long serviceId;
+
+    @Column(name = "SERVICE_NAME")
+    private String serviceName;
+
     @Column(name = "USER_CREATE_ID")
     private Long userCreateId;
 
@@ -61,6 +71,9 @@ public class DebtDetail {
 
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
+
+    @Transient
+    private InputStream file;
 
     public Long getId() {
         return id;
@@ -180,5 +193,41 @@ public class DebtDetail {
 
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public void setOrderNo(String orderNo) {
+        this.orderNo = orderNo;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
+    }
+
+    public InputStream getFile() {
+        return file;
+    }
+
+    public void setFile(InputStream file) {
+        this.file = file;
+    }
+
+    public String getOrderColumn() {
+        return "id";
     }
 }

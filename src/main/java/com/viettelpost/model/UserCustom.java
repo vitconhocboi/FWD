@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.viettelpost.entity;
+package com.viettelpost.model;
 
+import com.viettelpost.entity.Page;
 import com.viettelpost.helper.AppHelper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;

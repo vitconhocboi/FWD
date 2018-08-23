@@ -37,6 +37,21 @@ var Orders = function () {
     this.rateProfit = ko.observable();
     this.estimatedStartDate = ko.observable();
     this.estimatedEndDate = ko.observable();
+    this.amountRevenue = ko.observable();
+    this.amountRevenueVat = ko.observable();
+    this.amountRevenueTotal = ko.observable();
+    this.amountFee = ko.observable();
+    this.amountFeeVat = ko.observable();
+    this.amountFeeTotal = ko.observable();
+    this.amountProfit = ko.observable();
+    this.amountProfitVat = ko.observable();
+    this.amountProfitTotal = ko.observable();
+    this.amountFund = ko.observable();
+    this.amountSale = ko.observable();
+    this.amountCs = ko.observable();
+    this.amountOp = ko.observable();
+
+
 
 
     this.objectTypeDate = ['createdDate', 'updatedDate', 'estimatedStartDate', 'estimatedEndDate'];

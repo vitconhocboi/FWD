@@ -203,4 +203,8 @@ public class Partner {
     public void setUpdatedDate(Date updatedDate) {
         this.updatedDate = updatedDate;
     }
+
+    public String getOrderColumn() {
+        return "partnerId";
+    }
 }

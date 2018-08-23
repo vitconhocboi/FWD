@@ -72,4 +72,7 @@ public class AppParams {
         this.note = note;
     }
 
+    public String getOrderColumn() {
+        return "id";
+    }
 }

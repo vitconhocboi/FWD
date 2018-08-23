@@ -60,13 +60,13 @@ public class OrderDetail {
     private Long tax;
 
     @Column(name = "AMOUNT_NOT_VAT")
-    private Long amountNotVat;
+    private Double amountNotVat;
 
     @Column(name = "AMOUNT_VAT")
-    private Long amountVat;
+    private Double amountVat;
 
     @Column(name = "AMOUNT_TOTAL")
-    private Long amountTotal;
+    private Double amountTotal;
 
     @Column(name = "NOTE")
     private String note;
@@ -76,6 +76,12 @@ public class OrderDetail {
 
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
+
+    @Column(name = "PARTNER_ID")
+    private Long partnerId;
+
+    @Column(name = "PARTNER_NAME")
+    private String partnerName;
 
     public Long getId() {
         return id;
@@ -181,27 +187,27 @@ public class OrderDetail {
         this.quantity = quantity;
     }
 
-    public Long getAmountNotVat() {
+    public Double getAmountNotVat() {
         return amountNotVat;
     }
 
-    public void setAmountNotVat(Long amountNotVat) {
+    public void setAmountNotVat(Double amountNotVat) {
         this.amountNotVat = amountNotVat;
     }
 
-    public Long getAmountVat() {
+    public Double getAmountVat() {
         return amountVat;
     }
 
-    public void setAmountVat(Long amountVat) {
+    public void setAmountVat(Double amountVat) {
         this.amountVat = amountVat;
     }
 
-    public Long getAmountTotal() {
+    public Double getAmountTotal() {
         return amountTotal;
     }
 
-    public void setAmountTotal(Long amountTotal) {
+    public void setAmountTotal(Double amountTotal) {
         this.amountTotal = amountTotal;
     }
 
@@ -235,5 +241,25 @@ public class OrderDetail {
 
     public void setTax(Long tax) {
         this.tax = tax;
+    }
+
+    public Long getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(Long partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public String getPartnerName() {
+        return partnerName;
+    }
+
+    public void setPartnerName(String partnerName) {
+        this.partnerName = partnerName;
+    }
+
+    public String getOrderColumn() {
+        return "id";
     }
 }

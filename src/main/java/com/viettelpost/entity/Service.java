@@ -76,4 +76,8 @@ public class Service {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public String getOrderColumn() {
+        return "serviceId";
+    }
 }

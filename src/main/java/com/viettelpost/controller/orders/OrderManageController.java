@@ -19,9 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Controller
 @RequestMapping(value = "/orders/manage")
@@ -37,6 +35,12 @@ public class OrderManageController extends BaseController<Orders> {
 
     @Autowired
     AppParamsService appParamsService;
+
+    @Autowired
+    DebtManagementService debtManagementService;
+
+    @Autowired
+    DebtDetailService debtDetailService;
 
 
     @Override
@@ -202,6 +206,19 @@ public class OrderManageController extends BaseController<Orders> {
                 }
                 Orders order = ordersService.findById(orderId);
                 order.setRateProfit(revenue.getProfitRate());
+                order.setAmountRevenue(revenue.getAmountRevenue());
+                order.setAmountRevenueVat(revenue.getAmountRevenueVat());
+                order.setAmountRevenueTotal(revenue.getAmountRevenueTotal());
+                order.setAmountFee(revenue.getAmountFee());
+                order.setAmountFeeVat(revenue.getAmountFeeVat());
+                order.setAmountFeeTotal(revenue.getAmountFeeTotal());
+                order.setAmountProfit(revenue.getAmountProfit());
+                order.setAmountProfitVat(revenue.getAmountProfitVat());
+                order.setAmountProfitTotal(revenue.getAmountProfitTotal());
+                order.setAmountFund(revenue.getAmountFund());
+                order.setAmountSale(revenue.getAmountSale());
+                order.setAmountCs(revenue.getAmountCs());
+                order.setAmountOp(revenue.getAmountOp());
                 ordersService.save(order);
                 return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
             } catch (Exception ex) {
@@ -231,6 +248,44 @@ public class OrderManageController extends BaseController<Orders> {
             Orders order = ordersService.findById(orderId);
             order.setEstimatedStartDate(processOrder.getEstimatedStartDate());
             order.setEstimatedEndDate(processOrder.getEstimatedEndDate());
+            //them cong no cho khach hang
+            DebtManagement debtCustomer = debtManagementService.findFirstByObjectDebtIdAndType(order.getCustomerId(), AppConstant.FINANCE_TYPE.CUSTOMER);
+            DebtDetail debtDetailCustomer = new DebtDetail();
+            debtDetailCustomer.setDebtId(debtCustomer.getId());
+            debtDetailCustomer.setObjectDebtId(order.getCustomerId());
+            debtDetailCustomer.setObjectDebtName(order.getCustomerName());
+            debtDetailCustomer.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.RECEIVABLE);
+            debtDetailCustomer.setAmount(order.getAmountRevenueTotal());
+            debtDetailCustomer.setStatus(1L);
+            debtDetailCustomer.setOrderId(order.getOrderId());
+            debtDetailCustomer.setOrderNo(order.getOrderNo());
+            debtDetailCustomer.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
+            debtDetailCustomer.setCreatedDate(new Date());
+            debtDetailService.save(debtDetailCustomer);
+            debtManagementService.updateAmountDebt(debtCustomer.getId(), -order.getAmountRevenueTotal());
+            //them cong no cua doi tac
+            Map<String, Object> map = new HashMap<>();
+            map.put("orderId", orderId);
+            map.put("groupCode", "AMOUNT_RENT");
+            List<OrderDetail> lst = orderDetailService.search(map);
+            for (OrderDetail orderDetail : lst) {
+                if (orderDetail.getPartnerId() != null) {
+                    DebtManagement debtPartner = debtManagementService.findFirstByObjectDebtIdAndType(orderDetail.getPartnerId(), AppConstant.FINANCE_TYPE.PARTNER);
+                    DebtDetail debtDetailPartner = new DebtDetail();
+                    debtDetailPartner.setDebtId(debtPartner.getId());
+                    debtDetailPartner.setObjectDebtId(orderDetail.getPartnerId());
+                    debtDetailPartner.setObjectDebtName(orderDetail.getPartnerName());
+                    debtDetailPartner.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.PAYABLE);
+                    debtDetailPartner.setAmount(orderDetail.getAmountTotal());
+                    debtDetailPartner.setStatus(1L);
+                    debtDetailPartner.setOrderId(order.getOrderId());
+                    debtDetailPartner.setOrderNo(order.getOrderNo());
+                    debtDetailPartner.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
+                    debtDetailPartner.setCreatedDate(new Date());
+                    debtDetailService.save(debtDetailPartner);
+                    debtManagementService.updateAmountDebt(debtPartner.getId(), orderDetail.getAmountTotal());
+                }
+            }
 
             ordersService.save(order);
 
@@ -256,4 +311,28 @@ public class OrderManageController extends BaseController<Orders> {
         }
     }
 
+
+    @RequestMapping(value = "/hasDebtByPartner", method = RequestMethod.POST)
+    public ResponseEntity<Object> hasDebtByPartner(@RequestBody(required = false) Long partnerId) {
+        if (ordersService.checkRole("ROLE_FINANCE", "ROLE_ADMIN")) {
+            List<Orders> lst = ordersService.hasDebtByPartner(partnerId);
+            return AppHelper.createResponseEntity(lst, lst.size(), "", true, HttpStatus.OK);
+        } else {
+            return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.OK);
+        }
+    }
+
+    @RequestMapping(value = "/debtByPartner", method = RequestMethod.POST)
+    public ResponseEntity<Object> debtByPartner(@RequestParam("orderId") Long orderId, @RequestParam("partnerId") Long partnerId) {
+        if (ordersService.checkRole("ROLE_FINANCE", "ROLE_ADMIN")) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("partnerId", partnerId);
+            map.put("orderId", orderId);
+            map.put("groupCode", "AMOUNT_RENT");
+            List<OrderDetail> lst = orderDetailService.search(map);
+            return AppHelper.createResponseEntity(lst, lst.size(), "", true, HttpStatus.OK);
+        } else {
+            return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.OK);
+        }
+    }
 }

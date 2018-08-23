@@ -193,4 +193,8 @@ public class RouteDetail {
         this.note = note;
     }
 
+    public String getOrderColumn() {
+        return "routeId";
+    }
+
 }

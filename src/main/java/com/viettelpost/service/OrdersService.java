@@ -142,4 +142,22 @@ public class OrdersService extends BaseCustomService<Orders> {
         lst.add("-1");
         return lst;
     }
+
+    public List<Orders> hasDebtByPartner(Long partnerId) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT a ");
+        sql.append("  FROM Orders a");
+        sql.append(" WHERE status IN (4, 6, 7)");
+        if (partnerId != null) {
+            sql.append("       AND orderId IN (SELECT orderId ");
+            sql.append("                          FROM OrderDetail ");
+            sql.append("                         WHERE partnerId = :partnerId)");
+        }
+
+        Query query = entityManager.createQuery(sql.toString());
+        if (partnerId != null) {
+            query.setParameter("partnerId", partnerId);
+        }
+        return query.getResultList();
+    }
 }

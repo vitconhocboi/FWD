@@ -76,4 +76,8 @@ public class Department {
     public void setUnitCode(String unitCode) {
         this.unitCode = unitCode;
     }
+
+    public String getOrderColumn() {
+        return "id";
+    }
 }

@@ -78,6 +78,11 @@ public class AppConstant {
         public static final String PRICE_CS = "1";
         public static final String PRICE_OP = "2";
         public static final String PROFIT = "3";
+        public static final String PROCESS = "4";
+        public static final String SALE_PROCESS = "5";
+        public static final String PENDING = "6";
+        public static final String DONE = "7";
+        public static final String CLOSE = "8";
     }
 
     public interface FINANCE_STATUS {
@@ -89,14 +94,21 @@ public class AppConstant {
     public interface FINANCE_PAYMENT_TYPE {
         public static final Long BORROW = 0L;
         public static final Long REFUND = 1L;
-        public static final Long DEBIT_CUSTOMER = 2L;
-        public static final Long DEBIT_PARTNER = 3L;
+        public static final Long RECEIVABLE = 2L;
+        public static final Long COLLECTED = 3L;
+        public static final Long PAYABLE = 4L;
+        public static final Long PAID = 5L;
     }
 
     public interface FINANCE_TYPE {
         public static final Long MEMBER = 0L;
         public static final Long CUSTOMER = 1L;
         public static final Long PARTNER = 2L;
+    }
+
+    public interface REFUND_TYPE {
+        public static final Long CASH = 0L;
+        public static final Long INVOICE = 1L;
     }
 
     public static String redirectPage(String pageName) {

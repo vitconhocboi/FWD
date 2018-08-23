@@ -289,7 +289,7 @@ $(document).ready(function () {
                             action: function () {
                                 app.makePost({
                                     url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
-                                    data: 'APPROVE',
+                                    data: '"APPROVE"',
                                     success: function (data) {
                                         if (data.success) {
                                             toastr.success("Duyệt đơn hàng thành công", "Thông báo");
@@ -319,7 +319,15 @@ $(document).ready(function () {
             } else if (status == 3) {
                 return 'Chờ phân bổ lợi nhuận';
             } else if (status == 4) {
-                return 'Đang xử lý';
+                return 'Đang thực hiện';
+            } else if (status == 7) {
+                return 'Đã hoàn thành';
+            } else if (status == 8) {
+                return 'Đã đóng';
+            } else if (status == 5) {
+                return 'Chờ thực hiện';
+            } else if (status == 6) {
+                return 'Tạm dừng';
             }
         }
 

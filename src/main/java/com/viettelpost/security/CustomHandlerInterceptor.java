@@ -1,9 +1,9 @@
 package com.viettelpost.security;
 
 import com.viettelpost.constant.AppConstant;
-import com.viettelpost.entity.Breadcrumb;
+import com.viettelpost.model.Breadcrumb;
 import com.viettelpost.entity.Page;
-import com.viettelpost.entity.UserCustom;
+import com.viettelpost.model.UserCustom;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;

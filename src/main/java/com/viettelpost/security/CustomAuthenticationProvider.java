@@ -3,7 +3,7 @@ package com.viettelpost.security;
 import com.viettelpost.controller.json.ResponseJson;
 import com.viettelpost.helper.AppHelper;
 import com.viettelpost.entity.User;
-import com.viettelpost.entity.UserCustom;
+import com.viettelpost.model.UserCustom;
 import com.viettelpost.service.PageService;
 import com.viettelpost.service.RoleService;
 import com.viettelpost.service.UserService;

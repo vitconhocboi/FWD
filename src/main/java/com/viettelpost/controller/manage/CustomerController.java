@@ -1,13 +1,18 @@
 package com.viettelpost.controller.manage;
 
+import com.viettelpost.constant.AppConstant;
 import com.viettelpost.controller.BaseController;
 import com.viettelpost.entity.Customer;
+import com.viettelpost.entity.DebtManagement;
 import com.viettelpost.service.BaseCustomService;
 import com.viettelpost.service.CustomerService;
+import com.viettelpost.service.DebtManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -21,6 +26,9 @@ import java.util.Locale;
 public class CustomerController extends BaseController<Customer> {
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    DebtManagementService debtManagementService;
 
     @Override
     protected BaseCustomService<Customer> getSevice() {
@@ -44,5 +52,25 @@ public class CustomerController extends BaseController<Customer> {
                              Locale locale, ModelMap model, @PathVariable("customerId") Long customerId) {
         model.addAttribute("customerId", customerId);
         return "viettelpost.page.manager.customer.addedit";
+    }
+
+    @Override
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<Object> save(@RequestBody Customer object) {
+        ResponseEntity response = super.save(object);
+        if (debtManagementService.findFirstByObjectDebtIdAndType(object.getCustomerId(), AppConstant.FINANCE_TYPE.CUSTOMER) == null) {
+            DebtManagement debtManagement = new DebtManagement();
+            debtManagement.setObjectDebtId(object.getCustomerId());
+            debtManagement.setObjectDebtName(object.getCustomerName());
+            debtManagement.setAmount(0D);
+            debtManagement.setType(AppConstant.FINANCE_TYPE.CUSTOMER);
+            try {
+                debtManagementService.save(debtManagement);
+            } catch (Exception e) {
+                LOGGER.error(e.getMessage(), e);
+            }
+        }
+
+        return response;
     }
 }

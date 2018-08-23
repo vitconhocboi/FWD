@@ -134,6 +134,46 @@ public class Orders {
     @Column(name = "ESTIMATED_END_DATE")
     private Date estimatedEndDate;
 
+    @Column(name = "AMOUNT_REVENUE")
+    private Double amountRevenue;
+
+    @Column(name = "AMOUNT_REVENUE_VAT")
+    private Double amountRevenueVat;
+
+    @Column(name = "AMOUNT_REVENUE_TOTAL")
+    private Double amountRevenueTotal;
+
+    @Column(name = "AMOUNT_FUND")
+    private Double amountFund;
+
+    @Column(name = "AMOUNT_SALE")
+    private Double amountSale;
+
+    @Column(name = "AMOUNT_CS")
+    private Double amountCs;
+
+    @Column(name = "AMOUNT_OP")
+    private Double amountOp;
+
+    @Column(name = "AMOUNT_FEE")
+    private Double amountFee;
+
+    @Column(name = "AMOUNT_FEE_VAT")
+    private Double amountFeeVat;
+
+    @Column(name = "AMOUNT_FEE_TOTAL")
+    private Double amountFeeTotal;
+
+    @Column(name = "AMOUNT_PROFIT")
+    private Double amountProfit;
+
+    @Column(name = "AMOUNT_PROFIT_VAT")
+    private Double amountProfitVat;
+
+    @Column(name = "AMOUNT_PROFIT_TOTAL")
+    private Double amountProfitTotal;
+
+
     public Long getOrderId() {
         return orderId;
     }
@@ -445,5 +485,114 @@ public class Orders {
 
     public void setEstimatedEndDate(Date estimatedEndDate) {
         this.estimatedEndDate = estimatedEndDate;
+    }
+
+
+    public Double getAmountRevenue() {
+        return amountRevenue;
+    }
+
+    public void setAmountRevenue(Double amountRevenue) {
+        this.amountRevenue = amountRevenue;
+    }
+
+    public Double getAmountRevenueVat() {
+        return amountRevenueVat;
+    }
+
+    public void setAmountRevenueVat(Double amountRevenueVat) {
+        this.amountRevenueVat = amountRevenueVat;
+    }
+
+    public Double getAmountRevenueTotal() {
+        return amountRevenueTotal;
+    }
+
+    public void setAmountRevenueTotal(Double amountRevenueTotal) {
+        this.amountRevenueTotal = amountRevenueTotal;
+    }
+
+    public Double getAmountFund() {
+        return amountFund;
+    }
+
+    public void setAmountFund(Double amountFund) {
+        this.amountFund = amountFund;
+    }
+
+    public Double getAmountSale() {
+        return amountSale;
+    }
+
+    public void setAmountSale(Double amountSale) {
+        this.amountSale = amountSale;
+    }
+
+    public Double getAmountCs() {
+        return amountCs;
+    }
+
+    public void setAmountCs(Double amountCs) {
+        this.amountCs = amountCs;
+    }
+
+    public Double getAmountOp() {
+        return amountOp;
+    }
+
+    public void setAmountOp(Double amountOp) {
+        this.amountOp = amountOp;
+    }
+
+    public Double getAmountFee() {
+        return amountFee;
+    }
+
+    public void setAmountFee(Double amountFee) {
+        this.amountFee = amountFee;
+    }
+
+    public Double getAmountFeeVat() {
+        return amountFeeVat;
+    }
+
+    public void setAmountFeeVat(Double amountFeeVat) {
+        this.amountFeeVat = amountFeeVat;
+    }
+
+    public Double getAmountFeeTotal() {
+        return amountFeeTotal;
+    }
+
+    public void setAmountFeeTotal(Double amountFeeTotal) {
+        this.amountFeeTotal = amountFeeTotal;
+    }
+
+    public Double getAmountProfit() {
+        return amountProfit;
+    }
+
+    public void setAmountProfit(Double amountProfit) {
+        this.amountProfit = amountProfit;
+    }
+
+    public Double getAmountProfitVat() {
+        return amountProfitVat;
+    }
+
+    public void setAmountProfitVat(Double amountProfitVat) {
+        this.amountProfitVat = amountProfitVat;
+    }
+
+    public Double getAmountProfitTotal() {
+        return amountProfitTotal;
+    }
+
+    public void setAmountProfitTotal(Double amountProfitTotal) {
+        this.amountProfitTotal = amountProfitTotal;
+    }
+
+    public String getOrderColumn() {
+        return "orderId";
     }
 }

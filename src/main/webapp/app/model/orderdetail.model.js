@@ -26,5 +26,7 @@ var OrderDetail = function () {
     this.note = ko.observable();
     this.createdDate = ko.observable();
     this.updatedDate = ko.observable();
+    this.partnerId = ko.observable();
+    this.partnerName = ko.observable();
     this.objectTypeDate = ['createdDate', 'updatedDate'];
 }

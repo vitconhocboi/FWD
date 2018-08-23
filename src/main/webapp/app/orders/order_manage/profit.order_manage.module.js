@@ -212,7 +212,23 @@ $(document).ready(function () {
                         action: function () {
                             app.makePost({
                                 url: '/orders/manage/save_revenue/' + orderId,
-                                data: JSON.stringify({lstOrderDetails: listPrice, profitRate: self.profitRate()}),
+                                data: JSON.stringify({
+                                    lstOrderDetails: listPrice,
+                                    profitRate: self.profitRate(),
+                                    amountRevenue: self.sumAmountNotVatRevenue(),
+                                    amountRevenueVat: self.sumAmountVatRevenue(),
+                                    amountRevenueTotal: self.sumAmountTotalRevenue(),
+                                    amountFee: self.sumAmountNotVatRent(),
+                                    amountFeeVat: self.sumAmountVatRent(),
+                                    amountFeeTotal: self.sumAmountTotalRent(),
+                                    amountProfit: self.profitNotVat(),
+                                    amountProfitVat: self.profitVat(),
+                                    amountProfitTotal: self.profitTotal(),
+                                    amountFund: self.fund(),
+                                    amountSale: self.fundSale(),
+                                    amountCs: self.fundCS(),
+                                    amountOp: self.fundOP()
+                                }),
                                 success: function (data) {
                                     if (data.success) {
                                         toastr.success("Lưu doanh thu thành công", "Thông báo");

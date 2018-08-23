@@ -150,4 +150,13 @@
         <put-attribute name="title" value="Viettel logistic"/>
         <put-attribute name="body" value="/WEB-INF/views/pages/finance/advance_payment/addedit.advance.payment.jsp"/>
     </definition>
+    <!--Quan ly cong no-->
+    <definition name="viettelpost.page.finance.debt.manage" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/finance/debt_manage/index.debt.manage.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.finance.debt.refund" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/finance/debt_manage/refund_debt.jsp"/>
+    </definition>
 </tiles-definitions>

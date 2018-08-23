@@ -334,7 +334,7 @@ APP.prototype = {
         var self = this;
         var op = $.extend(true, {}, options);
         var popupTemp = $('#nsw-modal-templ');
-        var popupHtml = popupTemp.clone().wrap('<div>').parent().html();
+        var popupHtml = popupTemp.clone().wrap('<div >').parent().html();
         var domId = this.generateUUID();
 
         $(popupHtml).attr('id', domId).appendTo('body');
@@ -1003,6 +1003,9 @@ APP.prototype = {
         var formKey;
 
         for (var property in obj) {
+            if (typeof obj[property] == 'function') {
+                continue;
+            }
             if (namespace && obj.constructor === Array) {
                 formKey = namespace + '.' + property;
             }
@@ -1055,15 +1058,12 @@ APP.prototype = {
             data: app.objectToFormData(obj.data),
             dataType: 'application/json;charset=UTF-8',
             contentType: false,
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader(self.config.CSRF_TOKEN_NAME, self.config.CSRF_TOKEN_VALUE);
-            },
             complete: function (e, x, s) {
                 $('#loading10').hide();
                 if (e.status === 200) {
                     onSuccess(JSON.parse(e.responseText));
                 } else {
-                    onError(JSON.parse(e.responseText));
+                    onError(e.responseText);
                 }
             }
         });

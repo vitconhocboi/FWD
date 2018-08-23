@@ -61,6 +61,7 @@ public class AdvancePaymentController extends BaseController<DebtDetail> {
         if (!debtDetailService.checkRole("ROLE_ADMIN", "ROLE_FINANCE")) {
             object.put("objectDebtId", debtDetailService.getCurrentUserModel().getUserId());
         }
+        object.put("paymentType", AppConstant.FINANCE_PAYMENT_TYPE.BORROW);
         List lst = debtDetailService.searchPaging(object);
         return AppHelper.createResponseEntity(lst, lst.size(), "", true, HttpStatus.OK);
     }

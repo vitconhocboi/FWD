@@ -68,6 +68,8 @@ $(document).ready(function () {
             orderDetail.groupCode("AMOUNT_RENT");
             orderDetail.serviceId(self.selectedServiceRent().serviceId());
             orderDetail.serviceName(self.selectedServiceRent().serviceName());
+            orderDetail.partnerId(self.selectedPartnerPriceRent().partnerId());
+            orderDetail.partnerName(self.selectedPartnerPriceRent().partnerName());
             orderDetail.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
             orderDetail.quantity(self.order.quantity());
             orderDetail.exchangeRate(1);

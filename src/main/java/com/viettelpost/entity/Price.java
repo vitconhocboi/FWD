@@ -115,4 +115,8 @@ public class Price {
     public void setCurrency(String currency) {
         this.currency = currency;
     }
+
+    public String getOrderColumn() {
+        return "id";
+    }
 }

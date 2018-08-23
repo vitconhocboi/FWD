@@ -10,9 +10,13 @@ var DebtDetail = function () {
     this.refundDate = ko.observable();
     this.note = ko.observable();
     this.orderId = ko.observable();
+    this.orderNo = ko.observable();
+    this.serviceId = ko.observable();
+    this.serviceName = ko.observable();
     this.userCreateId = ko.observable();
     this.createdDate = ko.observable();
     this.userUpdateId = ko.observable();
     this.updatedDate = ko.observable();
+    this.fileName = ko.observable();
     this.objectTypeDate = ['refundDate', 'createdDate', 'updatedDate'];
 }

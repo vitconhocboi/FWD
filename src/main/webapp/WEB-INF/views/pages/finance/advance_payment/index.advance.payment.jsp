@@ -176,12 +176,12 @@
                                     </div>
                                     <div class="form-group nsw-text-center">
                                         <sec:authorize access="hasAnyRole('FINANCE','ADMIN')">
-                                            <a href="javascript:;" class="btn green"
+                                            <a href="javascript:;" class="btn green" style="display: none"
                                                data-bind="click: $root.approve, visible:  $root.selectedItem()&&$root.selectedItem().status()==0"><i
                                                     class="fa fa-apple"></i>
                                                 Duyệt</a>
                                         </sec:authorize>
-                                        <a href="javascript:;" class="btn green"
+                                        <a href="javascript:;" class="btn green" style="display: none"
                                            data-bind="click: $root.unapprove, visible:  $root.selectedItem()&&$root.selectedItem().status()==0"><i
                                                 class="fa fa-apple"></i>
                                             Bỏ duyệt</a>

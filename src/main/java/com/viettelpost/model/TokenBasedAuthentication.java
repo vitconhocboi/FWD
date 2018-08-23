@@ -1,4 +1,4 @@
-package com.viettelpost.entity;
+package com.viettelpost.model;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;

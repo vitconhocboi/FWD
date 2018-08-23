@@ -150,4 +150,8 @@ public class User implements Serializable {
     public void setUserType(Long userType) {
         this.userType = userType;
     }
+
+    public String getOrderColumn() {
+        return "userId";
+    }
 }

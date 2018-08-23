@@ -6,7 +6,7 @@ import com.viettelpost.helper.AppHelper;
 import com.viettelpost.entity.Department;
 import com.viettelpost.entity.Page;
 import com.viettelpost.entity.User;
-import com.viettelpost.entity.UserCustom;
+import com.viettelpost.model.UserCustom;
 import com.viettelpost.service.DepartmentService;
 import com.viettelpost.service.UserService;
 import org.slf4j.Logger;

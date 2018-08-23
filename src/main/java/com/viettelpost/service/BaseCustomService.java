@@ -1,8 +1,8 @@
 package com.viettelpost.service;
 
 import com.viettelpost.entity.User;
-import com.viettelpost.entity.UserCustom;
-import com.viettelpost.util.Utils;
+import com.viettelpost.model.UserCustom;
+import com.viettelpost.helper.AppHelper;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +17,7 @@ import javax.persistence.Query;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BaseCustomService<Tbo> {
     public static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(BaseCustomService.class);
@@ -85,20 +82,20 @@ public class BaseCustomService<Tbo> {
                 if (field.getType() != null && value != null && !("".equals(value.toString()))) {
                     if (BeanUtils.isSimpleProperty(value.getClass())) {
                         sql.append("AND a." + param + " =  :param_" + params.size() + " ");
-                        Object searchValue = Utils.covnertToOriginalType(field, value);
+                        Object searchValue = AppHelper.covnertToOriginalType(field, value);
                         params.add(searchValue);
                     } else if (searchParams.get(param) instanceof Map) {
                         Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
 
                         if (map.get("FROM") != null) {
                             sql.append("AND a." + param + " >=  :param_" + params.size() + " ");
-                            Object searchValue = Utils.covnertToOriginalType(field, map.get("FROM"));
+                            Object searchValue = AppHelper.covnertToOriginalType(field, map.get("FROM"));
                             params.add(searchValue);
                         }
 
                         if (map.get("TO") != null) {
                             sql.append("AND a." + param + " <=  :param_" + params.size() + " ");
-                            Object searchValue = Utils.covnertToOriginalType(field, map.get("TO"));
+                            Object searchValue = AppHelper.covnertToOriginalType(field, map.get("TO"));
                             params.add(searchValue);
                         }
 
@@ -108,11 +105,11 @@ public class BaseCustomService<Tbo> {
                             if (map.get("VALUE") instanceof List) {
                                 List<Object> arr = new ArrayList<>();
                                 for (Object val : (List) map.get("VALUE")) {
-                                    arr.add(Utils.covnertToOriginalType(field, val));
+                                    arr.add(AppHelper.covnertToOriginalType(field, val));
                                 }
                                 searchValue = arr;
                             } else {
-                                searchValue = Utils.covnertToOriginalType(field, map.get("VALUE"));
+                                searchValue = AppHelper.covnertToOriginalType(field, map.get("VALUE"));
                             }
                             if (searchValue != null && !("".equals(searchValue))) {
                                 sql.append("AND a." + param + " " + operator + " :param_" + params.size() + " ");
@@ -156,21 +153,41 @@ public class BaseCustomService<Tbo> {
                 if (field.getType() != null && value != null && !("".equals(value.toString()))) {
                     if (BeanUtils.isSimpleProperty(value.getClass())) {
                         sql.append("AND a." + param + " =  :param_" + params.size() + " ");
-                        Object searchValue = Utils.covnertToOriginalType(field, value);
+                        Object searchValue = AppHelper.covnertToOriginalType(field, value);
                         params.add(searchValue);
                     } else if (searchParams.get(param) instanceof Map) {
                         Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
+                        if (map.get("FROM") != null) {
+                            sql.append("AND a." + param + " >=  :param_" + params.size() + " ");
+                            Object searchValue = AppHelper.covnertToOriginalType(field, map.get("FROM"));
+                            params.add(searchValue);
+                        }
+
+                        if (map.get("TO") != null) {
+                            Object searchValue = AppHelper.covnertToOriginalType(field, map.get("TO"));
+                            if (searchValue instanceof Date) {
+                                sql.append("AND a." + param + " <  :param_" + params.size() + " ");
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime((Date) searchValue);
+                                cal.add(Calendar.DATE, 1);
+                                searchValue = cal.getTime();
+                            } else {
+                                sql.append("AND a." + param + " <=  :param_" + params.size() + " ");
+                            }
+                            params.add(searchValue);
+                        }
+
                         if (map.get("VALUE") != null && map.get("OPERATOR") != null) {
                             String operator = map.get("OPERATOR").toString();
                             Object searchValue;
                             if (map.get("VALUE") instanceof List) {
                                 List<Object> arr = new ArrayList<>();
                                 for (Object val : (List) map.get("VALUE")) {
-                                    arr.add(Utils.covnertToOriginalType(field, val));
+                                    arr.add(AppHelper.covnertToOriginalType(field, val));
                                 }
                                 searchValue = arr;
                             } else {
-                                searchValue = Utils.covnertToOriginalType(field, map.get("VALUE"));
+                                searchValue = AppHelper.covnertToOriginalType(field, map.get("VALUE"));
                             }
                             if (searchValue != null && !("".equals(searchValue))) {
                                 sql.append("AND a." + param + " " + operator + " :param_" + params.size() + " ");
@@ -211,7 +228,7 @@ public class BaseCustomService<Tbo> {
                 if (field.getType() != null && value != null && !("".equals(value.toString()))) {
                     if (BeanUtils.isSimpleProperty(value.getClass())) {
                         sql.append("AND a." + param + " =  :param_" + params.size() + " ");
-                        Object searchValue = Utils.covnertToOriginalType(field, value);
+                        Object searchValue = AppHelper.covnertToOriginalType(field, value);
                         params.add(searchValue);
                     } else if (searchParams.get(param) instanceof Map) {
                         Map<String, Object> map = (Map<String, Object>) searchParams.get(param);
@@ -221,11 +238,11 @@ public class BaseCustomService<Tbo> {
                             if (map.get("VALUE") instanceof List) {
                                 List<Object> arr = new ArrayList<>();
                                 for (Object val : (List) map.get("VALUE")) {
-                                    arr.add(Utils.covnertToOriginalType(field, val));
+                                    arr.add(AppHelper.covnertToOriginalType(field, val));
                                 }
                                 searchValue = arr;
                             } else {
-                                searchValue = Utils.covnertToOriginalType(field, map.get("VALUE"));
+                                searchValue = AppHelper.covnertToOriginalType(field, map.get("VALUE"));
                             }
                             if (searchValue != null && !("".equals(searchValue))) {
                                 sql.append("AND a." + param + " " + operator + " :param_" + params.size() + " ");

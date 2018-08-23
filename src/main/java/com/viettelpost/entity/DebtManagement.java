@@ -71,4 +71,8 @@ public class DebtManagement {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
+
+    public String getOrderColumn() {
+        return "id";
+    }
 }

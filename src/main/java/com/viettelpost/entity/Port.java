@@ -94,4 +94,7 @@ public class Port {
         this.note = note;
     }
 
+    public String getOrderColumn() {
+        return "portId";
+    }
 }
