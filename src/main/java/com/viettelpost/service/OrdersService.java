@@ -30,6 +30,15 @@ public class OrdersService extends BaseCustomService<Orders> {
 
     @Override
     @Transactional
+    public void delete(Long id) throws Exception {
+        StringBuilder sql = new StringBuilder("update orders set status=-1 where order_id=:orderId");
+        Query query = entityManager.createNativeQuery(sql.toString())
+                .setParameter("orderId", id);
+        query.executeUpdate();
+    }
+
+    @Override
+    @Transactional
     public Orders save(Orders bo) throws Exception {
         super.save(bo);
         //cap nhat lai so luong
@@ -46,6 +55,146 @@ public class OrdersService extends BaseCustomService<Orders> {
                 .setParameter("orderId", bo.getOrderId());
         query.executeUpdate();
         return bo;
+    }
+
+    @Transactional
+    public void calcOrderRevenue(Orders order) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE orders b");
+        sql.append("   SET (b.amount_revenue,");
+        sql.append("        b.amount_revenue_vat,");
+        sql.append("        b.amount_revenue_total,");
+        sql.append("        b.amount_fee,");
+        sql.append("        b.amount_fee_vat,");
+        sql.append("        b.amount_fee_total,");
+        sql.append("        b.amount_profit,");
+        sql.append("        b.amount_profit_vat,");
+        sql.append("        b.amount_profit_total,");
+        sql.append("        b.rate_profit,");
+        sql.append("        b.amount_fund,");
+        sql.append("        b.amount_sale,");
+        sql.append("        b.amount_cs,");
+        sql.append("        b.amount_op) =");
+        sql.append("           (SELECT revenue_not_vat,");
+        sql.append("                   revenue_vat,");
+        sql.append("                   revenue_total,");
+        sql.append("                   fee_not_vat,");
+        sql.append("                   fee_vat,");
+        sql.append("                   fee_total,");
+        sql.append("                   revenue_not_vat - fee_not_vat profit_not_vat,");
+        sql.append("                   revenue_vat - fee_vat profit_vat,");
+        sql.append("                   revenue_total - fee_total profit_total,");
+        sql.append("                   ROUND (");
+        sql.append("                         (revenue_not_vat - fee_not_vat)");
+        sql.append("                       / revenue_not_vat");
+        sql.append("                       * 100,");
+        sql.append("                       2)");
+        sql.append("                       profit_rate,");
+        sql.append("                   revenue_not_vat - fee_not_vat");
+        sql.append("                   - ROUND (");
+        sql.append("                         revenue_not_vat * :rate_contract_threshold / 100)");
+        sql.append("                       fund,");
+        sql.append("                   ROUND (");
+        sql.append("                       (revenue_not_vat - fee_not_vat");
+        sql.append("                        - ROUND (");
+        sql.append("                                revenue_not_vat");
+        sql.append("                              * :rate_contract_threshold");
+        sql.append("                              / 100))");
+        sql.append("                       * :rate_sale_threshold");
+        sql.append("                       / 100)");
+        sql.append("                       fund_sale,");
+        sql.append("                   ROUND (");
+        sql.append("                       (revenue_not_vat - fee_not_vat");
+        sql.append("                        - ROUND (");
+        sql.append("                                revenue_not_vat");
+        sql.append("                              * :rate_contract_threshold");
+        sql.append("                              / 100))");
+        sql.append("                       * :rate_cs_threshold");
+        sql.append("                       / 100)");
+        sql.append("                       fund_cs,");
+        sql.append("                   ROUND (");
+        sql.append("                       (revenue_not_vat - fee_not_vat");
+        sql.append("                        - ROUND (");
+        sql.append("                                revenue_not_vat");
+        sql.append("                              * :rate_contract_threshold");
+        sql.append("                              / 100))");
+        sql.append("                       * :rate_op_threshold");
+        sql.append("                       / 100)");
+        sql.append("                       fund_op");
+        sql.append("              FROM (SELECT revenue_not_vat,");
+        sql.append("                           revenue_vat,");
+        sql.append("                           revenue_total,");
+        sql.append("                           ROUND (rent_not_vat + revenue_not_vat * :payment_within / 100)");
+        sql.append("                               fee_not_vat,");
+        sql.append("                           ROUND (rent_vat + revenue_vat * :payment_within / 100) fee_vat,");
+        sql.append("                           ROUND (rent_not_vat + revenue_not_vat * :payment_within / 100)");
+        sql.append("                           + ROUND (rent_vat + revenue_vat * :payment_within / 100)");
+        sql.append("                               fee_total");
+        sql.append("                      FROM (SELECT SUM (");
+        sql.append("                                       CASE");
+        sql.append("                                           WHEN group_code = 'AMOUNT_REVENUE'");
+        sql.append("                                           THEN");
+        sql.append("                                               a.amount_not_vat");
+        sql.append("                                           ELSE");
+        sql.append("                                               0");
+        sql.append("                                       END)");
+        sql.append("                                       revenue_not_vat,");
+        sql.append("                                   SUM (");
+        sql.append("                                       CASE");
+        sql.append("                                           WHEN group_code = 'AMOUNT_REVENUE'");
+        sql.append("                                           THEN");
+        sql.append("                                               a.amount_vat");
+        sql.append("                                           ELSE");
+        sql.append("                                               0");
+        sql.append("                                       END)");
+        sql.append("                                       revenue_vat,");
+        sql.append("                                   SUM (");
+        sql.append("                                       CASE");
+        sql.append("                                           WHEN group_code = 'AMOUNT_REVENUE'");
+        sql.append("                                           THEN");
+        sql.append("                                               a.amount_total");
+        sql.append("                                           ELSE");
+        sql.append("                                               0");
+        sql.append("                                       END)");
+        sql.append("                                       revenue_total,");
+        sql.append("                                   SUM (");
+        sql.append("                                       CASE");
+        sql.append("                                           WHEN group_code = 'AMOUNT_RENT'");
+        sql.append("                                           THEN");
+        sql.append("                                               a.amount_not_vat");
+        sql.append("                                           ELSE");
+        sql.append("                                               0");
+        sql.append("                                       END)");
+        sql.append("                                       rent_not_vat,");
+        sql.append("                                   SUM (");
+        sql.append("                                       CASE");
+        sql.append("                                           WHEN group_code = 'AMOUNT_RENT'");
+        sql.append("                                           THEN");
+        sql.append("                                               a.amount_vat");
+        sql.append("                                           ELSE");
+        sql.append("                                               0");
+        sql.append("                                       END)");
+        sql.append("                                       rent_vat,");
+        sql.append("                                   SUM (");
+        sql.append("                                       CASE");
+        sql.append("                                           WHEN group_code = 'AMOUNT_RENT'");
+        sql.append("                                           THEN");
+        sql.append("                                               a.amount_total");
+        sql.append("                                           ELSE");
+        sql.append("                                               0");
+        sql.append("                                       END)");
+        sql.append("                                       rent_total");
+        sql.append("                              FROM order_detail a");
+        sql.append("                             WHERE a.order_id = :order_id)))");
+        sql.append(" WHERE order_id = :order_id");
+        Query query = entityManager.createNativeQuery(sql.toString());
+        query.setParameter("rate_contract_threshold", order.getRateContractThreshold());
+        query.setParameter("rate_sale_threshold", order.getRateSaleThreshold());
+        query.setParameter("rate_cs_threshold", order.getRateCsThreshold());
+        query.setParameter("rate_op_threshold", order.getRateOpThreshold());
+        query.setParameter("payment_within", order.getPaymentWithin());
+        query.setParameter("order_id", order.getOrderId());
+        query.executeUpdate();
     }
 
     @Override

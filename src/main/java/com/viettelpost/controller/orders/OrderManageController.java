@@ -268,7 +268,31 @@ public class OrderManageController extends BaseController<Orders> {
         int num = ordersService.approve(orderId, approveBody.getFlow(), orderAttributes);
         if (num > 0) {
             try {
-                log.setNewStatus(ordersService.getCurrentStatus(orderId));
+                String newStatus = ordersService.getCurrentStatus(orderId);
+                if (AppConstant.ORDER_STATUS.WAIT_DESTROY.equals(log.getOldStatus())) {
+                    //cap nhat cong no chi tiet ve khong hieu luc
+                    List<DebtDetail> lstDebtDetailCustomer = debtDetailService.findAllByOrderId(orders.getOrderId());
+                    for (DebtDetail detail : lstDebtDetailCustomer) {
+                        detail.setStatus(0L);
+                        debtDetailService.save(detail);
+                    }
+                    //xoa cong no cho khach hang
+                    DebtManagement debtCustomer = debtManagementService.findFirstByObjectDebtIdAndType(orders.getCustomerId(), AppConstant.FINANCE_TYPE.CUSTOMER);
+                    debtManagementService.updateAmountDebt(debtCustomer.getId(), orders.getAmountRevenueTotal());
+
+                    //xoa cong no cua doi tac
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("orderId", orderId);
+                    map.put("groupCode", "AMOUNT_RENT");
+                    List<OrderDetail> lst = orderDetailService.search(map);
+                    for (OrderDetail orderDetail : lst) {
+                        if (orderDetail.getPartnerId() != null) {
+                            DebtManagement debtPartner = debtManagementService.findFirstByObjectDebtIdAndType(orderDetail.getPartnerId(), AppConstant.FINANCE_TYPE.PARTNER);
+                            debtManagementService.updateAmountDebt(debtPartner.getId(), orderDetail.getAmountTotal());
+                        }
+                    }
+                }
+                log.setNewStatus(newStatus);
                 orderLogService.save(log);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -297,6 +321,7 @@ public class OrderManageController extends BaseController<Orders> {
 
             int num = ordersService.approve(orderId, processOrder.getFlowSign(), orderAttributes);
             if (num > 0) {
+                ordersService.calcOrderRevenue(order);
                 order = ordersService.findById(orderId);
                 log.setNewStatus(ordersService.getCurrentStatus(orderId));
                 //them cong no cho khach hang
@@ -330,6 +355,8 @@ public class OrderManageController extends BaseController<Orders> {
                         debtDetailPartner.setAmount(orderDetail.getAmountTotal());
                         debtDetailPartner.setStatus(1L);
                         debtDetailPartner.setOrderId(order.getOrderId());
+                        debtDetailPartner.setServiceId(orderDetail.getServiceId());
+                        debtDetailPartner.setServiceName(orderDetail.getServiceName());
                         debtDetailPartner.setOrderNo(order.getOrderNo());
                         debtDetailPartner.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
                         debtDetailPartner.setCreatedDate(new Date());

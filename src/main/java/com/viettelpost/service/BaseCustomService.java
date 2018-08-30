@@ -310,7 +310,7 @@ public class BaseCustomService<Tbo> {
             if ("INSERT".equals(action)) {
                 for (Field field : bo.getClass().getDeclaredFields()) {
                     field.setAccessible(true);
-                    if (field.getAnnotationsByType(Column.class) != null) {
+                    if (field.getAnnotationsByType(Column.class) != null && field.getAnnotationsByType(Column.class).length > 0) {
                         try {
                             ActionDetail actionDetail = new ActionDetail();
                             actionDetail.setActionAuditId(actionAudit.getId());
@@ -326,7 +326,7 @@ public class BaseCustomService<Tbo> {
             } else if ("DELETE".equals(action)) {
                 for (Field field : bo.getClass().getDeclaredFields()) {
                     field.setAccessible(true);
-                    if (field.getAnnotationsByType(Column.class) != null) {
+                    if (field.getAnnotationsByType(Column.class) != null&&field.getAnnotationsByType(Column.class).length>0) {
                         try {
                             ActionDetail actionDetail = new ActionDetail();
                             actionDetail.setActionAuditId(actionAudit.getId());
@@ -342,7 +342,7 @@ public class BaseCustomService<Tbo> {
             } else if ("UPDATE".equals(action)) {
                 for (Field field : bo.getClass().getDeclaredFields()) {
                     field.setAccessible(true);
-                    if (field.getAnnotationsByType(Column.class) != null
+                    if (field.getAnnotationsByType(Column.class) != null&&field.getAnnotationsByType(Column.class).length>0
                             && ((field.getType().isPrimitive() && map.get(field.getName()) != field.get(bo))
                             || (field.get(bo) != null && map.get(field.getName()) == null)
                             || (field.get(bo) == null && map.get(field.getName()) != null)
@@ -369,7 +369,7 @@ public class BaseCustomService<Tbo> {
         Map<String, Object> map = new HashMap<>();
         for (Field field : bo.getClass().getDeclaredFields()) {
             field.setAccessible(true);
-            if (field.getAnnotationsByType(Column.class) != null) {
+            if (field.getAnnotationsByType(Column.class) != null&&field.getAnnotationsByType(Column.class).length>0) {
                 try {
                     map.put(field.getName(), field.get(bo));
                 } catch (Exception e) {

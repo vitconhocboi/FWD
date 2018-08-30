@@ -84,6 +84,7 @@ public class AppConstant {
         public static final String DONE = "7";
         public static final String CLOSE = "8";
         public static final String SALE_CONFIRM = "9";
+        public static final String WAIT_DESTROY = "10";
         public static final String DESTROY = "-1";
     }
 

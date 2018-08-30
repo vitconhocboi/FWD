@@ -6,6 +6,7 @@ $(document).ready(function () {
         self.checkbtnApprove = ko.observable(false);
         self.checkbtnDeny = ko.observable(false);
         self.checkbtnPendding = ko.observable(false);
+        self.checkbtnDestroy = ko.observable(false);
         self.checkProfitDistribute = ko.observable(false);
 
         self.estimatedStartDate = ko.observable();
@@ -88,6 +89,22 @@ $(document).ready(function () {
             } else if (hasRoleSale == 'true' && (self.selectedOrder().status() == 3 || self.selectedOrder().status() == 9)) {
                 self.checkProfitDistribute(true)
             }
+
+            //check destroy
+            app.makePost({
+                url: '/orders/manage/check_approve_permession/' + self.selectedOrder().orderId(),
+                data: JSON.stringify(['DESTROY']),
+                success: function (data) {
+                    if (data.success) {
+                        self.checkbtnDestroy(true);
+                    } else {
+                        self.checkbtnDestroy(false);
+                    }
+                },
+                error: function (err) {
+                    self.checkbtnDestroy(false);
+                }
+            });
         }
 
         self.order = new function () {
@@ -125,9 +142,16 @@ $(document).ready(function () {
             self.searchPaging(true);
         }
 
-        self.searchPaging = function (showMsg) {
+        function refesh() {
             self.checkBtnPrice(false);
             self.checkbtnApprove(false);
+            self.checkbtnPendding(false);
+            self.checkbtnDeny(false);
+            self.checkProfitDistribute(false);
+        }
+
+        self.searchPaging = function (showMsg) {
+            refesh();
             console.log(app.convertFormObservableJson(self.order));
             self.listOrders.removeAll();
             self.order.currentPage = self.pagingVM.currentPage();
@@ -202,7 +226,7 @@ $(document).ready(function () {
             if (item && item.orderId()) {
                 pop = app.popup({
                     title: "Thông báo",
-                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa đơn hàng <b>' + item.orderNo() + '</b> <input>',
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn xóa đơn hàng <b>' + item.orderNo() + '</b>',
                     width: 400,
                     buttons: [
                         {
@@ -456,6 +480,8 @@ $(document).ready(function () {
                 return 'Đã hủy';
             } else if (status == 9) {
                 return 'Sale xác nhận';
+            } else if (status == 10) {
+                return 'Đơn hàng chờ hủy';
             }
         }
 
@@ -505,7 +531,7 @@ $(document).ready(function () {
                             item.actionName = self.getActionName(item.action);
                             item.oldStatusName = self.getStatusName(item.oldStatus);
                             item.newStatusName = self.getStatusName(item.newStatus);
-                            item.actionDate=moment(item.actionDate).format('DD/MM/YYYY HH:mm:ss')
+                            item.actionDate = moment(item.actionDate).format('DD/MM/YYYY HH:mm:ss')
                             return item;
                         });
                         ko.applyBindings(new PagedGridModel(lstItem), pop[0]);
@@ -518,6 +544,7 @@ $(document).ready(function () {
                 }
             });
         }
+
 
         self.search();
     }
