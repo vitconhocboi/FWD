@@ -4,6 +4,7 @@ import com.viettelpost.constant.AppConstant;
 import com.viettelpost.controller.BaseController;
 import com.viettelpost.helper.AppHelper;
 import com.viettelpost.entity.*;
+import com.viettelpost.model.ApproveBody;
 import com.viettelpost.model.ProcessOrder;
 import com.viettelpost.model.SaveRevenue;
 import com.viettelpost.service.*;
@@ -41,6 +42,9 @@ public class OrderManageController extends BaseController<Orders> {
 
     @Autowired
     DebtDetailService debtDetailService;
+
+    @Autowired
+    OrderLogService orderLogService;
 
 
     @Override
@@ -220,6 +224,21 @@ public class OrderManageController extends BaseController<Orders> {
                 order.setAmountCs(revenue.getAmountCs());
                 order.setAmountOp(revenue.getAmountOp());
                 ordersService.save(order);
+                //ghi lai log nguoi dung
+                OrderLog log = new OrderLog();
+                if (AppConstant.ORDER_STATUS.PROFIT.equals(order.getStatus())) {
+                    log.setAction("DISTRIBUTE_PROFIT");
+                } else if (AppConstant.ORDER_STATUS.PRICE_CS.equals(order.getStatus())) {
+                    log.setAction("CS_PRICE_ORDER");
+                } else if (AppConstant.ORDER_STATUS.PRICE_OP.equals(order.getStatus())) {
+                    log.setAction("OP_PRICE_ORDER");
+                }
+                log.setOrderId(orderId);
+                log.setOrderCode(order.getOrderNo());
+                log.setOldStatus(order.getStatus());
+                log.setNewStatus(order.getStatus());
+                orderLogService.save(log);
+
                 return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
             } catch (Exception ex) {
                 LOGGER.error(ex.getMessage(), ex);
@@ -231,9 +250,29 @@ public class OrderManageController extends BaseController<Orders> {
     }
 
     @RequestMapping(value = "/approve/{orderId}", method = RequestMethod.POST)
-    public ResponseEntity<Object> approve(@PathVariable("orderId") Long orderId, @RequestBody String flow) {
-        int num = ordersService.approve(orderId, flow);
+    public ResponseEntity<Object> approve(@PathVariable("orderId") Long orderId, @RequestBody ApproveBody approveBody) {
+        Orders orders = ordersService.findById(orderId);
+        Map<String, Object> orderAttributes = new HashMap<>();
+        if (approveBody.getNote() != null && !approveBody.getNote().isEmpty()) {
+            String note = (orders.getNote() != null ? (orders.getNote() + "\n") : "") + ordersService.getCurrentUserModel().getUserName() + ":" + approveBody.getNote();
+            orderAttributes.put("note", note);
+        }
+        //ghi lai log nguoi dung
+        OrderLog log = new OrderLog();
+        log.setAction(approveBody.getFlow());
+        log.setOrderId(orders.getOrderId());
+        log.setOrderCode(orders.getOrderNo());
+        log.setOldStatus(orders.getStatus());
+        log.setNote(approveBody.getNote());
+
+        int num = ordersService.approve(orderId, approveBody.getFlow(), orderAttributes);
         if (num > 0) {
+            try {
+                log.setNewStatus(ordersService.getCurrentStatus(orderId));
+                orderLogService.save(log);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
         } else {
             return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.FORBIDDEN);
@@ -246,51 +285,60 @@ public class OrderManageController extends BaseController<Orders> {
     public ResponseEntity<Object> processOrder(@PathVariable("orderId") Long orderId, @RequestBody ProcessOrder processOrder) {
         try {
             Orders order = ordersService.findById(orderId);
-            order.setEstimatedStartDate(processOrder.getEstimatedStartDate());
-            order.setEstimatedEndDate(processOrder.getEstimatedEndDate());
-            //them cong no cho khach hang
-            DebtManagement debtCustomer = debtManagementService.findFirstByObjectDebtIdAndType(order.getCustomerId(), AppConstant.FINANCE_TYPE.CUSTOMER);
-            DebtDetail debtDetailCustomer = new DebtDetail();
-            debtDetailCustomer.setDebtId(debtCustomer.getId());
-            debtDetailCustomer.setObjectDebtId(order.getCustomerId());
-            debtDetailCustomer.setObjectDebtName(order.getCustomerName());
-            debtDetailCustomer.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.RECEIVABLE);
-            debtDetailCustomer.setAmount(order.getAmountRevenueTotal());
-            debtDetailCustomer.setStatus(1L);
-            debtDetailCustomer.setOrderId(order.getOrderId());
-            debtDetailCustomer.setOrderNo(order.getOrderNo());
-            debtDetailCustomer.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
-            debtDetailCustomer.setCreatedDate(new Date());
-            debtDetailService.save(debtDetailCustomer);
-            debtManagementService.updateAmountDebt(debtCustomer.getId(), -order.getAmountRevenueTotal());
-            //them cong no cua doi tac
-            Map<String, Object> map = new HashMap<>();
-            map.put("orderId", orderId);
-            map.put("groupCode", "AMOUNT_RENT");
-            List<OrderDetail> lst = orderDetailService.search(map);
-            for (OrderDetail orderDetail : lst) {
-                if (orderDetail.getPartnerId() != null) {
-                    DebtManagement debtPartner = debtManagementService.findFirstByObjectDebtIdAndType(orderDetail.getPartnerId(), AppConstant.FINANCE_TYPE.PARTNER);
-                    DebtDetail debtDetailPartner = new DebtDetail();
-                    debtDetailPartner.setDebtId(debtPartner.getId());
-                    debtDetailPartner.setObjectDebtId(orderDetail.getPartnerId());
-                    debtDetailPartner.setObjectDebtName(orderDetail.getPartnerName());
-                    debtDetailPartner.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.PAYABLE);
-                    debtDetailPartner.setAmount(orderDetail.getAmountTotal());
-                    debtDetailPartner.setStatus(1L);
-                    debtDetailPartner.setOrderId(order.getOrderId());
-                    debtDetailPartner.setOrderNo(order.getOrderNo());
-                    debtDetailPartner.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
-                    debtDetailPartner.setCreatedDate(new Date());
-                    debtDetailService.save(debtDetailPartner);
-                    debtManagementService.updateAmountDebt(debtPartner.getId(), orderDetail.getAmountTotal());
-                }
-            }
+            Map<String, Object> orderAttributes = new HashMap<>();
+            orderAttributes.put("ESTIMATED_START_DATE", processOrder.getEstimatedStartDate());
+            orderAttributes.put("ESTIMATED_END_DATE", processOrder.getEstimatedEndDate());
+            //ghi lai log nguoi dung
+            OrderLog log = new OrderLog();
+            log.setAction("PROCESS_ORDER");
+            log.setOrderId(order.getOrderId());
+            log.setOrderCode(order.getOrderNo());
+            log.setOldStatus(order.getStatus());
 
-            ordersService.save(order);
-
-            int num = ordersService.approve(orderId, processOrder.getFlowSign());
+            int num = ordersService.approve(orderId, processOrder.getFlowSign(), orderAttributes);
             if (num > 0) {
+                order = ordersService.findById(orderId);
+                log.setNewStatus(ordersService.getCurrentStatus(orderId));
+                //them cong no cho khach hang
+                DebtManagement debtCustomer = debtManagementService.findFirstByObjectDebtIdAndType(order.getCustomerId(), AppConstant.FINANCE_TYPE.CUSTOMER);
+                DebtDetail debtDetailCustomer = new DebtDetail();
+                debtDetailCustomer.setDebtId(debtCustomer.getId());
+                debtDetailCustomer.setObjectDebtId(order.getCustomerId());
+                debtDetailCustomer.setObjectDebtName(order.getCustomerName());
+                debtDetailCustomer.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.RECEIVABLE);
+                debtDetailCustomer.setAmount(order.getAmountRevenueTotal());
+                debtDetailCustomer.setStatus(1L);
+                debtDetailCustomer.setOrderId(order.getOrderId());
+                debtDetailCustomer.setOrderNo(order.getOrderNo());
+                debtDetailCustomer.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
+                debtDetailCustomer.setCreatedDate(new Date());
+                debtDetailService.save(debtDetailCustomer);
+                debtManagementService.updateAmountDebt(debtCustomer.getId(), -order.getAmountRevenueTotal());
+                //them cong no cua doi tac
+                Map<String, Object> map = new HashMap<>();
+                map.put("orderId", orderId);
+                map.put("groupCode", "AMOUNT_RENT");
+                List<OrderDetail> lst = orderDetailService.search(map);
+                for (OrderDetail orderDetail : lst) {
+                    if (orderDetail.getPartnerId() != null) {
+                        DebtManagement debtPartner = debtManagementService.findFirstByObjectDebtIdAndType(orderDetail.getPartnerId(), AppConstant.FINANCE_TYPE.PARTNER);
+                        DebtDetail debtDetailPartner = new DebtDetail();
+                        debtDetailPartner.setDebtId(debtPartner.getId());
+                        debtDetailPartner.setObjectDebtId(orderDetail.getPartnerId());
+                        debtDetailPartner.setObjectDebtName(orderDetail.getPartnerName());
+                        debtDetailPartner.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.PAYABLE);
+                        debtDetailPartner.setAmount(orderDetail.getAmountTotal());
+                        debtDetailPartner.setStatus(1L);
+                        debtDetailPartner.setOrderId(order.getOrderId());
+                        debtDetailPartner.setOrderNo(order.getOrderNo());
+                        debtDetailPartner.setUserCreateId(ordersService.getCurrentUserModel().getUserId());
+                        debtDetailPartner.setCreatedDate(new Date());
+                        debtDetailService.save(debtDetailPartner);
+                        debtManagementService.updateAmountDebt(debtPartner.getId(), orderDetail.getAmountTotal());
+                    }
+                }
+                orderLogService.save(log);
+
                 return AppHelper.createResponseEntity(null, 1, "", true, HttpStatus.OK);
             } else {
                 return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.FORBIDDEN);
@@ -334,5 +382,12 @@ public class OrderManageController extends BaseController<Orders> {
         } else {
             return AppHelper.createResponseEntity(null, 1, "You are not authorized to access this resource!", false, HttpStatus.OK);
         }
+    }
+
+
+    @RequestMapping(value = "/history/{orderId}", method = RequestMethod.GET)
+    public ResponseEntity<Object> history(@PathVariable("orderId") Long orderId) {
+        List<OrderLog> lst = orderLogService.findAllByOrderId(orderId);
+        return AppHelper.createResponseEntity(lst, lst.size(), "", true, HttpStatus.OK);
     }
 }

@@ -29,6 +29,26 @@ public class OrdersService extends BaseCustomService<Orders> {
     }
 
     @Override
+    @Transactional
+    public Orders save(Orders bo) throws Exception {
+        super.save(bo);
+        //cap nhat lai so luong
+        StringBuilder sql = new StringBuilder();
+        sql.append("UPDATE order_detail");
+        sql.append("   SET quantity = :quantity,");
+        sql.append("       amount_not_vat = quantity * price,");
+        sql.append("       amount_vat = amount_not_vat * tax / 100,");
+        sql.append("       amount_total = amount_not_vat + amount_vat");
+        sql.append(" WHERE order_id = :orderId");
+
+        Query query = entityManager.createNativeQuery(sql.toString())
+                .setParameter("quantity", bo.getQuantity())
+                .setParameter("orderId", bo.getOrderId());
+        query.executeUpdate();
+        return bo;
+    }
+
+    @Override
     public Long getTotalRecord(Map<String, Object> searchParams) {
         if (checkRole("ROLE_ADMIN")) {
 
@@ -44,13 +64,16 @@ public class OrdersService extends BaseCustomService<Orders> {
     }
 
     @Transactional
-    public int approve(Long orderId, String flow) {
+    public int approve(Long orderId, String flow, Map<String, Object> attributes) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE orders");
         sql.append("   SET ");
         sql.append("       user_cs_id = case when status = 1 then :userId else user_cs_id end ,");
         sql.append("       user_op_id = case when status = 2 then :userId else user_op_id end ,");
+        for (String key : attributes.keySet()) {
+            sql.append(" " + key + " = :" + key + ",");
+        }
         sql.append("       status =");
         sql.append("           (SELECT next_status");
         sql.append("              FROM flow_sign_detail");
@@ -91,6 +114,9 @@ public class OrdersService extends BaseCustomService<Orders> {
         query.setParameter("orderId", orderId);
         query.setParameter("flow", flow);
         query.setParameter("userId", getCurrentUserModel().getUserId());
+        for (String key : attributes.keySet()) {
+            query.setParameter(key, attributes.get(key));
+        }
         return query.executeUpdate();
     }
 
@@ -159,5 +185,11 @@ public class OrdersService extends BaseCustomService<Orders> {
             query.setParameter("partnerId", partnerId);
         }
         return query.getResultList();
+    }
+
+    public String getCurrentStatus(Long orderId) {
+        StringBuilder sql = new StringBuilder("SELECT status FROM orders WHERE order_id = :orderId");
+        Query query = entityManager.createNativeQuery(sql.toString()).setParameter("orderId", orderId);
+        return (String) query.getSingleResult();
     }
 }

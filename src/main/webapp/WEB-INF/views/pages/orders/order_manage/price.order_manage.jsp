@@ -465,7 +465,7 @@
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
-                                            <td class=xl103 style='border-left:none'>&nbsp;</td>
+                                            <td class=xl103 style='border-left:none'><span data-bind="text: item.note"/></td>
                                         </tr>
                                         </tbody>
                                         <tr height=20 style='height:15.0pt'>

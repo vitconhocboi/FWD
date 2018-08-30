@@ -1,62 +1,169 @@
 
-.login-container { margin-top: 15px; background-color: floralwhite; width: 40%; left: 30%; position: relative; }
-.login-card { width: 80%; margin: auto; }
-.login-form { padding: 10%; }
-.authbar{ margin-bottom:15px; }
-.nsw-profile {position: absolute; top: 0;right: 50px;}
-.nsw-lang-div{float: right;
-              color: #fff !important;
-              position: absolute;
-              top: 0;
-              right: 45px;}
-.nsw-color-w {font-size: 11px;}
-.nsw-text-center{text-align:center;}
-.nsw-text-right{text-align:right;}
-.nsw-require-field {color:red !important;}
-.nsw-text-underline{text-decoration: underline;}
-.nsw-flr {float:right;}
-.validationMessage{ color:red; font-size: 9pt; }
-.nsw-tr {background-image: url(../images/grid-header.png);
-         background-repeat: repeat-x;
-         background-position: center;
-         background-color: #A9CCFF;
-         color: #000000;
-         height: 32px;
-         padding: 3px;
-         text-align: center;}
-.w50 {width: 50px;}
-.w70 {width: 80px;}
-.w100 {width: 100px;}
-.w150 {width: 150px;}
-.w200 {width: 200px;}
-.w250 {width: 250px;}
-.w300 {width: 300px;}
-.w350 {width: 350px;}
-.w400 {width: 400px;}
-.w450 {width: 450px;}
-.w500 {width: 500px;}
-.w50pc {width: 50%}
-.input-invaild {border: 1px solid red !important;}
-.input-invaild-text {font-size: 9pt; color: red;}
-.center-block {margin: 0 auto; width: 50%}
-#hanghoa-pager button { margin-right: 6px;}
-.tr-nsw1-bgcolor {background-color: #A9CCFF;}
-.tenbo_tienganh{ display: none !important; }
+.login-container {
+    margin-top: 15px;
+    background-color: floralwhite;
+    width: 40%;
+    left: 30%;
+    position: relative;
+}
+
+.login-card {
+    width: 80%;
+    margin: auto;
+}
+
+.login-form {
+    padding: 10%;
+}
+
+.authbar {
+    margin-bottom: 15px;
+}
+
+.nsw-profile {
+    position: absolute;
+    top: 0;
+    right: 50px;
+}
+
+.nsw-lang-div {
+    float: right;
+    color: #fff !important;
+    position: absolute;
+    top: 0;
+    right: 45px;
+}
+
+.nsw-color-w {
+    font-size: 11px;
+}
+
+.nsw-text-center {
+    text-align: center;
+}
+
+.nsw-text-right {
+    text-align: right;
+}
+
+.nsw-require-field {
+    color: red !important;
+}
+
+.nsw-text-underline {
+    text-decoration: underline;
+}
+
+.nsw-flr {
+    float: right;
+}
+
+.validationMessage {
+    color: red;
+    font-size: 9pt;
+}
+
+.nsw-tr {
+    background-image: url(../images/grid-header.png);
+    background-repeat: repeat-x;
+    background-position: center;
+    background-color: #A9CCFF;
+    color: #000000;
+    height: 32px;
+    padding: 3px;
+    text-align: center;
+}
+
+.w50 {
+    width: 50px;
+}
+
+.w70 {
+    width: 80px;
+}
+
+.w100 {
+    width: 100px;
+}
+
+.w150 {
+    width: 150px;
+}
+
+.w200 {
+    width: 200px;
+}
+
+.w250 {
+    width: 250px;
+}
+
+.w300 {
+    width: 300px;
+}
+
+.w350 {
+    width: 350px;
+}
+
+.w400 {
+    width: 400px;
+}
+
+.w450 {
+    width: 450px;
+}
+
+.w500 {
+    width: 500px;
+}
+
+.w50pc {
+    width: 50%
+}
+
+.input-invaild {
+    border: 1px solid red !important;
+}
+
+.input-invaild-text {
+    font-size: 9pt;
+    color: red;
+}
+
+.center-block {
+    margin: 0 auto;
+    width: 50%
+}
+
+#hanghoa-pager button {
+    margin-right: 6px;
+}
+
+.tr-nsw1-bgcolor {
+    background-color: #A9CCFF;
+}
+
+.tenbo_tienganh {
+    display: none !important;
+}
+
 .custom-icon-btn {
     height: 35px !important;
-    margin: 0px  !important;
+    margin: 0px !important;
     padding: 0px !important;
 }
+
 .custom-icon-btn > div {
-    margin-top: 8px !important;    
-    color: #fff !important;    
+    margin-top: 8px !important;
+    color: #fff !important;
     font-weight: 300;
 }
+
 .custom-icon-btn .badge {
     color: #fff !important;
     background-color: red !important;
 }
-
 
 ul.simple-pagination {
     list-style: none;
@@ -81,6 +188,7 @@ ul.simple-pagination {
     margin: 0;
     float: left;
 }
+
 span.ellipse.clickable {
     cursor: pointer;
 }
@@ -93,39 +201,39 @@ span.ellipse.clickable {
         Compact Theme Styles
 \*------------------------------------*/
 .compact-theme span {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .compact-theme a, .compact-theme span {
     float: left;
     color: #333;
-    font-size:14px;
-    line-height:24px;
+    font-size: 14px;
+    line-height: 24px;
     font-weight: normal;
     text-align: center;
     border: 1px solid #AAA;
     border-left: none;
     min-width: 14px;
     padding: 0 7px;
-    box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
     background: #efefef; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #efefef 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%); /* IE10+ */
-    background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #efefef)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #efefef 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #efefef 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #efefef 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%, #efefef 100%); /* W3C */
 }
 
 .compact-theme a:hover, .compact-theme li:not(.disabled):not(.active) span:hover {
     text-decoration: none;
     background: #efefef; /* Old browsers */
     background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#efefef), color-stop(100%,#bbbbbb)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* IE10+ */
-    background: linear-gradient(top, #efefef 0%,#bbbbbb 100%); /* W3C */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #efefef), color-stop(100%, #bbbbbb)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #efefef 0%, #bbbbbb 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #efefef 0%, #bbbbbb 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #efefef 0%, #bbbbbb 100%); /* IE10+ */
+    background: linear-gradient(top, #efefef 0%, #bbbbbb 100%); /* W3C */
 }
 
 .compact-theme li:first-child a, .compact-theme li:first-child span {
@@ -140,11 +248,11 @@ span.ellipse.clickable {
 .compact-theme .current {
     background: #bbbbbb; /* Old browsers */
     background: -moz-linear-gradient(top, #bbbbbb 0%, #efefef 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bbbbbb), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* IE10+ */
-    background: linear-gradient(top, #bbbbbb 0%,#efefef 100%); /* W3C */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bbbbbb), color-stop(100%, #efefef)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #bbbbbb 0%, #efefef 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #bbbbbb 0%, #efefef 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #bbbbbb 0%, #efefef 100%); /* IE10+ */
+    background: linear-gradient(top, #bbbbbb 0%, #efefef 100%); /* W3C */
     cursor: default;
 }
 
@@ -158,14 +266,14 @@ span.ellipse.clickable {
         Light Theme Styles
 \*------------------------------------*/
 .light-theme span {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .light-theme a, .light-theme span {
     float: left;
     color: #666;
-    font-size:14px;
-    line-height:24px;
+    font-size: 14px;
+    line-height: 24px;
     font-weight: normal;
     text-align: center;
     border: 1px solid #BBB;
@@ -173,14 +281,14 @@ span.ellipse.clickable {
     padding: 0 7px;
     margin: 0 5px 0 0;
     border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     background: #efefef; /* Old browsers */
     background: -moz-linear-gradient(top, #ffffff 0%, #efefef 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%,#efefef 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%,#efefef 100%); /* IE10+ */
-    background: linear-gradient(top, #ffffff 0%,#efefef 100%); /* W3C */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #efefef)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #efefef 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #efefef 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #efefef 100%); /* IE10+ */
+    background: linear-gradient(top, #ffffff 0%, #efefef 100%); /* W3C */
 }
 
 .light-theme a:hover, .light-theme li:not(.disabled):not(.active) span:hover {
@@ -192,7 +300,7 @@ span.ellipse.clickable {
     background: #666;
     color: #FFF;
     border-color: #444;
-    box-shadow: 0 1px 0 rgba(255,255,255,1), 0 0 2px rgba(0, 0, 0, 0.3) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 1), 0 0 2px rgba(0, 0, 0, 0.3) inset;
     cursor: default;
 }
 
@@ -209,14 +317,14 @@ span.ellipse.clickable {
         Dark Theme Styles
 \*------------------------------------*/
 .dark-theme span {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .dark-theme a, .dark-theme span {
     float: left;
     color: #CCC;
-    font-size:14px;
-    line-height:24px;
+    font-size: 14px;
+    line-height: 24px;
     font-weight: normal;
     text-align: center;
     border: 1px solid #222;
@@ -224,14 +332,14 @@ span.ellipse.clickable {
     padding: 0 7px;
     margin: 0 5px 0 0;
     border-radius: 3px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     background: #555; /* Old browsers */
     background: -moz-linear-gradient(top, #555 0%, #333 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#555), color-stop(100%,#333)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #555 0%,#333 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #555 0%,#333 100%); /* Opera11.10+ */
-    background: -ms-linear-gradient(top, #555 0%,#333 100%); /* IE10+ */
-    background: linear-gradient(top, #555 0%,#333 100%); /* W3C */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #555), color-stop(100%, #333)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #555 0%, #333 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #555 0%, #333 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #555 0%, #333 100%); /* IE10+ */
+    background: linear-gradient(top, #555 0%, #333 100%); /* W3C */
 }
 
 .dark-theme a:hover, .dark-theme li:not(.disabled):not(.active) span:hover {
@@ -243,7 +351,7 @@ span.ellipse.clickable {
     background: #222;
     color: #FFF;
     border-color: #000;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 0 1px 1px rgba(0, 0, 0, 0.1) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 1px 1px rgba(0, 0, 0, 0.1) inset;
     cursor: default;
 }
 
@@ -257,16 +365,17 @@ span.ellipse.clickable {
 }
 
 .overlay {
-    opacity:0.05;
-    background-color:#ccc;
-    position:fixed;
-    width:100%;
-    height:100%;
-    top:0px;
-    left:0px;
-    z-index:1000;
+    opacity: 0.05;
+    background-color: #ccc;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    z-index: 1000;
 }
-#loading10{
+
+#loading10 {
     position: fixed;
     z-index: 1000000;
     width: 140px;
@@ -281,16 +390,18 @@ span.ellipse.clickable {
     border: solid 1px #f0f0f0;
     display: none;
 }
-#loading10 img{
+
+#loading10 img {
     display: block;
     margin: 0 auto;
     height: 32px;
     width: 32px;
 }
-#loading10 div{
+
+#loading10 div {
     width: 100%;
     text-align: center;
-    color : #3598dc;
+    color: #3598dc;
 }
 
 .search-container {
@@ -314,4 +425,131 @@ search-container input[type=text] {
     width: 100%;
     margin: 0;
     padding: 14px;
+}
+
+/* Style for table */
+.table-customize {
+    margin: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px #ccc inset;
+}
+
+.table-customize > thead > tr {
+    background-color: #535353;
+    border-radius: 3px 3px 0 0;
+}
+
+.table-customize > thead > tr > th {
+    color: #fff;
+    border-bottom: none;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.table-customize > thead > tr > th:first-child {
+    border-radius: 3px 0 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.table-customize > thead > tr > th:last-child {
+    border-radius: 0 3px 0 0;
+}
+
+.table-customize > tbody > tr > td {
+    vertical-align: middle;
+    padding: 15px 14px;
+    color: #ccc;
+    font-size: 14px;
+    color: #000;
+    border: 1px solid #ccc;
+}
+
+.table-customize > tbody > tr > td a {
+    text-decoration: none;
+}
+
+.table-order > tbody > tr:nth-child(-n + 3) > td:first-child {
+    position: relative;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.table-order > tbody > tr:nth-child(-n + 3) > td:first-child span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 14px;
+}
+
+.table-order > tbody > tr td:first-child, .table-order > tbody > tr th:first-child {
+    text-align: center;
+}
+
+@media (min-width: 320px) and (max-width: 767px) {
+    .table-responsive,
+    .table-responsive thead,
+    .table-responsive tbody,
+    .table-responsive th,
+    .table-responsive td,
+    .table-responsive tr {
+        display: block;
+    }
+
+    .table-responsive > thead > tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .table-responsive > tbody > tr {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .table-responsive > tbody > tr:first-child {
+        border-radius: 3px 3px 0 0;
+        border-top: none;
+    }
+
+    .table-responsive > tbody > tr:last-child {
+        border-radius: 0 0 3px 3px;
+        border-bottom: none;
+    }
+
+    .table-responsive > tbody > tr td {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        position: relative;
+        padding-left: 30% !important;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .table-responsive > tbody > tr td:before {
+        content: attr(data-title);
+        position: absolute;
+        top: 15px;
+        left: 14px;
+        width: 30%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-size: 14px;
+    }
+
+    .table-responsive > tbody > tr td:first-child {
+        text-align: left;
+    }
+
+    .table-responsive.table-order > tbody > tr:nth-child(-n + 3) > td:first-child {
+        padding: 25px 0 25px 30% !important;
+        background-position: left 32% center;
+    }
+
+    .table-responsive.table-order > tbody > tr:nth-child(-n + 3) > td:first-child span {
+        left: 32%;
+    }
 }

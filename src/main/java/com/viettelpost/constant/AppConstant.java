@@ -83,6 +83,8 @@ public class AppConstant {
         public static final String PENDING = "6";
         public static final String DONE = "7";
         public static final String CLOSE = "8";
+        public static final String SALE_CONFIRM = "9";
+        public static final String DESTROY = "-1";
     }
 
     public interface FINANCE_STATUS {

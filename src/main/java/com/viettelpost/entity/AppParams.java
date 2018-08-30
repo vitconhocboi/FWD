@@ -1,11 +1,21 @@
 package com.viettelpost.entity;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "APP_PARAMS")
 public class AppParams {
     @Id
+    @GenericGenerator(
+            name = "SequenceGenerator",
+            strategy = "com.viettelpost.util.SequenceGeneratorIfNotExists",
+            parameters = {
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "APP_PARAM_SEQ"),
+            }
+    )
+    @GeneratedValue(generator = "SequenceGenerator")
     @Column(name = "ID")
     private Long id;
     @Basic

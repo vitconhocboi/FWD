@@ -14,8 +14,11 @@
         <class>com.viettelpost.entity.AppParams</class>
         <class>com.viettelpost.entity.DebtDetail</class>
         <class>com.viettelpost.entity.DebtManagement</class>
+        <class>com.viettelpost.entity.ActionAudit</class>
+        <class>com.viettelpost.entity.ActionDetail</class>
+        <class>com.viettelpost.entity.OrderLog</class>
         <properties>
-            <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@192.168.1.19:1521:db12c"/>
+            <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@//10.30.1.124:1521/erp"/>
             <property name="toplink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="hibernate.connection.url" value="jdbc:oracle:thin:@192.168.0.130:1521:db12c"/>
             <property name="hibernate.connection.driver_class" value="oracle.jdbc.OracleDriver"/>

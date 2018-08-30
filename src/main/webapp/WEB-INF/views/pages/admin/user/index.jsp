@@ -107,8 +107,8 @@
                                 <div class="panel-heading">
                                     <span class="caption-subject bold uppercase">Danh sách người dùng</span>
                                 </div>
-                                <div class="panel-body">
-                                    <table class="table table-striped table-bordered table-hover table-checkable order-column"
+                                <div class="panel-body table-responsive">
+                                    <table class="table table-striped table-bordered table-hover table-checkable order-column table-customize table-responsive"
                                            id="sample_1">
                                         <thead>
                                         <tr class="nsw-tr tr-nsw1-bgcolor">
@@ -126,22 +126,22 @@
                                         <tbody id="list-container"
                                                data-bind="foreach: { data: $root.danhsachuser, as: 'item'}">
                                         <tr>
-                                            <td class="text-center"
+                                            <td data-title="STT" class="text-center"
                                                 data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
-                                            <td class="text-center" data-bind="text: item.fullName"></td>
-                                            <td class="text-center" data-bind="text: item.userName"></td>
-                                            <td class="text-center" data-bind="text: item.phone"></td>
-                                            <td class="text-center" data-bind="text: item.email"></td>
-                                            <td class="text-center" data-bind="text: item.deptId"></td>
-                                            <td class="text-center"
+                                            <td data-title="Tên đầy đủ" class="text-center" data-bind="text: item.fullName"></td>
+                                            <td data-title="Tên đăng nhập" class="text-center" data-bind="text: item.userName"></td>
+                                            <td data-title="Số điện thoại" class="text-center" data-bind="text: item.phone"></td>
+                                            <td data-title="Email"  class="text-center" data-bind="text: item.email"></td>
+                                            <td data-title="Phòng ban" class="text-center" data-bind="text: item.deptId"></td>
+                                            <td data-title="Trạng thái" class="text-center"
                                                 data-bind="text: item.active()==1?'Hoạt động':'Không hoạt động'"></td>
-                                            <td class="text-center">
+                                            <td data-title="Sửa" class="text-center">
                                                 <a href="javascript:;"
                                                    data-bind="click: $root.editUser">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                             </td>
-                                            <td class="text-center">
+                                            <td data-title="Xóa" class="text-center">
                                                 <a href="javascript:;"
                                                    data-bind="click: $root.deleteUser">
                                                     <i class="fa fa-trash"></i>

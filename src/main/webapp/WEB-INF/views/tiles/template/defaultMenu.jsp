@@ -11,7 +11,7 @@
             <ul class="nav navbar-nav">
                 <c:forEach items="${tabs}" var="tab">
                     <li class="menu-dropdown classic-menu-dropdown">
-                        <a href="${tab.pageUrl}">
+                        <a>
                                 ${tab.pageName}
                             <span class="arrow"></span>
                         </a>
@@ -20,7 +20,8 @@
                                 <c:forEach items="${tab.children}" var="tabChild1">
                                     <c:if test="${!tabChild1.children.isEmpty()}">
                                         <li class="dropdown-submenu submenu-after">
-                                            <a href="${tabChild1.pageUrl}" class="nav-link nav-toggle ">
+                                            <a href="${pageContext.request.contextPath}${tabChild1.pageUrl}"
+                                               class="nav-link nav-toggle ">
                                                     ${tabChild1.pageName}
                                                 <span class="arrow"></span>
                                             </a>
@@ -28,7 +29,8 @@
                                                 <c:forEach items="${tabChild1.children}" var="tabChild2">
                                                     <c:if test="${!tabChild2.children.isEmpty()}">
                                                         <li class="dropdown-submenu submenu-after">
-                                                            <a href="${tabChild2.pageUrl}" class="nav-link nav-toggle ">
+                                                            <a href="${pageContext.request.contextPath}${tabChild2.pageUrl}"
+                                                               class="nav-link nav-toggle ">
                                                                     ${tabChild2.pageName}
                                                                 <span class="arrow"></span>
                                                             </a>
@@ -37,7 +39,7 @@
                                                                 <c:forEach items="${tabChild2.children}"
                                                                            var="tabChild3">
                                                                     <li class="">
-                                                                        <a href="${tabChild3.pageUrl}"
+                                                                        <a href="${pageContext.request.contextPath}${tabChild3.pageUrl}"
                                                                            class="nav-link "> ${tabChild3.pageName} </a>
                                                                     </li>
                                                                 </c:forEach>
@@ -46,7 +48,8 @@
                                                     </c:if>
                                                     <c:if test="${tabChild2.children.isEmpty()}">
                                                         <li class="dropdown-submenu">
-                                                            <a href="${tabChild2.pageUrl}" class="nav-link nav-toggle ">
+                                                            <a href="${pageContext.request.contextPath}${tabChild2.pageUrl}"
+                                                               class="nav-link nav-toggle ">
                                                                     ${tabChild2.pageName}
                                                                 <span class="arrow"></span>
                                                             </a>
@@ -58,7 +61,8 @@
                                     </c:if>
                                     <c:if test="${tabChild1.children.isEmpty()}">
                                         <li class="dropdown-submenu">
-                                            <a href="${tabChild1.pageUrl}" class="nav-link nav-toggle ">
+                                            <a href="${pageContext.request.contextPath}${tabChild1.pageUrl}"
+                                               class="nav-link nav-toggle ">
                                                     ${tabChild1.pageName}
                                                 <span class="arrow"></span>
                                             </a>

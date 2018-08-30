@@ -1,0 +1,54 @@
+;;; 
+Export: Release 12.2.0.1.0 - Production on Sat Aug 25 10:41:52 2018
+
+Copyright (c) 1982, 2017, Oracle and/or its affiliates.  All rights reserved.
+;;; 
+Connected to: Oracle Database 12c Enterprise Edition Release 12.2.0.1.0 - 64bit Production
+Starting "SYSTEM"."SYS_EXPORT_SCHEMA_01":  system/******** DIRECTORY=MY_BACKUP_DIR DUMPFILE=fwd.dmp SCHEMAS=sinh LOGFILE=fwd.log 
+Processing object type SCHEMA_EXPORT/TABLE/TABLE_DATA
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/STATISTICS/INDEX_STATISTICS
+Processing object type SCHEMA_EXPORT/TABLE/STATISTICS/TABLE_STATISTICS
+Processing object type SCHEMA_EXPORT/STATISTICS/MARKER
+Processing object type SCHEMA_EXPORT/SYSTEM_GRANT
+Processing object type SCHEMA_EXPORT/DEFAULT_ROLE
+Processing object type SCHEMA_EXPORT/PRE_SCHEMA/PROCACT_SCHEMA
+Processing object type SCHEMA_EXPORT/SEQUENCE/SEQUENCE
+Processing object type SCHEMA_EXPORT/TABLE/TABLE
+Processing object type SCHEMA_EXPORT/TABLE/COMMENT
+Processing object type SCHEMA_EXPORT/TABLE/INDEX/INDEX
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/CONSTRAINT/REF_CONSTRAINT
+Processing object type SCHEMA_EXPORT/TABLE/TRIGGER
+. . exported "SINH"."ORDERS"                             28.74 KB       3 rows
+. . exported "SINH"."ORDER_DETAIL"                       15.05 KB       8 rows
+. . exported "SINH"."DEBT_DETAIL"                        13.55 KB       4 rows
+. . exported "SINH"."CUSTOMER"                           12.97 KB       2 rows
+. . exported "SINH"."PARTNER"                            12.58 KB       2 rows
+. . exported "SINH"."ROUTE_DETAIL"                       11.59 KB       1 rows
+. . exported "SINH"."PAGES"                              10.21 KB      17 rows
+. . exported "SINH"."USERS"                              10.02 KB       5 rows
+. . exported "SINH"."PRICE"                              8.539 KB       2 rows
+. . exported "SINH"."FLOW_SIGN_DETAIL"                   7.812 KB      16 rows
+. . exported "SINH"."DEPARTMENT"                          7.75 KB       4 rows
+. . exported "SINH"."PORT"                               7.671 KB       1 rows
+. . exported "SINH"."APP_PARAMS"                         7.476 KB       5 rows
+. . exported "SINH"."SERVICE"                            7.218 KB       1 rows
+. . exported "SINH"."DEBT_MANAGEMENT"                    7.085 KB       9 rows
+. . exported "SINH"."ROLE_PAGES"                         6.265 KB      29 rows
+. . exported "SINH"."ROLE"                               5.539 KB       4 rows
+. . exported "SINH"."USER_ROLE"                          5.507 KB       4 rows
+. . exported "SINH"."PARTNER_SERVICE"                        0 KB       0 rows
+. . exported "SINH"."PLSQL_PROFILER_DATA"                    0 KB       0 rows
+. . exported "SINH"."PLSQL_PROFILER_RUNS"                    0 KB       0 rows
+. . exported "SINH"."PLSQL_PROFILER_UNITS"                   0 KB       0 rows
+. . exported "SINH"."SQLN_PROF_ANB"                          0 KB       0 rows
+. . exported "SINH"."SQLN_PROF_PROFILES"                     0 KB       0 rows
+. . exported "SINH"."SQLN_PROF_RUNS"                         0 KB       0 rows
+. . exported "SINH"."SQLN_PROF_SESS"                         0 KB       0 rows
+. . exported "SINH"."SQLN_PROF_UNITS"                        0 KB       0 rows
+. . exported "SINH"."SQLN_PROF_UNIT_HASH"                    0 KB       0 rows
+Master table "SYSTEM"."SYS_EXPORT_SCHEMA_01" successfully loaded/unloaded
+******************************************************************************
+Dump file set for SYSTEM.SYS_EXPORT_SCHEMA_01 is:
+  C:\ORACLEBACKUP\FWD.DMP
+Job "SYSTEM"."SYS_EXPORT_SCHEMA_01" successfully completed at Sat Aug 25 10:42:37 2018 elapsed 0 00:00:37

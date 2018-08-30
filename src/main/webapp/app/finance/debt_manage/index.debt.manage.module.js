@@ -141,7 +141,7 @@ $(document).ready(function () {
 
         self.viewDetailDebt = function (item) {
             $.ajax({
-                url: '/app/finance/debt_manage/templates/view_detail_debt.html',
+                url: context + '/app/templates/view_detail_debt.html',
                 method: 'GET',
                 async: false,
                 success: function (html) {

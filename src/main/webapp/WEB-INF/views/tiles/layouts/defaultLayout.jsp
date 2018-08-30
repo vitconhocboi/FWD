@@ -80,9 +80,9 @@
 
     <!-- BEGIN CORE PLUGINS -->
     <script src="<c:url value='/static/assets/global/plugins/jquery.min.js' />" type="text/javascript"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="<c:url value='/static/assets/global/plugins/jquery-ui/jquery-ui.js' />"></script>
     <link rel="stylesheet" type="text/css"
-          href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.14/themes/base/jquery-ui.css">
+          href="<c:url value='/static/assets/global/plugins/jquery-ui/jquery-ui.css' />">
     <script src="<c:url value='/static/assets/global/plugins/bootstrap/js/bootstrap.min.js' />"
             type="text/javascript"></script>
     <script src="<c:url value='/static/assets/global/plugins/js.cookie.min.js' />"
@@ -107,13 +107,13 @@
             type="text/javascript"></script>
     <script src="<c:url value='/static/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js' />"
             type="text/javascript"></script>
-    <script src="<c:url value='/static/lib/handlebars-v4.0.5.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/validate.min.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/catiline.min.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/Base64.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/jquery.simplePagination.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/jquery.history.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/knockout-3.4.2.js' />" type="text/javascript"></script>
+    <script src="<c:url value='/static/lib/knockout.simpleGrid.1.3.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/knockout.binding.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/knockout.mapping.js' />" type="text/javascript"></script>
     <script src="<c:url value='/static/lib/knockout.validation.min.js' />" type="text/javascript"></script>
@@ -127,7 +127,6 @@
     </script>
 
     <script src="<c:url value='/app/extension.js?v=${version}' />" type="text/javascript"></script>
-    <script src="<c:url value='/app/all.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/app/util.js?v=${version}' />" type="text/javascript"></script>
     <script src="<c:url value='/app/app.js?v=${version}' />" type="text/javascript"></script>
 </head>
@@ -141,6 +140,7 @@
         app = new APP();
         app.version = '${version}';
         app.init({context: context});
+        Util.context = context;
     });
 </script>
 <c:if test="${loggedinuser != null}">

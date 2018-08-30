@@ -1,8 +1,12 @@
 package com.viettelpost.service;
 
+import com.viettelpost.entity.ActionAudit;
+import com.viettelpost.entity.ActionDetail;
 import com.viettelpost.entity.User;
 import com.viettelpost.model.UserCustom;
 import com.viettelpost.helper.AppHelper;
+import com.viettelpost.repositories.ActionAuditRepository;
+import com.viettelpost.repositories.ActionDetailRepository;
 import org.slf4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +15,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.SerializationUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.*;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -25,6 +30,12 @@ public class BaseCustomService<Tbo> {
     protected EntityManager entityManager;
 
     @Autowired
+    private ActionAuditRepository actionAuditRepository;
+
+    @Autowired
+    private ActionDetailRepository actionDetailRepository;
+
+    @Autowired
     protected JpaRepository<Tbo, Long> repository;
 
     public List<Tbo> getAll() throws Exception {
@@ -32,38 +43,43 @@ public class BaseCustomService<Tbo> {
         return repository.findAll();
     }
 
+    @Transactional
     public Tbo findById(Long id) {
         LOGGER.info(getClassName() + ": getById !");
-        return repository.findOne(id);
+        Tbo bo = repository.findOne(id);
+        return bo;
     }
 
     @Transactional
     public Tbo save(Tbo bo) throws Exception {
-        LOGGER.info(getClassName() + ": save !");
-        return repository.save(bo);
+        LOGGER.info(getClassName() + ": update !");
+        Long id = null;
+        for (Field field : bo.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            if (field.getAnnotation(Id.class) != null) {
+                id = (Long) field.get(bo);
+            }
+        }
+        if (id != null) {
+            Tbo oldObject = findById(id);
+            if (oldObject != null) {
+                Map<String, Object> map = clone(oldObject);
+                repository.save(bo);
+                insertLog("UPDATE", bo, map);
+                return bo;
+            }
+        }
+        repository.save(bo);
+        insertLog("INSERT", bo, null);
+        return bo;
     }
 
     @Transactional
     public void delete(Long id) throws Exception {
         LOGGER.info(getClassName() + ": deleteById !");
+        Tbo bo = findById(id);
         repository.delete(id);
-    }
-
-    @Transactional
-    public void deleteObject(Tbo object) throws Exception {
-        LOGGER.debug(getClassName() + "'deleteByObject' !");
-        repository.delete(object);
-    }
-
-    @Transactional
-    public List<Tbo> saveList(List<Tbo> lst) throws Exception {
-        LOGGER.debug(getClassName() + "'saveListObject' !");
-        List<Tbo> result = new ArrayList<>();
-        for (Tbo bo : lst) {
-            repository.save(bo);
-            result.add(bo);
-        }
-        return result;
+        insertLog("DELETE", bo, null);
     }
 
     public Long getSequenceByName(String sequenceName) {
@@ -280,5 +296,87 @@ public class BaseCustomService<Tbo> {
             }
         }
         return false;
+    }
+
+
+    private void insertLog(String action, Tbo bo, Map<String, Object> map) {
+        try {
+            ActionAudit actionAudit = new ActionAudit();
+            actionAudit.setAction(action);
+            actionAudit.setActionDate(new Date());
+            actionAudit.setTableName(bo.getClass().getAnnotation(Table.class).name());
+            actionAudit.setUserId(getCurrentUserModel().getUserId());
+            actionAuditRepository.save(actionAudit);
+            if ("INSERT".equals(action)) {
+                for (Field field : bo.getClass().getDeclaredFields()) {
+                    field.setAccessible(true);
+                    if (field.getAnnotationsByType(Column.class) != null) {
+                        try {
+                            ActionDetail actionDetail = new ActionDetail();
+                            actionDetail.setActionAuditId(actionAudit.getId());
+                            actionDetail.setColumnName(field.getAnnotationsByType(Column.class)[0].name());
+                            actionDetail.setOldValue(null);
+                            actionDetail.setNewValue(field.get(bo) == null ? null : field.get(bo).toString());
+                            actionDetailRepository.save(actionDetail);
+                        } catch (Exception e) {
+                            LOGGER.error(e.getMessage(), e);
+                        }
+                    }
+                }
+            } else if ("DELETE".equals(action)) {
+                for (Field field : bo.getClass().getDeclaredFields()) {
+                    field.setAccessible(true);
+                    if (field.getAnnotationsByType(Column.class) != null) {
+                        try {
+                            ActionDetail actionDetail = new ActionDetail();
+                            actionDetail.setActionAuditId(actionAudit.getId());
+                            actionDetail.setColumnName(field.getAnnotationsByType(Column.class)[0].name());
+                            actionDetail.setNewValue(null);
+                            actionDetail.setOldValue(field.get(bo).toString());
+                            actionDetailRepository.save(actionDetail);
+                        } catch (Exception e) {
+                            LOGGER.error(e.getMessage(), e);
+                        }
+                    }
+                }
+            } else if ("UPDATE".equals(action)) {
+                for (Field field : bo.getClass().getDeclaredFields()) {
+                    field.setAccessible(true);
+                    if (field.getAnnotationsByType(Column.class) != null
+                            && ((field.getType().isPrimitive() && map.get(field.getName()) != field.get(bo))
+                            || (field.get(bo) != null && map.get(field.getName()) == null)
+                            || (field.get(bo) == null && map.get(field.getName()) != null)
+                            || (map.get(field.getName()) != null && field.get(bo) != null && !map.get(field.getName()).equals(field.get(bo))))) {
+                        try {
+                            ActionDetail actionDetail = new ActionDetail();
+                            actionDetail.setActionAuditId(actionAudit.getId());
+                            actionDetail.setColumnName(field.getAnnotationsByType(Column.class)[0].name());
+                            actionDetail.setNewValue(field.get(bo) == null ? null : field.get(bo).toString());
+                            actionDetail.setOldValue(map.get(field.getName()) == null ? null : map.get(field.getName()).toString());
+                            actionDetailRepository.save(actionDetail);
+                        } catch (Exception e) {
+                            LOGGER.error(e.getMessage(), e);
+                        }
+                    }
+                }
+            }
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+    }
+
+    private Map<String, Object> clone(Tbo bo) {
+        Map<String, Object> map = new HashMap<>();
+        for (Field field : bo.getClass().getDeclaredFields()) {
+            field.setAccessible(true);
+            if (field.getAnnotationsByType(Column.class) != null) {
+                try {
+                    map.put(field.getName(), field.get(bo));
+                } catch (Exception e) {
+                    LOGGER.error(e.getMessage(), e);
+                }
+            }
+        }
+        return map;
     }
 }

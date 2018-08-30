@@ -4,11 +4,11 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/18.1.4/css/dx.spa.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/18.1.4/css/dx.common.css"/>
-<link rel="dx-theme" data-theme="generic.light" href="https://cdn3.devexpress.com/jslib/18.1.4/css/dx.light.css"/>
-<link rel="stylesheet" type="text/css" href="/static/css/tree.css"/>
-<script src="https://cdn3.devexpress.com/jslib/18.1.4/js/dx.all.js"></script>
+<link rel="stylesheet" type="text/css" href="<c:url value='/static/assets/global/plugins/dx-tree/dx.spa.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/static/assets/global/plugins/dx-tree/dx.common.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/static/assets/global/plugins/dx-tree/dx.light.css' />">
+<link rel="stylesheet" type="text/css" href="<c:url value='/static/css/tree.css' />"/>
+<script src="<c:url value='/static/assets/global/plugins/dx-tree/dx.all.js' />"></script>
 <div class="row">
     <div class="col-md-12">
         <div class="portlet light " id="contentBody">

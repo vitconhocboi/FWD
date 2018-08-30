@@ -68,11 +68,12 @@ $(document).ready(function () {
             orderDetail.groupCode("AMOUNT_RENT");
             orderDetail.serviceId(self.selectedServiceRent().serviceId());
             orderDetail.serviceName(self.selectedServiceRent().serviceName());
-            orderDetail.partnerId(self.selectedPartnerPriceRent().partnerId());
-            orderDetail.partnerName(self.selectedPartnerPriceRent().partnerName());
+            orderDetail.partnerId(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerId() : null);
+            orderDetail.partnerName(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerName() : null);
             orderDetail.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
             orderDetail.quantity(self.order.quantity());
             orderDetail.exchangeRate(1);
+            orderDetail.note(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerName() : null);
             self.listAmountRent.unshift(orderDetail);
 
             //add revenue
@@ -343,7 +344,6 @@ $(document).ready(function () {
 
         self.save = function () {
             var listPrice = [];
-            listPrice.push.apply(listPrice, self.listAmountRent().map(x => app.convertFormObservableJson(x)));
             listPrice.push.apply(listPrice, self.listAmountRent().map(x => app.convertFormObservableJson(x)));
             listPrice.push.apply(listPrice, self.listAmountRevenue().map(x => app.convertFormObservableJson(x)));
             listPrice.push.apply(listPrice, self.listAmountPay().map(x => app.convertFormObservableJson(x)));

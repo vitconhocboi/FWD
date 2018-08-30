@@ -4,10 +4,15 @@ $(document).ready(function () {
         self.selectedOrder = ko.observable();
         self.checkBtnPrice = ko.observable(false);
         self.checkbtnApprove = ko.observable(false);
+        self.checkbtnDeny = ko.observable(false);
+        self.checkbtnPendding = ko.observable(false);
         self.checkProfitDistribute = ko.observable(false);
+
         self.estimatedStartDate = ko.observable();
         self.estimatedEndDate = ko.observable();
         self.endDate = ko.observable();
+
+        self.note = ko.observable();
 
         self.selectOrder = function (data) {
             console.log('selected');
@@ -17,12 +22,14 @@ $(document).ready(function () {
             self.checkbtnApprove(false);
             self.checkBtnPrice(false);
             self.checkProfitDistribute(false);
+            self.checkbtnDeny(false);
+            self.checkbtnPendding(false);
 
-            if (hasRoleAdmin == 'true' && (self.selectedOrder().status() == 1 || self.selectedOrder().status() == 2)) {
+            if (hasRoleAdmin == 'true' && (self.selectedOrder().status() == 1 || self.selectedOrder().status() == 2 || self.selectedOrder().status() == 6)) {
                 self.checkBtnPrice(true)
             } else if (hasRoleCS == 'true' && self.selectedOrder().status() == 1) {
                 self.checkBtnPrice(true)
-            } else if (hasRoleOP == 'true' && self.selectedOrder().status() == 2) {
+            } else if (hasRoleOP == 'true' && (self.selectedOrder().status() == 2 || self.selectedOrder().status() == 6)) {
                 self.checkBtnPrice(true)
             }
 
@@ -42,11 +49,43 @@ $(document).ready(function () {
                 }
             });
 
+            //check deny
+            app.makePost({
+                url: '/orders/manage/check_approve_permession/' + self.selectedOrder().orderId(),
+                data: JSON.stringify(['DENY']),
+                success: function (data) {
+                    if (data.success) {
+                        self.checkbtnDeny(true);
+                    } else {
+                        self.checkbtnDeny(false);
+                    }
+                },
+                error: function (err) {
+                    self.checkbtnDeny(false);
+                }
+            });
+
+            //check pendding
+            app.makePost({
+                url: '/orders/manage/check_approve_permession/' + self.selectedOrder().orderId(),
+                data: JSON.stringify(['PENDDING']),
+                success: function (data) {
+                    if (data.success) {
+                        self.checkbtnPendding(true);
+                    } else {
+                        self.checkbtnPendding(false);
+                    }
+                },
+                error: function (err) {
+                    self.checkbtnPendding(false);
+                }
+            });
+
             //check profit distribute
 
-            if (hasRoleAdmin == 'true' && self.selectedOrder().status() == 3) {
+            if (hasRoleAdmin == 'true' && (self.selectedOrder().status() == 3 || self.selectedOrder().status() == 9)) {
                 self.checkProfitDistribute(true)
-            } else if (hasRoleSale == 'true' && self.selectedOrder().status() == 3) {
+            } else if (hasRoleSale == 'true' && (self.selectedOrder().status() == 3 || self.selectedOrder().status() == 9)) {
                 self.checkProfitDistribute(true)
             }
         }
@@ -289,7 +328,7 @@ $(document).ready(function () {
                             action: function () {
                                 app.makePost({
                                     url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
-                                    data: '"APPROVE"',
+                                    data: JSON.stringify({flow: "APPROVE"}),
                                     success: function (data) {
                                         if (data.success) {
                                             toastr.success("Duyệt đơn hàng thành công", "Thông báo");
@@ -307,6 +346,91 @@ $(document).ready(function () {
                     ]
                 });
             }
+        }
+
+
+        self.deny = function () {
+            self.note(null);
+            $.ajax({
+                url: context + '/app/templates/deny_order.html',
+                method: 'GET',
+                async: false,
+                success: function (html) {
+                    pop = app.popup({
+                        title: "Từ chối đơn hàng: <b>" + self.selectedOrder().orderNo() + "</b>",
+                        html: html,
+                        width: 400,
+                        buttons: [
+                            {
+                                name: "Đồng ý",
+                                class: 'btn',
+                                icon: 'fa-check',
+                                action: function () {
+                                    app.makePost({
+                                        url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
+                                        data: JSON.stringify({flow: "DENY", note: self.note()}),
+                                        success: function (data) {
+                                            if (data.success) {
+                                                toastr.success("Từ chối đơn hàng thành công", "Thông báo");
+                                                self.searchPaging(false);
+                                            } else {
+                                                toastr.error("Từ chối đơn hàng không thành công", "Thông báo");
+                                            }
+                                        },
+                                        error: function (err) {
+                                            toastr.error("Từ chối đơn hàng không thành công", "Thông báo");
+                                        }
+                                    });
+                                }
+                            }
+                        ]
+                    });
+                    ko.applyBindings(vm, pop[0]);
+                }
+            });
+
+        }
+
+        self.pendding = function () {
+            self.note(null);
+            $.ajax({
+                url: context + '/app/templates/deny_order.html',
+                method: 'GET',
+                async: false,
+                success: function (html) {
+                    pop = app.popup({
+                        title: "Tạm dừng đơn hàng: <b>" + self.selectedOrder().orderNo() + "</b>",
+                        html: html,
+                        width: 400,
+                        buttons: [
+                            {
+                                name: "Đồng ý",
+                                class: 'btn',
+                                icon: 'fa-check',
+                                action: function () {
+                                    app.makePost({
+                                        url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
+                                        data: JSON.stringify({flow: "PENDDING", note: self.note()}),
+                                        success: function (data) {
+                                            if (data.success) {
+                                                toastr.success("Tạm dừng đơn hàng thành công", "Thông báo");
+                                                self.searchPaging(false);
+                                            } else {
+                                                toastr.error("Tạm dừng đơn hàng không thành công", "Thông báo");
+                                            }
+                                        },
+                                        error: function (err) {
+                                            toastr.error("Tạm dừng đơn hàng không thành công", "Thông báo");
+                                        }
+                                    });
+                                }
+                            }
+                        ]
+                    });
+                    ko.applyBindings(vm, pop[0]);
+                }
+            });
+
         }
 
         self.getStatusName = function (status) {
@@ -328,7 +452,71 @@ $(document).ready(function () {
                 return 'Chờ thực hiện';
             } else if (status == 6) {
                 return 'Tạm dừng';
+            } else if (status == -1) {
+                return 'Đã hủy';
+            } else if (status == 9) {
+                return 'Sale xác nhận';
             }
+        }
+
+        self.getActionName = function (action) {
+            if (action == 'APPROVE') {
+                return 'Duyệt';
+            } else if (action == 'DISTRIBUTE_PROFIT') {
+                return 'Phân bổ lợi ích';
+            } else if (action == 'CS_PRICE_ORDER') {
+                return 'CS báo giá đơn hàng';
+            } else if (action == 'OP_PRICE_ORDER') {
+                return 'OP báo giá đơn hàng';
+            } else if (action == 'DENY') {
+                return 'Từ chối';
+            } else if (action == 'PROCESS_ORDER') {
+                return 'Thực hiện đơn hàng';
+            }
+        }
+
+
+        self.showHistory = function (item) {
+            app.makeGet({
+                url: '/orders/manage/history/' + item.orderId(),
+                success: function (data) {
+                    if (data.success) {
+                        pop = app.popup({
+                            title: "Lịch sử tác động đơn hàng: <b>" + self.selectedOrder().orderNo() + "</b>",
+                            html: "<div data-bind='simpleGrid: gridViewModel'> </div>",
+                            width: 800
+                        });
+                        var PagedGridModel = function (items) {
+                            this.items = ko.observableArray(items);
+                            this.gridViewModel = new ko.simpleGrid.viewModel({
+                                data: this.items,
+                                columns: [
+                                    {headerText: "Tác động", rowText: "actionName"},
+                                    {headerText: "Trạng thái đầu", rowText: "oldStatusName"},
+                                    {headerText: "Trạng thái sau", rowText: "newStatusName"},
+                                    {headerText: "Người tác động", rowText: "fullName"},
+                                    {headerText: "Ngày tác động", rowText: "actionDate"},
+                                    {headerText: "Ghi chú", rowText: "note"}
+                                ],
+                                pageSize: 5
+                            });
+                        };
+                        var lstItem = data.data.map(item => {
+                            item.actionName = self.getActionName(item.action);
+                            item.oldStatusName = self.getStatusName(item.oldStatus);
+                            item.newStatusName = self.getStatusName(item.newStatus);
+                            item.actionDate=moment(item.actionDate).format('DD/MM/YYYY HH:mm:ss')
+                            return item;
+                        });
+                        ko.applyBindings(new PagedGridModel(lstItem), pop[0]);
+                    } else {
+                        toastr.error("Có lỗi xảy ra", "Thông báo");
+                    }
+                },
+                error: function (err) {
+                    toastr.error("Có lỗi xảy ra", "Thông báo");
+                }
+            });
         }
 
         self.search();

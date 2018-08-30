@@ -87,7 +87,7 @@
                                 <div class="panel-heading">
                                     <span class="caption-subject bold uppercase">Danh sách hóa đơn</span>
                                 </div>
-                                <div class="panel-body">
+                                <div class="panel-body  table-responsive">
                                     <table class="table table-striped table-bordered table-hover table-checkable order-column"
                                            id="sample_1">
                                         <thead>
@@ -144,17 +144,21 @@
                                             <td class="text-center" data-bind="text: item.merchandise"></td>
                                             <td class="text-center" data-bind="text: item.quantity"></td>
                                             <td class="text-center" data-bind="text: item.unit"></td>
-                                            <td class="text-center" data-bind="text: item.note"></td>
+                                            <td class="text-center">
+                                                <textarea data-bind="text:item.note" rows="3"
+                                                          style="resize: none;border: none;background-color: transparent;"
+                                                          disabled></textarea>
+                                            </td>
                                             <sec:authorize access="hasAnyRole('SALE','ADMIN')">
                                                 <td class="text-center">
                                                     <a href="javascript:;"
-                                                       data-bind="click: $root.edit">
+                                                       data-bind="click: $root.edit, visible: item.status()=='0'">
                                                         <i class="fa fa-edit"></i>
                                                     </a>
                                                 </td>
                                                 <td class="text-center">
                                                     <a href="javascript:;"
-                                                       data-bind="click: $root.delete">
+                                                       data-bind="click: $root.delete, visible: item.status()=='0'">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 </td>
@@ -214,6 +218,14 @@
                                                     class="fa fa-apple"></i>
                                                 Duyệt</a>
                                         </sec:authorize>
+                                        <a href="javascript:;" class="btn green"
+                                           data-bind="click: $root.deny,visible:$root.checkbtnDeny"><i
+                                                class="fa fa-apple"></i>
+                                            Từ chối</a>
+                                        <a href="javascript:;" class="btn green"
+                                           data-bind="click: $root.pendding,visible:$root.checkbtnPendding"><i
+                                                class="fa fa-apple"></i>
+                                            Tạm dừng</a>
                                     </div>
                                 </div>
                             </div>
