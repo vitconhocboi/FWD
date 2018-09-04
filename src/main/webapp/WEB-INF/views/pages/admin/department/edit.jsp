@@ -15,13 +15,19 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="col-sm-6">
-                                <label class="col-sm-3">Tên phòng ban: </label>
+                                <div class="col-sm-3">
+                                    <label>Tên phòng ban: </label>
+                                    <span class="nsw-require-field">*</span>
+                                </div>
                                 <div class="col-md-9">
                                     <input data-bind="value:currentDepartment.deptName" class="form-control col-sm-12">
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label class="col-sm-3">Trực thuộc: </label>
+                                <div class="col-sm-3">
+                                    <label>Trực thuộc: </label>
+                                    <span class="nsw-require-field">*</span>
+                                </div>
                                 <div class="col-md-9">
                                     <select class="form-control col-sm-9"
                                             data-bind="options: $root.danhsachphongban,
@@ -37,18 +43,24 @@
                     <div class="form-group">
                         <div class="col-sm-12">
                             <div class="col-sm-6">
-                                <label class="col-sm-3">Mã đơn vị: </label>
+                                <div class="col-sm-3">
+                                    <label>Mã đơn vị: </label>
+                                    <span class="nsw-require-field">*</span>
+                                </div>
                                 <div class="col-md-9">
                                     <input data-bind="value:currentDepartment.unitCode"
                                            class="form-control  col-sm-12">
                                 </div>
                             </div>
                             <div class="col-sm-6">
-                                <label class="col-md-3">Loại phòng ban: </label>
+                                <div class="col-md-3">
+                                    <label>Loại phòng ban: </label>
+                                    <span class="nsw-require-field">*</span>
+                                </div>
                                 <div class="col-md-9">
                                     <select class="form-control col-sm-9"
                                             data-bind="value: currentDepartment.deptType">
-                                        <option>--Chọn loại phòng ban--</option>
+                                        <option value="">--Chọn loại phòng ban--</option>
                                         <option value="0">Phòng ban</option>
                                         <option value="1">Chi nhánh</option>
                                     </select>

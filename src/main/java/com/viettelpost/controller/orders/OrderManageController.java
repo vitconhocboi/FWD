@@ -265,7 +265,7 @@ public class OrderManageController extends BaseController<Orders> {
         log.setOldStatus(orders.getStatus());
         log.setNote(approveBody.getNote());
 
-        int num = ordersService.approve(orderId, approveBody.getFlow(), orderAttributes);
+        int num = ordersService.approve(orderId, approveBody.getFlow(), orderAttributes, approveBody.getOrderStatus());
         if (num > 0) {
             try {
                 String newStatus = ordersService.getCurrentStatus(orderId);
@@ -319,7 +319,7 @@ public class OrderManageController extends BaseController<Orders> {
             log.setOrderCode(order.getOrderNo());
             log.setOldStatus(order.getStatus());
 
-            int num = ordersService.approve(orderId, processOrder.getFlowSign(), orderAttributes);
+            int num = ordersService.approve(orderId, processOrder.getFlowSign(), orderAttributes, processOrder.getOrderStatus());
             if (num > 0) {
                 ordersService.calcOrderRevenue(order);
                 order = ordersService.findById(orderId);

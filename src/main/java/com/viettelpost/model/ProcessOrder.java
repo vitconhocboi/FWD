@@ -6,6 +6,15 @@ public class ProcessOrder {
     private Date estimatedStartDate;
     private Date estimatedEndDate;
     private String flowSign;
+    String orderStatus;
+
+    public String getOrderStatus() {
+        return orderStatus;
+    }
+
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 
     public Date getEstimatedStartDate() {
         return estimatedStartDate;

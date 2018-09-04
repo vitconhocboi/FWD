@@ -95,6 +95,7 @@ ko.bindingHandlers.datepicker = {
         ko.utils.registerEventHandler(element, "change", function () {
             var observable = valueAccessor();
             observable($(element).datepicker("getDate"));
+            $(element).datepicker('hide');
         });
         ko.utils.domNodeDisposal.addDisposeCallback(element, function () {
             $(element).datepicker("destroy");
@@ -439,7 +440,7 @@ ko.bindingHandlers.modal = {
             // double "hide.bs.modal" event firing.
             // Use "hidden.bs.modal" event to avoid
             // bootstrap running internal modal.hide() twice.
-            $(element).on('hidden.bs.modal', function() {
+            $(element).on('hidden.bs.modal', function () {
                 value(false);
             });
         }

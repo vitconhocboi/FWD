@@ -320,6 +320,7 @@ $(document).ready(function () {
                                     data: JSON.stringify({
                                         estimatedStartDate: self.estimatedStartDate(),
                                         estimatedEndDate: self.estimatedEndDate(),
+                                        orderStatus: self.selectedOrder().status(),
                                         flowSign: 'PROCESS_ORDER'
                                     }),
                                     success: function (data) {
@@ -352,7 +353,7 @@ $(document).ready(function () {
                             action: function () {
                                 app.makePost({
                                     url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
-                                    data: JSON.stringify({flow: "APPROVE"}),
+                                    data: JSON.stringify({flow: "APPROVE", orderStatus: self.selectedOrder().status()}),
                                     success: function (data) {
                                         if (data.success) {
                                             toastr.success("Duyệt đơn hàng thành công", "Thông báo");
@@ -392,7 +393,11 @@ $(document).ready(function () {
                                 action: function () {
                                     app.makePost({
                                         url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
-                                        data: JSON.stringify({flow: "DENY", note: self.note()}),
+                                        data: JSON.stringify({
+                                            flow: "DENY",
+                                            note: self.note(),
+                                            orderStatus: self.selectedOrder().status()
+                                        }),
                                         success: function (data) {
                                             if (data.success) {
                                                 toastr.success("Từ chối đơn hàng thành công", "Thông báo");
@@ -434,7 +439,11 @@ $(document).ready(function () {
                                 action: function () {
                                     app.makePost({
                                         url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
-                                        data: JSON.stringify({flow: "PENDDING", note: self.note()}),
+                                        data: JSON.stringify({
+                                            flow: "PENDDING",
+                                            note: self.note(),
+                                            orderStatus: self.selectedOrder().status()
+                                        }),
                                         success: function (data) {
                                             if (data.success) {
                                                 toastr.success("Tạm dừng đơn hàng thành công", "Thông báo");
@@ -473,7 +482,7 @@ $(document).ready(function () {
             } else if (status == 8) {
                 return 'Đã đóng';
             } else if (status == 5) {
-                return 'Chờ thực hiện';
+                return 'Lãnh đạo đã duyệt';
             } else if (status == 6) {
                 return 'Tạm dừng';
             } else if (status == -1) {
@@ -482,6 +491,8 @@ $(document).ready(function () {
                 return 'Sale xác nhận';
             } else if (status == 10) {
                 return 'Đơn hàng chờ hủy';
+            } else if (status == 11) {
+                return 'Lãnh đạo duyệt';
             }
         }
 

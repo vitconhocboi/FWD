@@ -119,7 +119,6 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Ngày thành lập
-                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input name="establishmentDate" id="establishmentDate"

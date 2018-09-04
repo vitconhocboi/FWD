@@ -81,6 +81,9 @@ $(document).ready(function () {
                                 success: function (data) {
                                     if (data.success) {
                                         toastr.success("Gạch nợ thành công", "Thông báo");
+                                        setTimeout(function () {
+                                            location.href = app.appContext + '/finance/debt_manager/';
+                                        }, 1000);
                                     } else {
                                         toastr.error("Có lỗi xảy ra", "ERR");
                                     }
@@ -145,7 +148,6 @@ $(document).ready(function () {
                         if (data.success) {
                             for (const orderDetail of data.data) {
                                 var debt = new DebtDetail();
-                                debt.debtId(debtId);
                                 debt.objectDebtId(self.partner().partnerId());
                                 debt.objectDebtName(self.partner().partnerName());
                                 debt.amount(0);
@@ -193,6 +195,10 @@ $(document).ready(function () {
                 elemet.file = files[0];
             }
         };
+
+        self.back = function () {
+            location.href = app.appContext + '/finance/debt_manager/';
+        }
     }
 
     var vm = new ViewModel();

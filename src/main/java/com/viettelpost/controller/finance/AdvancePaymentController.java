@@ -66,9 +66,10 @@ public class AdvancePaymentController extends BaseController<DebtDetail> {
         return AppHelper.createResponseEntity(lst, lst.size(), "", true, HttpStatus.OK);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/save", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Object> search(HttpServletRequest request, @RequestBody DebtDetail object) {
+
+    @Override
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<Object> save(@RequestBody DebtDetail object) {
         if (object.getId() != null) {
             object.setUserUpdateId(debtDetailService.getCurrentUserModel().getUserId());
             object.setUpdatedDate(new Date());
@@ -77,7 +78,7 @@ public class AdvancePaymentController extends BaseController<DebtDetail> {
             object.setDebtId(debtManagement.getId());
             object.setObjectDebtId(debtDetailService.getCurrentUserModel().getUserId());
             object.setObjectDebtName(debtDetailService.getCurrentUserModel().getFullName());
-            object.setDebtId(debtDetailService.getCurrentUserModel().getDeptId());
+            object.setDebtId(debtManagement.getId());
             object.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.BORROW);
             object.setStatus(AppConstant.FINANCE_STATUS.WAIT);
             object.setUserCreateId(debtDetailService.getCurrentUserModel().getUserId());

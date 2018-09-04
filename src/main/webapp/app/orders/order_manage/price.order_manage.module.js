@@ -342,42 +342,56 @@ $(document).ready(function () {
             location.href = app.appContext + '/orders/manage/';
         }
 
+        self.isValidateForm = function () {
+            //validate form
+            for (const item of self.listAmountRent()) {
+                if (!app.checkValidate(item)) {
+                    self.errors.showAllMessages();
+                    app.AlertWithBtn("Bạn chưa nhập đủ thông tin yêu cầu");
+                    return false;
+                }
+            }
+            return true;
+        }
+
         self.save = function () {
             var listPrice = [];
-            listPrice.push.apply(listPrice, self.listAmountRent().map(x => app.convertFormObservableJson(x)));
-            listPrice.push.apply(listPrice, self.listAmountRevenue().map(x => app.convertFormObservableJson(x)));
-            listPrice.push.apply(listPrice, self.listAmountPay().map(x => app.convertFormObservableJson(x)));
-            pop = app.popup({
-                title: "Thông báo",
-                html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn lưu doanh thu này',
-                width: 400,
-                buttons: [
-                    {
-                        name: "Đồng ý",
-                        class: 'btn',
-                        icon: 'fa-check',
-                        action: function () {
-                            app.makePost({
-                                url: '/orders/manage/save_revenue/' + orderId,
-                                data: JSON.stringify({lstOrderDetails: listPrice, profitRate: 0}),
-                                success: function (data) {
-                                    if (data.success) {
-                                        toastr.success("Lưu doanh thu thành công", "Thông báo");
-                                        setTimeout(function () {
-                                            location.href = app.appContext + '/orders/manage/';
-                                        }, 1000);
-                                    } else {
+            if (self.isValidateForm()) {
+                listPrice.push.apply(listPrice, self.listAmountRent().map(x => app.convertFormObservableJson(x)));
+                listPrice.push.apply(listPrice, self.listAmountRevenue().map(x => app.convertFormObservableJson(x)));
+                listPrice.push.apply(listPrice, self.listAmountPay().map(x => app.convertFormObservableJson(x)));
+                pop = app.popup({
+                    title: "Thông báo",
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn lưu doanh thu này',
+                    width: 400,
+                    buttons: [
+                        {
+                            name: "Đồng ý",
+                            class: 'btn',
+                            icon: 'fa-check',
+                            action: function () {
+                                app.makePost({
+                                    url: '/orders/manage/save_revenue/' + orderId,
+                                    data: JSON.stringify({lstOrderDetails: listPrice, profitRate: 0}),
+                                    success: function (data) {
+                                        if (data.success) {
+                                            toastr.success("Lưu doanh thu thành công", "Thông báo");
+                                            setTimeout(function () {
+                                                location.href = app.appContext + '/orders/manage/';
+                                            }, 1000);
+                                        } else {
+                                            toastr.error("Có lỗi xảy ra", "ERR");
+                                        }
+                                    },
+                                    error: function (err) {
                                         toastr.error("Có lỗi xảy ra", "ERR");
                                     }
-                                },
-                                error: function (err) {
-                                    toastr.error("Có lỗi xảy ra", "ERR");
-                                }
-                            });
+                                });
+                            }
                         }
-                    }
-                ]
-            });
+                    ]
+                });
+            }
         }
 
 
@@ -394,6 +408,16 @@ $(document).ready(function () {
     }
 
     var vm = new ViewModel();
+
+    ko.validation.init({
+        insertMessages: true,
+        messagesOnModified: true,
+        decorateElement: true,
+        parseInputAttributes: true,
+        errorElementClass: 'wrong-field'
+    }, true);
+
+    vm.errors = ko.validation.group(vm, {deep: true});
 
     ko.applyBindings(vm);
 });

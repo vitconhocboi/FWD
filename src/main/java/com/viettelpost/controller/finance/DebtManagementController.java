@@ -4,27 +4,31 @@ import com.viettelpost.constant.AppConstant;
 import com.viettelpost.entity.DebtDetail;
 import com.viettelpost.entity.DebtManagement;
 import com.viettelpost.helper.AppHelper;
+import com.viettelpost.model.DownloadFile;
 import com.viettelpost.model.RefundDebt;
 import com.viettelpost.service.DebtDetailService;
 import com.viettelpost.service.DebtManagementService;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.support.DefaultMultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import java.io.File;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 @Controller
@@ -37,6 +41,12 @@ public class DebtManagementController {
 
     @Autowired
     DebtDetailService debtDetailService;
+
+    @Autowired
+    ServletContext servletContext;
+
+    @Value("${receiptOrderPath}")
+    private String receiptOrderPath;
 
     @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
     public String index(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes,
@@ -83,7 +93,8 @@ public class DebtManagementController {
         try {
             object.put("debtId", debtId);
             List lst = debtDetailService.searchPaging(object);
-            return AppHelper.createResponseEntity(lst, lst.size(), "", true, HttpStatus.OK);
+            Long total = debtDetailService.getTotalRecord(object);
+            return AppHelper.createResponseEntity(lst, total, "", true, HttpStatus.OK);
         } catch (Exception e) {
             LOGGER.error(e.getMessage(), e);
             return AppHelper.createResponseEntity(null, 1, "Có lỗi xảy ra", false, HttpStatus.OK);
@@ -112,6 +123,15 @@ public class DebtManagementController {
             debtDetail.setStatus(1L);
             debtDetail.setUserCreateId(debtDetailService.getCurrentUserModel().getUserId());
             debtDetail.setCreatedDate(new Date());
+            debtDetail.setOrderNo(refundDebt.getOrderNo());
+            debtDetail.setOrderId(refundDebt.getOrderId());
+
+            if (refundDebt.getFile() != null && refundDebt.getOrderNo() != null) {
+                debtDetail.setFileName(refundDebt.getFileName());
+                File targetFile = new File(receiptOrderPath + "/" + refundDebt.getOrderNo() + "/" + refundDebt.getFileName());
+                FileUtils.copyInputStreamToFile(refundDebt.getFile(), targetFile);
+            }
+
 
             if (refundDebt.getFinanceType() == AppConstant.FINANCE_TYPE.MEMBER) {
                 if (refundDebt.getRefundType() == AppConstant.REFUND_TYPE.CASH) {
@@ -122,12 +142,14 @@ public class DebtManagementController {
                 } else if (refundDebt.getRefundType() == AppConstant.REFUND_TYPE.INVOICE) {
                     // gach no cho doi tac
                     Double amountTotal = 0D;
+                    DebtManagement debtPartner = debtManagementService.findFirstByObjectDebtIdAndType(refundDebt.getListRefund().get(0).getObjectDebtId(), AppConstant.FINANCE_TYPE.PARTNER);
                     for (DebtDetail debt : refundDebt.getListRefund()) {
                         debt.setUserCreateId(debtDetailService.getCurrentUserModel().getUserId());
+                        debt.setDebtId(debtPartner.getId());
                         debt.setCreatedDate(new Date());
                         amountTotal += debt.getAmount();
                         debtDetailService.save(debt);
-                        debtManagementService.updateAmountDebt(debt.getDebtId(), debt.getAmount());
+                        debtManagementService.updateAmountDebt(debt.getDebtId(), -debt.getAmount());
                     }
                     //gach no cho nhan vien
                     debtDetail.setPaymentType(AppConstant.FINANCE_PAYMENT_TYPE.REFUND);
@@ -155,4 +177,21 @@ public class DebtManagementController {
             return AppHelper.createResponseEntity(null, 1, "Có lỗi xảy ra", false, HttpStatus.OK);
         }
     }
+
+    @RequestMapping(value = "/download", method = RequestMethod.POST)
+    public ResponseEntity<Object> downloadFile(HttpServletResponse response, @RequestBody DownloadFile downloadFile) {
+        try {
+            String filePath = receiptOrderPath + "/" + downloadFile.getOrderNo() + "/" + downloadFile.getFileName();
+            MediaType mediaType = AppHelper.getMediaTypeForFileName(this.servletContext, filePath);
+            System.out.println("mediaType: " + mediaType);
+
+            Path path = Paths.get(filePath);
+            byte[] data = Files.readAllBytes(path);
+            return AppHelper.createResponseEntity(data, 1, "", true, HttpStatus.OK);
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage(), ex);
+        }
+        return null;
+    }
+
 }

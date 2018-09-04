@@ -61,6 +61,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Địa điểm
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -72,7 +73,6 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Ghi chú
-                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-10">
                                                      <textarea class="form-control col-sm-12" rows="2"

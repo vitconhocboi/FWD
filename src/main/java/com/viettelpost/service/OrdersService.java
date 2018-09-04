@@ -213,7 +213,7 @@ public class OrdersService extends BaseCustomService<Orders> {
     }
 
     @Transactional
-    public int approve(Long orderId, String flow, Map<String, Object> attributes) {
+    public int approve(Long orderId, String flow, Map<String, Object> attributes, String orderStatus) {
 
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE orders");
@@ -237,6 +237,7 @@ public class OrdersService extends BaseCustomService<Orders> {
 
         sql.append("				   ))");
         sql.append(" WHERE order_id = :orderId");
+        sql.append("       AND status = :orderStatus");
         sql.append("       AND status =");
         sql.append("               (SELECT current_status");
         sql.append("                  FROM flow_sign_detail");
@@ -261,6 +262,7 @@ public class OrdersService extends BaseCustomService<Orders> {
 
         Query query = entityManager.createNativeQuery(sql.toString());
         query.setParameter("orderId", orderId);
+        query.setParameter("orderStatus", orderStatus);
         query.setParameter("flow", flow);
         query.setParameter("userId", getCurrentUserModel().getUserId());
         for (String key : attributes.keySet()) {

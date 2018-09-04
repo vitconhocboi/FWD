@@ -21,6 +21,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Tên dịch vụ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -28,6 +29,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Loại dịch vụ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -46,6 +48,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Loại tiền tệ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"

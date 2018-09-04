@@ -415,7 +415,7 @@ APP.prototype = {
     },
     AlertWithBtn: function (msg) {
         var popup = this.popup({
-            title: NSWLang["common_msg_thongbao"],
+            title: "Thông báo",
             html: msg,
             width: 400,
             buttons: [

@@ -195,6 +195,9 @@
                                                data-bind="click: $root.saveRefund"><i
                                                     class="fa fa-dollar"></i>
                                                 Xác nhận</a>
+                                            <a href="javascript:;" class="btn green"
+                                               data-bind="click: $root.back"><i class="fa fa-backward"></i>
+                                                Trở lại</a>
                                         </div>
                                     </form>
                                 </div>

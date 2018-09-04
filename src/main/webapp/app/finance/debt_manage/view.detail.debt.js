@@ -109,4 +109,45 @@ function ViewDetailModel(debtId) {
 
 
     detail.searchPaging(false);
+
+    function base64ToArrayBuffer(base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    }
+
+    var saveByteArray = (function () {
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        return function (data, name) {
+            var blob = new Blob(data, {type: "octet/stream"}),
+                url = window.URL.createObjectURL(blob);
+            a.href = url;
+            a.download = name;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        };
+    }());
+
+    detail.downloadFile = function (item) {
+        if (item) {
+            $('#loading_c4e6a343-dd41-b5c5-1ef9-75eeebba032d').show();
+            app.makePost({
+                url: "/finance/debt_manager/download", // my URL
+                data: JSON.stringify({orderNo: item.orderNo(), fileName: item.fileName()}),
+                responseType: 'blob',
+                headers: {'Content-Type': 'image/png', 'X-Requested-With': 'XMLHttpRequest'},
+                success: function (result) {
+                    saveByteArray([base64ToArrayBuffer(result.data)], item.fileName());
+                    $('#loading_c4e6a343-dd41-b5c5-1ef9-75eeebba032d').hide();
+                }
+            });
+        }
+    }
 }

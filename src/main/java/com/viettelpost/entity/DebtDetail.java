@@ -72,6 +72,9 @@ public class DebtDetail {
     @Column(name = "UPDATED_DATE")
     private Date updatedDate;
 
+    @Column(name = "FILE_NAME")
+    private String fileName;
+
     @Transient
     private InputStream file;
 
@@ -228,6 +231,14 @@ public class DebtDetail {
     }
 
     public String getOrderColumn() {
-        return "id";
+        return "createdDate desc,id desc";
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

@@ -36,6 +36,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Thông tin xuất hóa đơn
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -47,6 +48,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Địa chỉ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -54,6 +56,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Mã số thuế
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -65,6 +68,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Người liên hệ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -72,6 +76,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Số điện thoại liên hệ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -82,7 +87,8 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Email thoại liên hệ
+                                                    Email liên hệ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -90,6 +96,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Chức vụ
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -101,6 +108,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Mô tả hàng hóa
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -108,6 +116,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Địa điểm giao hàng
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -119,6 +128,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Trọng lương/số khối/Số cont
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -126,6 +136,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Loại đơn vị
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
@@ -137,6 +148,7 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Cảng đi
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
@@ -151,6 +163,7 @@
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Cảng đến
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
@@ -169,9 +182,10 @@
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Thời gian thanh toán
+                                                    <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
+                                                    <input class="form-control col-sm-12" placeholder="Số tháng hoàn thành tài chính"
                                                            data-bind="value:order.paymentWithin">
                                                 </div>
                                             </div>

@@ -14,6 +14,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.servlet.ServletContext;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -231,6 +232,16 @@ public class AppHelper {
             for (Type t : pt.getActualTypeArguments()) {
                 System.out.println("    " + t);
             }
+        }
+    }
+
+    public static MediaType getMediaTypeForFileName(ServletContext servletContext, String fileName) throws Exception {
+        String mineType = servletContext.getMimeType(fileName);
+        try {
+            MediaType mediaType = MediaType.parseMediaType(mineType);
+            return mediaType;
+        } catch (Exception e) {
+            return MediaType.APPLICATION_OCTET_STREAM;
         }
     }
 }

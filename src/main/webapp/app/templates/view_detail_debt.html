@@ -41,6 +41,7 @@
             <th class="text-center">Loại công nợ</th>
             <th class="text-center">Ngày công nợ</th>
             <th class="text-center">Lý do</th>
+            <th class="text-center">File đính kèm</th>
             <th class="text-center">Ghi chú</th>
         </tr>
         </thead>
@@ -58,6 +59,9 @@
             <td class="text-center"
                 data-bind="text: item.createdDate()?moment(item.createdDate()).format('DD/MM/YYYY'):''"></td>
             <td class="text-center" data-bind="text: item.reason"></td>
+            <td class="text-center">
+                <a data-bind="text:item.fileName, click: $root.downloadFile"></a>
+            </td>
             <td class="text-center"
                 data-bind="text: item.note">
             </td>
