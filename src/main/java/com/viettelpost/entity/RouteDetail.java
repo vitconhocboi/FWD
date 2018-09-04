@@ -50,6 +50,9 @@ public class RouteDetail {
     @Column(name = "PARTNER_ID")
     private Long partnerId;
 
+    @Column(name = "SERVICE_ID")
+    private Long serviceId;
+
     @Column(name = "CONTACT_PERSON")
     private String contactPerson;
 
@@ -143,6 +146,14 @@ public class RouteDetail {
 
     public void setValid(Date valid) {
         this.valid = valid;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
     }
 
     public Long getPartnerId() {

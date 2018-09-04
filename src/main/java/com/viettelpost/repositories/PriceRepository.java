@@ -1,6 +1,6 @@
 package com.viettelpost.repositories;
 
-import com.viettelpost.entity.Price;
+import com.viettelpost.model.Price;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -10,14 +10,7 @@ $(document).ready(function () {
                 };
                 this.OPERATOR = "LIKE";
             };
-            this.serviceType = new function () {
-                var that = this;
-                this.VALUE_VIEW = ko.observable();
-                this.VALUE = function () {
-                    return that.VALUE_VIEW();
-                };
-                this.OPERATOR = "LIKE";
-            };
+            this.serviceType = ko.observable();
         }
         self.listService = ko.observableArray();
 
@@ -90,6 +83,16 @@ $(document).ready(function () {
             self.pagingVM.setCurrentPage(self.pagingVM.lastPage());
             self.searchPaging(false);
         };
+
+        self.getServiceTypeName=function (serviceType){
+            if(serviceType=='DVVT'){
+                return "Dịch vụ vận tải";
+            }else if(serviceType=='DVHQ'){
+                return "Dịch vụ hải quan";
+            }else if(serviceType=='DVGTGT'){
+                return "Dịch vụ giá trị gia tăng";
+            }
+        }
 
         self.edit = function (item) {
             location.href = app.appContext + '/manage/service/edit/' + item.serviceId();

@@ -20,22 +20,29 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Tên dịch vụ
-                                                </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:service.serviceName.VALUE_VIEW">
-                                                </div>
-                                                <label class="col-sm-2">
-                                                    Loại dịch vụ
+                                                    Dịch vụ
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
-                                                            data-bind="value: service.serviceType">
-                                                        <option value="">--Chọn loại dịch vụ--</option>
-                                                        <option value="DVVT">Dịch vụ vận tải</option>
-                                                        <option value="DVHQ">Dịch vụ hải quan</option>
-                                                        <option value="DVGTGT">Dịch vụ GTGT</option>
+                                                            data-bind="options: $root.listService,
+                                                            optionsText: 'serviceName',
+                                                            optionsValue: 'serviceId',
+                                                            valueAllowUnset: true,
+                                                            value: servicePort.serviceId,
+                                                            optionsCaption: '--Chọn dịch vụ--'">
+                                                    </select>
+                                                </div>
+                                                <label class="col-sm-2">
+                                                    Cảng
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="options: $root.listPort,
+                                                            optionsText: 'portName',
+                                                            optionsValue: 'portId',
+                                                            valueAllowUnset: true,
+                                                            value: servicePort.portId,
+                                                            optionsCaption: '--Chọn cảng--'">
                                                     </select>
                                                 </div>
                                             </div>
@@ -70,8 +77,9 @@
                                         <tr class="nsw-tr tr-nsw1-bgcolor">
                                             <th class="text-center">STT</th>
                                             <th class="text-center">Tên dịch vụ</th>
-                                            <th class="text-center">Loại dịch vụ</th>
-                                            <th class="text-center">Chi phí</th>
+                                            <th class="text-center">Tên cảng</th>
+                                            <th class="text-center">Đối tác</th>
+                                            <th class="text-center">Giá</th>
                                             <th class="text-center">Loại tiền tệ</th>
                                             <th class="text-center">Ghi chú</th>
                                             <th class="text-center">Sửa</th>
@@ -79,15 +87,19 @@
                                         </tr>
                                         </thead>
                                         <tbody id="list-container"
-                                               data-bind="foreach: { data: $root.listService, as: 'item'}">
+                                               data-bind="foreach: { data: $root.listServicePort, as: 'item'}">
                                         <tr>
                                             <td class="text-center"
                                                 data-bind="text:($root.pagingVM.currentPage()-1) * $root.pagingVM.pageSize() + $index() + 1"></td>
-                                            <td class="text-left" data-bind="text: item.serviceName"></td>
-                                            <td class="text-left" data-bind="text: $root.getServiceTypeName(item.serviceType())"></td>
-                                            <td class="text-right" data-bind="text: item.cost"></td>
+                                            <td class="text-left"
+                                                data-bind="text: $root.getServiceName(item.serviceId())"></td>
+                                            <td class="text-left"
+                                                data-bind="text: $root.getPortName(item.portId())"></td>
+                                            <td class="text-left"
+                                                data-bind="text: $root.getPartnerName(item.partnerId())"></td>
+                                            <td class="text-right" data-bind="text: item.price.formatted"></td>
                                             <td class="text-center" data-bind="text: item.currency"></td>
-                                            <td class="text-center" data-bind="text: item.note"></td>
+                                            <td class="text-left" data-bind="text: item.note"></td>
                                             <td class="text-center">
                                                 <a href="javascript:;"
                                                    data-bind="click: $root.edit">
@@ -145,7 +157,13 @@
         </div>
     </div>
 </div>
-<script type="text/javascript" src="<c:url value="/app/manage/service/index.service.module.js"/>"
+<script type="text/javascript" src="<c:url value="/app/manage/service_port/index.service_port.module.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/service.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/service_port.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/port.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/partner.model.js"/>"
         charset="utf-8"></script>

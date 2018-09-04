@@ -9,7 +9,7 @@
         <class>com.viettelpost.entity.Service</class>
         <class>com.viettelpost.entity.Orders</class>
         <class>com.viettelpost.entity.PartnerService</class>
-        <class>com.viettelpost.entity.Price</class>
+        <class>com.viettelpost.model.Price</class>
         <class>com.viettelpost.entity.OrderDetail</class>
         <class>com.viettelpost.entity.AppParams</class>
         <class>com.viettelpost.entity.DebtDetail</class>
@@ -17,6 +17,7 @@
         <class>com.viettelpost.entity.ActionAudit</class>
         <class>com.viettelpost.entity.ActionDetail</class>
         <class>com.viettelpost.entity.OrderLog</class>
+        <class>com.viettelpost.entity.ServicePort</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:oracle:thin:@//10.30.1.124:1521/erp"/>
             <property name="toplink.jdbc.driver" value="oracle.jdbc.OracleDriver"/>

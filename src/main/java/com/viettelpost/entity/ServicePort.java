@@ -6,14 +6,14 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "PRICE")
-public class Price {
+@Table(name = "SERVICE_PORT")
+public class ServicePort {
     @Id
     @GenericGenerator(
             name = "SequenceGenerator",
             strategy = "com.viettelpost.util.SequenceGeneratorIfNotExists",
             parameters = {
-                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "price_seq"),
+                    @org.hibernate.annotations.Parameter(name = "sequence_name", value = "service_port_seq"),
             }
     )
     @GeneratedValue(generator = "SequenceGenerator")
@@ -23,11 +23,8 @@ public class Price {
     @Column(name = "SERVICE_ID")
     private Long serviceId;
 
-    @Column(name = "SERVICE_NAME")
-    private String serviceName;
-
-    @Column(name = "SERVICE_TYPE")
-    private String serviceType;
+    @Column(name = "PORT_ID")
+    private Long portId;
 
     @Column(name = "PARTNER_ID")
     private Long partnerId;
@@ -38,11 +35,20 @@ public class Price {
     @Column(name = "PRICE")
     private Long price;
 
-    @Column(name = "VALID_TO")
-    private Date validTo;
-
     @Column(name = "CURRENCY")
     private String currency;
+
+    @Column(name = "USER_CREATE_ID")
+    private Long userCreateId;
+
+    @Column(name = "CREATED_DATE")
+    private Date createdDate;
+
+    @Column(name = "USER_UPDATE_ID")
+    private Long userUpdateId;
+
+    @Column(name = "UPDATED_DATE")
+    private Date updatedDate;
 
     public Long getId() {
         return id;
@@ -58,22 +64,6 @@ public class Price {
 
     public void setServiceId(Long serviceId) {
         this.serviceId = serviceId;
-    }
-
-    public String getServiceName() {
-        return serviceName;
-    }
-
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
-    }
-
-    public String getServiceType() {
-        return serviceType;
-    }
-
-    public void setServiceType(String serviceType) {
-        this.serviceType = serviceType;
     }
 
     public Long getPartnerId() {
@@ -92,6 +82,14 @@ public class Price {
         this.partnerName = partnerName;
     }
 
+    public Long getPortId() {
+        return portId;
+    }
+
+    public void setPortId(Long portId) {
+        this.portId = portId;
+    }
+
     public Long getPrice() {
         return price;
     }
@@ -100,20 +98,44 @@ public class Price {
         this.price = price;
     }
 
-    public Date getValidTo() {
-        return validTo;
-    }
-
-    public void setValidTo(Date validTo) {
-        this.validTo = validTo;
-    }
-
     public String getCurrency() {
         return currency;
     }
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public Long getUserCreateId() {
+        return userCreateId;
+    }
+
+    public void setUserCreateId(Long userCreateId) {
+        this.userCreateId = userCreateId;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Long getUserUpdateId() {
+        return userUpdateId;
+    }
+
+    public void setUserUpdateId(Long userUpdateId) {
+        this.userUpdateId = userUpdateId;
+    }
+
+    public Date getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(Date updatedDate) {
+        this.updatedDate = updatedDate;
     }
 
     public String getOrderColumn() {

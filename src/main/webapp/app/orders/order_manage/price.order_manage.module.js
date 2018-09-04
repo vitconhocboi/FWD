@@ -101,7 +101,7 @@ $(document).ready(function () {
             self.listPartnerPriceRent.removeAll();
             if (item && item.serviceId()) {
                 app.makeGet({
-                    url: '/manage/price/findByServiceId/' + item.serviceId(),
+                    url: '/manage/service/searchPartnerByService/' + item.serviceId(),
                     success: function (data) {
                         if (data.success) {
                             for (const price of data.data) {

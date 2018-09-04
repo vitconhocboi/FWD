@@ -52,15 +52,17 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
-                                                    Loại tuyến vận tải
+                                                    Dịch vụ
                                                     <span class="nsw-require-field">*</span>
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <select class="form-control col-sm-12"
-                                                            data-bind="valueAllowUnset: true,value: route.type">
-                                                        <option value="">--Chọn loại tuyến vận tải--</option>
-                                                        <option value="0">Vận tải hàng hải</option>
-                                                        <option value="1">Vận tải hàng không</option>
+                                                            data-bind="options: $root.listService,
+                                                            optionsText: 'serviceName',
+                                                            optionsValue: 'serviceId',
+                                                            valueAllowUnset: true,
+                                                            value: route.serviceId,
+                                                            optionsCaption: '--Chọn đối tác--'">
                                                     </select>
                                                 </div>
                                                 <label class="col-sm-2">
@@ -82,12 +84,28 @@
                                         <div class="form-group">
                                             <div class="col-sm-12">
                                                 <label class="col-sm-2">
+                                                    Loại tuyến vận tải
+                                                    <span class="nsw-require-field">*</span>
+                                                </label>
+                                                <div class="col-sm-4">
+                                                    <select class="form-control col-sm-12"
+                                                            data-bind="valueAllowUnset: true,value: route.type">
+                                                        <option value="">--Chọn loại tuyến vận tải--</option>
+                                                        <option value="0">Vận tải hàng hải</option>
+                                                        <option value="1">Vận tải hàng không</option>
+                                                    </select>
+                                                </div>
+                                                <label class="col-sm-2">
                                                     Điều kiện chuyển hàng
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.condition">
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Thời gian vận chuyển
                                                 </label>
@@ -95,10 +113,6 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.transitTime">
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Giá cước
                                                 </label>
@@ -106,6 +120,10 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.preisCharge">
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Phụ phí
                                                 </label>
@@ -113,10 +131,6 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.localCharge">
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Loại tiền tệ
                                                     <span class="nsw-require-field">*</span>
@@ -125,6 +139,10 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.currency">
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Hiệu lực đến ngày
                                                 </label>
@@ -135,10 +153,6 @@
                                                            placeholder="dd/mm/yyyy"
                                                            data-bind="datepicker: route.valid"/>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Lịch đi
                                                 </label>
@@ -146,12 +160,18 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.schedule">
                                                 </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
                                                 <label class="col-sm-2">
                                                     Ghi chú
                                                 </label>
-                                                <div class="col-sm-4">
-                                                    <input class="form-control col-sm-12"
-                                                           data-bind="value:route.note">
+                                                <div class="col-sm-10">
+                                                    <textarea class="form-control col-sm-12"
+                                                              data-bind="value:route.note">
+                                                    </textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,4 +203,6 @@
 <script type="text/javascript" src="<c:url value="/app/model/port.model.js"/>"
         charset="utf-8"></script>
 <script type="text/javascript" src="<c:url value="/app/model/partner.model.js"/>"
+        charset="utf-8"></script>
+<script type="text/javascript" src="<c:url value="/app/model/service.model.js"/>"
         charset="utf-8"></script>

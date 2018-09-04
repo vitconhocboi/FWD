@@ -1,11 +1,31 @@
 $(document).ready(function () {
     function ViewModel() {
         self = this;
-        self.route = new RouteDetail();
+        self.servicePort = new ServicePort();
         self.title = ko.observable();
+
+        self.listService = ko.observableArray();
         self.listPort = ko.observableArray();
         self.listPartner = ko.observableArray();
-        self.listService = ko.observableArray();
+
+        if (servicePortId) {
+            self.title("Chỉnh sửa giá dịch vụ GTGT");
+            app.makeGet({
+                url: '/manage/service_port/getById/' + servicePortId,
+                success: function (data) {
+                    if (data.success) {
+                        app.convertObjectToObservable(data.data, self.servicePort);
+                    } else {
+                        toastr.error("Có lỗi xảy ra", "ERR");
+                    }
+                },
+                error: function (err) {
+                    toastr.error(err, "ERR");
+                }
+            });
+        } else {
+            self.title("Thêm mới giá dịch vụ GTGT");
+        }
 
         app.makeGet({
             url: '/manage/port/getAll',
@@ -39,9 +59,8 @@ $(document).ready(function () {
             }
         });
 
-        app.makePost({
-            url: '/manage/service/search',
-            data: JSON.stringify({serviceType: 'DVVT'}),
+        app.makeGet({
+            url: '/manage/service/getAll',
             success: function (data) {
                 if (data.success) {
                     for (const service of data.data) {
@@ -56,32 +75,13 @@ $(document).ready(function () {
             }
         });
 
-        if (routeId) {
-            self.title("Chỉnh sửa tuyến vận tải");
-            app.makeGet({
-                url: '/manage/route/getById/' + routeId,
-                success: function (data) {
-                    if (data.success) {
-                        app.convertObjectToObservable(data.data, self.route);
-                    } else {
-                        toastr.error("Có lỗi xảy ra", "ERR");
-                    }
-                },
-                error: function (err) {
-                    toastr.error(err, "ERR");
-                }
-            });
-        } else {
-            self.title("Thêm mới tuyến vận tải");
-        }
-
         self.back = function () {
-            location.href = app.appContext + '/manage/route/';
+            location.href = app.appContext + '/manage/service_port/';
         }
 
         self.isValidateForm = function () {
             //validate form
-            if (!app.checkValidate(self.route)) {
+            if (!app.checkValidate(self.servicePort)) {
                 self.errors.showAllMessages();
                 app.AlertWithBtn("Bạn chưa nhập đủ thông tin yêu cầu");
                 return false;
@@ -89,11 +89,15 @@ $(document).ready(function () {
             return true;
         }
 
+        self.selectPartner = function (partner,ev) {
+            self.servicePort.partnerName(partner.partnerName());
+        }
+
         self.save = function () {
             if (self.isValidateForm()) {
                 pop = app.popup({
                     title: "Thông báo",
-                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn lưu tuyến vận tải này',
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Bạn có chắc chắn muốn lưu dịch vụ GTGT',
                     width: 400,
                     buttons: [
                         {
@@ -102,13 +106,13 @@ $(document).ready(function () {
                             icon: 'fa-check',
                             action: function () {
                                 app.makePost({
-                                    url: '/manage/route/save',
-                                    data: JSON.stringify(app.convertFormObservableJson(self.route)),
+                                    url: '/manage/service_port/save',
+                                    data: JSON.stringify(app.convertFormObservableJson(self.servicePort)),
                                     success: function (data) {
                                         if (data.success) {
-                                            toastr.success("Lưu tuyến vận tải thành công", "Thông báo");
+                                            toastr.success("Lưu dịch vụ GTGT thành công", "Thông báo");
                                             setTimeout(function () {
-                                                location.href = app.appContext + '/manage/route/';
+                                                location.href = app.appContext + '/manage/service_port/';
                                             }, 1000);
                                         } else {
                                             toastr.error("Có lỗi xảy ra", "ERR");

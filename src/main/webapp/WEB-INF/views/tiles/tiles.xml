@@ -118,6 +118,16 @@
         <put-attribute name="body" value="/WEB-INF/views/pages/manage/service/addedit.service.jsp"/>
     </definition>
 
+    <!--quan ly  gia dich vu GTGT tai cang-->
+    <definition name="viettelpost.page.manager.service_port" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/service_port/index.service_port.jsp"/>
+    </definition>
+    <definition name="viettelpost.page.manager.service_port.addedit" extends="base-definition">
+        <put-attribute name="title" value="Viettel logistic"/>
+        <put-attribute name="body" value="/WEB-INF/views/pages/manage/service_port/addedit.service_port.jsp"/>
+    </definition>
+
     <!--quan ly don hang-->
     <definition name="viettelpost.page.orders.manage" extends="base-definition">
         <put-attribute name="title" value="Viettel logistic"/>
