@@ -5,22 +5,8 @@ var RouteDetail = function () {
     this.portOfDestinationId = ko.observable().extend({required: {message: "Cảng đến không được trống"}});
     this.transitTime = ko.observable();
     this.condition = ko.observable();
-    this.preisCharge = ko.observable().extend({required: {message: "Cảng đi không được trống"}}).extend(
-        {
-            pattern: {
-                message: "Số lượng phải là số dương",
-                params: /^[1-9][0-9]*$/
-            }
-        });
-    ;
-    this.localCharge = ko.observable().extend({required: {message: "Cảng đi không được trống"}}).extend(
-        {
-            pattern: {
-                message: "Số lượng phải là số dương",
-                params: /^[1-9][0-9]*$/
-            }
-        });
-    ;
+    this.preisCharge = ko.observable().numberic(2);
+    this.localCharge = ko.observable().numberic(2);
     this.currency = ko.observable().extend({required: {message: "Loại tiền tệ không được trống"}});
     this.valid = ko.observable();
     this.partnerId = ko.observable().extend({required: {message: "Đối tác không được trống"}});

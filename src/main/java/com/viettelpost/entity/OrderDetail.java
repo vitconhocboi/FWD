@@ -260,6 +260,6 @@ public class OrderDetail {
     }
 
     public String getOrderColumn() {
-        return "id";
+        return "serviceName,id";
     }
 }

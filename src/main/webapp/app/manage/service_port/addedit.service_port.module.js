@@ -59,8 +59,9 @@ $(document).ready(function () {
             }
         });
 
-        app.makeGet({
-            url: '/manage/service/getAll',
+        app.makePost({
+            url: '/manage/service/search',
+            data: JSON.stringify({serviceType: {VALUE: ['DVGTGT', 'DVHQ'], OPERATOR: "IN"}}),
             success: function (data) {
                 if (data.success) {
                     for (const service of data.data) {
@@ -89,7 +90,7 @@ $(document).ready(function () {
             return true;
         }
 
-        self.selectPartner = function (partner,ev) {
+        self.selectPartner = function (partner, ev) {
             self.servicePort.partnerName(partner.partnerName());
         }
 
@@ -115,11 +116,11 @@ $(document).ready(function () {
                                                 location.href = app.appContext + '/manage/service_port/';
                                             }, 1000);
                                         } else {
-                                            toastr.error("Có lỗi xảy ra", "ERR");
+                                            toastr.error(data.message, "ERR");
                                         }
                                     },
                                     error: function (err) {
-                                        toastr.error("Có lỗi xảy ra", "ERR");
+                                        toastr.error(err.message, "ERR");
                                     }
                                 });
                             }

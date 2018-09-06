@@ -113,12 +113,15 @@
                                                     <input class="form-control col-sm-12"
                                                            data-bind="value:route.transitTime">
                                                 </div>
-                                                <label class="col-sm-2">
-                                                    Giá cước
-                                                </label>
+                                                <div class="col-sm-2">
+                                                    <label>
+                                                        Giá cước
+                                                    </label>
+                                                    <span class="nsw-require-field">*</span>
+                                                </div>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:route.preisCharge">
+                                                           data-bind="numeric,value:route.preisCharge">
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +132,7 @@
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:route.localCharge">
+                                                           data-bind="numeric,value:route.localCharge">
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Loại tiền tệ

@@ -111,11 +111,11 @@ $(document).ready(function () {
                                                 location.href = app.appContext + '/manage/route/';
                                             }, 1000);
                                         } else {
-                                            toastr.error("Có lỗi xảy ra", "ERR");
+                                            toastr.error(data.message, "ERR");
                                         }
                                     },
                                     error: function (err) {
-                                        toastr.error("Có lỗi xảy ra", "ERR");
+                                        toastr.error(err.message, "ERR");
                                     }
                                 });
                             }

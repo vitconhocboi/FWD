@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
 
-public class BaseCustomService<Tbo> {
+public class  BaseCustomService<Tbo> {
     public static final Logger LOGGER = org.slf4j.LoggerFactory.getLogger(BaseCustomService.class);
     @Autowired
     protected EntityManager entityManager;

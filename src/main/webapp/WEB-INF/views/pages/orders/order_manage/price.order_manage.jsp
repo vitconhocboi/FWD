@@ -405,7 +405,8 @@
                                                 style='border-left:none;width:159pt'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.serviceName" style="width:100%">
+                                                            data-bind="value: item.serviceName" style="width:100%"
+                                                            disabled>
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
@@ -415,17 +416,19 @@
                                             <td class=xl99 align=right style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.price.formatted" style="width:100%">
+                                                            data-bind="numeric,value: item.price,event:{ change: $root.changePrice}"
+                                                            style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.price.formatted" style="width:100%"/>
+                                                            data-bind="text: item.price.formatted"
+                                                            style="width:100%"/>
                                                 </div>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.exchangeRate.formatted"
+                                                            data-bind="numeric,value: item.exchangeRate,event:{ change: $root.changeExchangeRate}"
                                                             style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
@@ -437,7 +440,7 @@
                                             <td class=xl100 style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.quantity.formatted"
+                                                            data-bind="numeric,value: item.quantity,event:{ change: $root.changeQuantity}"
                                                             style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
@@ -449,11 +452,12 @@
                                             <td class=xl100 style='border-left:none'>
                                                 <div data-bind="if: !item.userId() || item.userId() == '${currentUserId}'">
                                                     <input
-                                                            data-bind="value: item.tax.formatted" style="width:100%">
+                                                            data-bind="numeric,value: item.tax,event:{ change: $root.changeTax}"
+                                                            style="width:100%">
                                                 </div>
                                                 <div data-bind="if: item.userId()&&item.userId() != '${currentUserId}'">
                                                     <span
-                                                            data-bind="text: item.tax.formatted" style="width:100%"/>
+                                                            data-bind="text: item.tax" style="width:100%"/>
                                                 </div>
                                             </td>
                                             <td class=xl101>
@@ -465,7 +469,8 @@
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
-                                            <td class=xl103 style='border-left:none'><span data-bind="text: item.note"/></td>
+                                            <td class=xl103 style='border-left:none'><span data-bind="text: item.note"/>
+                                            </td>
                                         </tr>
                                         </tbody>
                                         <tr height=20 style='height:15.0pt'>

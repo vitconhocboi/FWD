@@ -37,7 +37,7 @@
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value : payment.amount">
+                                                           data-bind="numeric,value : payment.amount">
                                                 </div>
                                                 <label class="col-sm-2">
                                                     Ngày hoàn ứng

@@ -63,36 +63,52 @@ $(document).ready(function () {
 
 
         self.addAmountRent = function () {
-            var orderDetail = new OrderDetail();
-            orderDetail.orderId(orderId);
-            orderDetail.groupCode("AMOUNT_RENT");
-            orderDetail.serviceId(self.selectedServiceRent().serviceId());
-            orderDetail.serviceName(self.selectedServiceRent().serviceName());
-            orderDetail.partnerId(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerId() : null);
-            orderDetail.partnerName(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerName() : null);
-            orderDetail.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
-            orderDetail.quantity(self.order.quantity());
-            orderDetail.exchangeRate(1);
-            orderDetail.note(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerName() : null);
-            self.listAmountRent.unshift(orderDetail);
+            let lstCheck = self.listAmountRevenue().filter(it => {
+                return it.serviceId() == self.selectedServiceRent().serviceId();
+            });
+            if (lstCheck && lstCheck.length > 0) {
+                app.AlertWithBtn("Dịch vụ đã tồn tại");
+            } else {
+                var orderDetail = new OrderDetail();
+                orderDetail.orderId(orderId);
+                orderDetail.groupCode("AMOUNT_RENT");
+                orderDetail.serviceId(self.selectedServiceRent().serviceId());
+                orderDetail.serviceName(self.selectedServiceRent().serviceName());
+                orderDetail.partnerId(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerId() : null);
+                orderDetail.partnerName(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerName() : null);
+                orderDetail.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
+                orderDetail.quantity(self.order.quantity());
+                orderDetail.exchangeRate(1);
+                orderDetail.note(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().partnerName() : null);
+                self.listAmountRent.unshift(orderDetail);
 
-            //add revenue
-            var revenue = new OrderDetail();
-            revenue.orderId(orderId);
-            revenue.groupCode("AMOUNT_REVENUE");
-            revenue.serviceId(self.selectedServiceRent().serviceId());
-            revenue.serviceName(self.selectedServiceRent().serviceName());
-            revenue.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
-            revenue.quantity(self.order.quantity());
-            revenue.exchangeRate(1);
-            self.listAmountRevenue.unshift(revenue);
-
+                //add revenue
+                var revenue = new OrderDetail();
+                revenue.orderId(orderId);
+                revenue.groupCode("AMOUNT_REVENUE");
+                revenue.serviceId(self.selectedServiceRent().serviceId());
+                revenue.serviceName(self.selectedServiceRent().serviceName());
+                revenue.price(self.selectedPartnerPriceRent() ? self.selectedPartnerPriceRent().price() : self.selectedServiceRent() ? self.selectedServiceRent().cost() : '');
+                revenue.quantity(self.order.quantity());
+                revenue.exchangeRate(1);
+                self.listAmountRevenue.unshift(revenue);
+            }
             self.selectedServiceRent(null);
             self.selectedPartnerPriceRent(null);
         }
 
         self.removeAmountRent = function (item) {
-            self.listAmountRent.remove(item);
+            let removeRent = self.listAmountRent().filter(it => {
+                return it.serviceId() == item.serviceId();
+            });
+
+            self.listAmountRent.removeAll(removeRent);
+
+            let removeRevenue = self.listAmountRevenue().filter(it => {
+                return it.serviceId() == item.serviceId();
+            });
+
+            self.listAmountRevenue.removeAll(removeRevenue);
         }
 
         self.selectServiceRent = function (item) {
@@ -404,6 +420,38 @@ $(document).ready(function () {
             }
             sourceArray(result);
 
+        }
+
+        self.changePrice = function (item) {
+            for (const it of self.listAmountRevenue()) {
+                if (it.serviceId() == item.serviceId()) {
+                    it.price(item.price());
+                }
+            }
+        }
+
+        self.changeExchangeRate = function (item) {
+            for (const it of self.listAmountRevenue()) {
+                if (it.serviceId() == item.serviceId()) {
+                    it.exchangeRate(item.exchangeRate());
+                }
+            }
+        }
+
+        self.changeQuantity = function (item) {
+            for (const it of self.listAmountRevenue()) {
+                if (it.serviceId() == item.serviceId()) {
+                    it.quantity(item.quantity());
+                }
+            }
+        }
+
+        self.changeTax = function (item) {
+            for (const it of self.listAmountRevenue()) {
+                if (it.serviceId() == item.serviceId()) {
+                    it.tax(item.tax());
+                }
+            }
         }
     }
 

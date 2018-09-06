@@ -289,7 +289,8 @@
                                             </td>
                                             <td class=xl99 align=right style='border-left:none'>
                                                 <input
-                                                        data-bind="value: item.price.formatted" style="width:100%"/>
+                                                        data-bind="numeric,value: item.price"
+                                                        style="width:100%"/>
                                             </td>
                                             <td class=xl100 style='border-left:none'>
                                                     <span
@@ -396,7 +397,8 @@
                                             <td class=xl101>
                                                 <span data-bind="text: item.amountTotal.formatted"/>
                                             </td>
-                                            <td class=xl103 style='border-left:none'><span data-bind="text: item.note"/></td>
+                                            <td class=xl103 style='border-left:none'><span data-bind="text: item.note"/>
+                                            </td>
                                         </tr>
                                         </tbody>
                                         <tr height=20 style='height:15.0pt'>

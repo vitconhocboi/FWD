@@ -390,7 +390,10 @@ function format(value, fixed) {
     var display = $.map(toks[0].split('').reverse(), function (elm, i) {
         return [(i % 3 === 0 && i > 0 ? ',' : ''), elm];
     }).reverse().join('') + (fixed > 0 ? ('.' + toks[1]) : '');
-    display = display.replace(/(\.(0)+$)|((?!\.[0-9]*[1-9])0+$)/, "");
+    display = display.replace(/(\.(0)+$)/, "");
+    if (display.includes(".")) {
+        display = display.replace(/0+$/, "");
+    }
     return value < 0 ? '-' + display : display;
 };
 
@@ -416,6 +419,10 @@ ko.subscribable.fn.numberic = function (fixed) {
         write: writeTarget
     });
 
+    function extend(rule) {
+        result.extend(rule);
+    }
+
     result.formatted = ko.computed({
         read: function () {
             return format(target(), fixed);
@@ -428,6 +435,12 @@ ko.subscribable.fn.numberic = function (fixed) {
     });
 
     return result;
+}
+
+ko.bindingHandlers.jqAutoValue = {
+    init: function (element, valueAccessor) {
+
+    }
 }
 
 
@@ -476,7 +489,7 @@ ko.bindingHandlers.numeric = {
                 // Allow: Ctrl+A
                 (event.keyCode == 65 && event.ctrlKey === true) ||
                 // Allow: . ,
-                (event.keyCode == 188 || event.keyCode == 190 || event.keyCode == 110) ||
+                (event.keyCode == 190 || event.keyCode == 110) ||
                 // Allow: home, end, left, right
                 (event.keyCode >= 35 && event.keyCode <= 39)) {
                 // let it happen, don't do anything

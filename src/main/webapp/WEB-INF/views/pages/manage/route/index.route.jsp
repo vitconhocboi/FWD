@@ -82,7 +82,7 @@
                                                 </label>
                                                 <div class="col-sm-4">
                                                     <input class="form-control col-sm-12"
-                                                           data-bind="value:route.preisCharge.VALUE_VIEW">
+                                                           data-bind="numeric,value:route.preisCharge.VALUE_VIEW">
                                                 </div>
                                             </div>
                                         </div>

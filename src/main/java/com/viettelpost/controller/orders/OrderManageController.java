@@ -187,6 +187,7 @@ public class OrderManageController extends BaseController<Orders> {
 
 
     @RequestMapping(value = "/save_revenue/{orderId}", method = RequestMethod.POST)
+    @Transactional
     public ResponseEntity<Object> saveRevenue(@RequestBody SaveRevenue revenue, @PathVariable("orderId") Long orderId) {
         if (ordersService.checkRole("ROLE_CS") || ordersService.checkRole("ROLE_OP") || ordersService.checkRole("ROLE_ADMIN")) {
             try {

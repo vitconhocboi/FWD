@@ -38,7 +38,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control col-sm-12"
-                                                               data-bind="value:refund.amount.formatted">
+                                                               data-bind="numeric,value:refund.amount">
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,7 +82,7 @@
                                                     </label>
                                                     <div class="col-sm-4">
                                                         <input class="form-control col-sm-12"
-                                                               data-bind="value:refund.amount.formatted">
+                                                               data-bind="value:refund.amount">
                                                     </div>
                                                     <label class="col-sm-2">
                                                         Upload hoá đơn
@@ -172,7 +172,7 @@
                                                         <td class="text-center" data-bind="text: item.serviceName"></td>
                                                         <td>
                                                             <input class="col-sm-12"
-                                                                   data-bind="value:item.amount.formatted"/>
+                                                                   data-bind="numeric,value:item.amount"/>
                                                         </td>
                                                         <td>
                                                             <div data-bind="visible:item.fileName(),text:item.fileName">

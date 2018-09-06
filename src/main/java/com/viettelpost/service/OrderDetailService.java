@@ -15,9 +15,10 @@ public class OrderDetailService extends BaseCustomService<OrderDetail> {
     OrderDetailRepository orderDetailRepository;
 
     public List<OrderDetail> findAllByOrderIdOrderByGroupCode(Long orderId) {
-        return orderDetailRepository.findAllByOrderIdOrderByGroupCode(orderId);
+        return orderDetailRepository.findAllByOrderIdOrderByGroupCodeAscServiceNameAsc(orderId);
     }
 
+    @Transactional
     public void deleteByOrderId(Long orderId) {
         orderDetailRepository.deleteByOrderId(orderId);
     }

@@ -8,7 +8,7 @@ $(document).ready(function () {
             this.type = ko.observable();
             this.preisCharge = new function () {
                 var that = this;
-                this.VALUE_VIEW = ko.observable();
+                this.VALUE_VIEW = ko.observable().numberic(2);
                 this.VALUE = function () {
                     return that.VALUE_VIEW();
                 };
