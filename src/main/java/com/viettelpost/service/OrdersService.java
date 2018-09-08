@@ -218,8 +218,6 @@ public class OrdersService extends BaseCustomService<Orders> {
         StringBuilder sql = new StringBuilder();
         sql.append("UPDATE orders");
         sql.append("   SET ");
-        sql.append("       user_cs_id = case when status = 1 then :userId else user_cs_id end ,");
-        sql.append("       user_op_id = case when status = 2 then :userId else user_op_id end ,");
         for (String key : attributes.keySet()) {
             sql.append(" " + key + " = :" + key + ",");
         }

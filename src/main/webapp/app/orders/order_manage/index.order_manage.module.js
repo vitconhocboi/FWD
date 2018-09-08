@@ -272,7 +272,7 @@ $(document).ready(function () {
         }
 
         self.approve = function () {
-            if ((self.selectedOrder().status() == 3 && self.selectedOrder().rateProfit() > self.selectedOrder().rateOrderThreshold()) || self.selectedOrder().status() == 5) {
+            if ((self.selectedOrder().status() == 3 && self.selectedOrder().rateProfit() >= self.selectedOrder().rateOrderThreshold()) || self.selectedOrder().status() == 5) {
                 pop = app.popup({
                     title: "Thông báo",
                     html: 'Đơn hàng <b>' + self.selectedOrder().orderNo() + '</b> đã đủ điều kiện chuyển hàng. Bạn có chắc chắn muốn xử lý?<br>' +
@@ -340,6 +340,36 @@ $(document).ready(function () {
                     ]
                 });
                 ko.applyBindings(vm, pop[0]);
+            } else if ((self.selectedOrder().status() == 3 && self.selectedOrder().rateProfit() < self.selectedOrder().rateOrderThreshold())) {
+                pop = app.popup({
+                    title: "Thông báo",
+                    html: '<i class="fa fa-3x fa-warning"></i> ' + 'Đơn hàng chưa đủ điều kiện chuyển hàng. Bạn có muốn trình ký đơn hàng <b>' + self.selectedOrder().orderNo() + '</b> lên cấp cao hơn?',
+                    width: 400,
+                    buttons: [
+                        {
+                            name: "Đồng ý",
+                            class: 'btn',
+                            icon: 'fa-check',
+                            action: function () {
+                                app.makePost({
+                                    url: '/orders/manage/approve/' + self.selectedOrder().orderId(),
+                                    data: JSON.stringify({flow: "APPROVE", orderStatus: self.selectedOrder().status()}),
+                                    success: function (data) {
+                                        if (data.success) {
+                                            toastr.success("Duyệt đơn hàng thành công", "Thông báo");
+                                            self.searchPaging(false);
+                                        } else {
+                                            toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
+                                        }
+                                    },
+                                    error: function (err) {
+                                        toastr.error("Duyệt đơn hàng không thành công", "Thông báo");
+                                    }
+                                });
+                            }
+                        }
+                    ]
+                });
             } else {
                 pop = app.popup({
                     title: "Thông báo",

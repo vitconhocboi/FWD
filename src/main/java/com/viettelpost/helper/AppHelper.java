@@ -9,6 +9,7 @@ import com.viettelpost.controller.json.ResponseJson;
 import com.viettelpost.entity.Page;
 import com.viettelpost.model.RefundDebt;
 import org.springframework.http.*;
+import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
@@ -20,6 +21,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
+import java.net.Proxy;
 import java.net.URLDecoder;
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -77,7 +79,7 @@ public class AppHelper {
         return new ResponseEntity<>(item, httpStatus);
     }
 
-    public static ResponseJson callRestTemplate(String uri, Object body, HttpMethod httpMethod, Map<String, Object> params) {
+    public static ResponseJson callRestTemplate(String uri, Object body, HttpMethod httpMethod, Map<String, Object> params, Proxy proxy) {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(uri);
         if (params != null) {
@@ -88,7 +90,14 @@ public class AppHelper {
         uri = builder.build().encode().toString();
         List<HttpMessageConverter<?>> converters = new ArrayList<>();
         converters.add(new MappingJackson2HttpMessageConverter());
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = null;
+        if (proxy == null) {
+            restTemplate = new RestTemplate();
+        } else {
+            SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
+            requestFactory.setProxy(proxy);
+            restTemplate = new RestTemplate(requestFactory);
+        }
         restTemplate.setMessageConverters(converters);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

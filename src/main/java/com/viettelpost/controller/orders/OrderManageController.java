@@ -189,7 +189,7 @@ public class OrderManageController extends BaseController<Orders> {
     @RequestMapping(value = "/save_revenue/{orderId}", method = RequestMethod.POST)
     @Transactional
     public ResponseEntity<Object> saveRevenue(@RequestBody SaveRevenue revenue, @PathVariable("orderId") Long orderId) {
-        if (ordersService.checkRole("ROLE_CS") || ordersService.checkRole("ROLE_OP") || ordersService.checkRole("ROLE_ADMIN")) {
+        if (ordersService.checkRole("ROLE_SALE") || ordersService.checkRole("ROLE_CS") || ordersService.checkRole("ROLE_OP") || ordersService.checkRole("ROLE_ADMIN")) {
             try {
                 User user = ordersService.getCurrentUserModel();
                 Department dept = departmentService.findById(user.getDeptId());
@@ -257,6 +257,13 @@ public class OrderManageController extends BaseController<Orders> {
         if (approveBody.getNote() != null && !approveBody.getNote().isEmpty()) {
             String note = (orders.getNote() != null ? (orders.getNote() + "\n") : "") + ordersService.getCurrentUserModel().getUserName() + ":" + approveBody.getNote();
             orderAttributes.put("note", note);
+        }
+
+        if (AppConstant.ORDER_STATUS.PRICE_CS.equals(orders.getStatus())) {
+            orderAttributes.put("user_cs_id", ordersService.getCurrentUserModel().getUserId());
+        }
+        if (AppConstant.ORDER_STATUS.PRICE_OP.equals(orders.getStatus())) {
+            orderAttributes.put("user_op_id", ordersService.getCurrentUserModel().getUserId());
         }
         //ghi lai log nguoi dung
         OrderLog log = new OrderLog();

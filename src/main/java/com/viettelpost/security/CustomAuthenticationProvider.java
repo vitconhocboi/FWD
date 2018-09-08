@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +87,10 @@ public class CustomAuthenticationProvider
                 map.put("postoffice", "PKDQT");
                 map.put("source", 10);
                 Map<String, Object> params = new HashMap<>();
-                ResponseJson response = AppHelper.callRestTemplate("https://pda.viettelpost.vn/api/user/login", map, HttpMethod.POST, params);
+
+                Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("10.60.117.113", 8080));
+
+                ResponseJson response = AppHelper.callRestTemplate("https://pda.viettelpost.vn/api/user/login", map, HttpMethod.POST, params, proxy);
                 if (response.getData() != null) {
                     String fullName = ((Map) ((Map) response.getData()).get("info")).get("full_name").toString();
                     String phone = ((Map) ((Map) response.getData()).get("info")).get("phone").toString();
